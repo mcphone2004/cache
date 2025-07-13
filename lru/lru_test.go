@@ -1,15 +1,34 @@
-package lru
+package lru_test
 
 import (
 	"context"
+	"errors"
 	"testing"
 
+	"github.com/mcphone2004/cache/lru"
+	"github.com/mcphone2004/cache/lru/types"
 	"github.com/stretchr/testify/require"
 )
 
+func TestNewCache(t *testing.T) {
+	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	require.Nil(t, err)
+	require.NotNil(t, cache)
+
+	cache, err = lru.NewCache[int, string]()
+	require.Nil(t, cache)
+	require.NotNil(t, err)
+	var aerr *types.ErrorInvalidOptions
+	b := errors.As(err, &aerr)
+	require.True(t, b)
+	require.Equal(t, "capacity must be positive", aerr.Error())
+}
+
 func TestLRUCacheBasic(t *testing.T) {
+	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	require.Nil(t, err)
+
 	ctx := context.Background()
-	cache := NewCache[int, string](2)
 
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")
@@ -29,8 +48,10 @@ func TestLRUCacheBasic(t *testing.T) {
 }
 
 func TestLRUCacheUpdate(t *testing.T) {
+	cache, err := lru.NewCache[string, int](lru.WithCapacity(2))
+	require.Nil(t, err)
+
 	ctx := context.Background()
-	cache := NewCache[string, int](2)
 
 	cache.Put(ctx, "a", 1)
 	cache.Put(ctx, "b", 2)
@@ -42,8 +63,10 @@ func TestLRUCacheUpdate(t *testing.T) {
 }
 
 func TestLRUCacheEvictionOrder(t *testing.T) {
+	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	require.Nil(t, err)
+
 	ctx := context.Background()
-	cache := NewCache[int, string](2)
 
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")

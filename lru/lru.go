@@ -8,14 +8,19 @@ import (
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
+	"github.com/mcphone2004/cache/lru/types"
 )
+
+type Options struct {
+	Capacity uint
+}
 
 // Cache is a thread-unsafe LRU cache.
 type Cache[K comparable, V any] struct {
-	mu       sync.Mutex
-	capacity int
-	items    map[K]*list.Element
-	order    *list.List
+	mu      sync.Mutex
+	options Options
+	items   map[K]*list.Element
+	order   *list.List
 }
 
 // Ensure Cache implements the Cache interface.
@@ -27,16 +32,31 @@ type entry[K comparable, V any] struct {
 	value V
 }
 
+func WithCapacity(cap uint) func(o *Options) {
+	return func(o *Options) {
+		o.Capacity = cap
+	}
+}
+
 // NewCache creates a new LRU cache with the given capacity.
-func NewCache[K comparable, V any](capacity int) *Cache[K, V] {
-	if capacity <= 0 {
-		panic("capacity must be positive")
+func NewCache[K comparable, V any](options ...func(o *Options)) (
+	*Cache[K, V], error) {
+	var o Options
+	for _, cb := range options {
+		cb(&o)
 	}
+
+	if o.Capacity == 0 {
+		return nil, &types.ErrorInvalidOptions{
+			Message: "capacity must be positive",
+		}
+	}
+
 	return &Cache[K, V]{
-		capacity: capacity,
-		items:    make(map[K]*list.Element),
-		order:    list.New(),
-	}
+		options: o,
+		items:   make(map[K]*list.Element),
+		order:   list.New(),
+	}, nil
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
@@ -60,7 +80,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 		elem.Value = entry[K, V]{key, value}
 		return
 	}
-	if c.order.Len() == c.capacity {
+	if c.order.Len() == int(c.options.Capacity) {
 		c.evict(ctx)
 	}
 	e := entry[K, V]{key, value}

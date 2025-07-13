@@ -3,6 +3,7 @@ package lru
 
 import (
 	"container/list"
+	"context"
 	"fmt"
 	"sync"
 
@@ -39,7 +40,7 @@ func NewCache[K comparable, V any](capacity int) *Cache[K, V] {
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
-func (c *Cache[K, V]) Get(key K) (V, bool) {
+func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
@@ -51,7 +52,7 @@ func (c *Cache[K, V]) Get(key K) (V, bool) {
 }
 
 // Put inserts or updates a value in the cache.
-func (c *Cache[K, V]) Put(key K, value V) {
+func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
@@ -60,16 +61,14 @@ func (c *Cache[K, V]) Put(key K, value V) {
 		return
 	}
 	if c.order.Len() == c.capacity {
-		c.evict()
+		c.evict(ctx)
 	}
 	e := entry[K, V]{key, value}
 	elem := c.order.PushFront(e)
 	c.items[key] = elem
 }
 
-func (c *Cache[K, V]) evict() {
-	c.mu.Lock()
-	defer c.mu.Unlock()
+func (c *Cache[K, V]) evict(ctx context.Context) {
 	tail := c.order.Back()
 	if tail != nil {
 		ent := tail.Value.(entry[K, V])
@@ -79,14 +78,14 @@ func (c *Cache[K, V]) evict() {
 }
 
 // Size returns the current number of items in the cache.
-func (c *Cache[K, V]) Size() int {
+func (c *Cache[K, V]) Size(ctx context.Context) int {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	return c.order.Len()
 }
 
 // DebugPrint prints the contents of the cache from most to least recent.
-func (c *Cache[K, V]) DebugPrint() {
+func (c *Cache[K, V]) DebugPrint(ctx context.Context) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	fmt.Print("Cache [Most → Least]: ")

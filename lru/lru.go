@@ -4,6 +4,8 @@ package lru
 import (
 	"container/list"
 	"fmt"
+
+	"github.com/mcphone2004/cache/iface"
 )
 
 // Cache is a thread-unsafe LRU cache.
@@ -13,6 +15,10 @@ type Cache[K comparable, V any] struct {
 	order    *list.List
 }
 
+// Ensure Cache implements the Cache interface.
+var _ iface.Cache[string, int] = (*Cache[string, int])(nil)
+
+// entry represents a key-value pair in the cache.
 type entry[K comparable, V any] struct {
 	key   K
 	value V

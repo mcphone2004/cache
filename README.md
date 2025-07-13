@@ -19,3 +19,13 @@ Clone this repo:
 ```bash
 git clone https://github.com/mcphone2004/lru.git
 cd lru
+go build ./...
+go test ./...
+```
+
+## 💚 Linting
+
+This project uses [golangci-lint](https://github.com/golangci/golangci-lint) for static code analysis. After installing it, run:
+
+```bash
+golangci-lint run

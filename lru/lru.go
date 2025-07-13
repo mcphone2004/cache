@@ -40,7 +40,7 @@ func NewCache[K comparable, V any](capacity int) *Cache[K, V] {
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
-func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
+func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
@@ -68,7 +68,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	c.items[key] = elem
 }
 
-func (c *Cache[K, V]) evict(ctx context.Context) {
+func (c *Cache[K, V]) evict(_ context.Context) {
 	tail := c.order.Back()
 	if tail != nil {
 		ent := tail.Value.(entry[K, V])
@@ -78,14 +78,14 @@ func (c *Cache[K, V]) evict(ctx context.Context) {
 }
 
 // Size returns the current number of items in the cache.
-func (c *Cache[K, V]) Size(ctx context.Context) int {
+func (c *Cache[K, V]) Size(_ context.Context) int {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	return c.order.Len()
 }
 
 // DebugPrint prints the contents of the cache from most to least recent.
-func (c *Cache[K, V]) DebugPrint(ctx context.Context) {
+func (c *Cache[K, V]) DebugPrint(_ context.Context) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	fmt.Print("Cache [Most → Least]: ")

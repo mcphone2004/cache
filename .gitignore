@@ -1,0 +1,11 @@
+# build artifacts
+*.out
+*.exe
+*.test
+
+# VS Code / GoLand
+.vscode/
+.idea/
+
+# Go stuff
+bin/

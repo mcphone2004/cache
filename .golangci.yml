@@ -1,0 +1,26 @@
+# .golangci.yml
+
+version: "2"
+
+run:
+  timeout: 3m
+  tests: true
+
+linters:
+  enable:
+    - govet              # Go's standard vet tool
+    - staticcheck        # Replacement for several deprecated linters like gosimple, unused
+    - errcheck           # Check for ignored errors
+    - revive             # Style, naming, comments
+    - ineffassign        # Detect unused variable assignments
+    - unused             # Unused vars/functions/constants
+    - nakedret           # Disallow naked returns (clarity)
+    - gocritic           # Assorted correctness/style suggestions
+    - prealloc           # Suggest preallocating slices
+    - makezero           # Prefer `x = T{}` over `x = new(T)`
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+

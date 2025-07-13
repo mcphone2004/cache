@@ -4,12 +4,14 @@ package lru
 import (
 	"container/list"
 	"fmt"
+	"sync"
 
 	"github.com/mcphone2004/cache/iface"
 )
 
 // Cache is a thread-unsafe LRU cache.
 type Cache[K comparable, V any] struct {
+	mu       sync.Mutex
 	capacity int
 	items    map[K]*list.Element
 	order    *list.List
@@ -38,6 +40,8 @@ func NewCache[K comparable, V any](capacity int) *Cache[K, V] {
 
 // Get retrieves a value from the cache and marks it as recently used.
 func (c *Cache[K, V]) Get(key K) (V, bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
 		c.order.MoveToFront(elem)
 		return elem.Value.(entry[K, V]).value, true
@@ -48,6 +52,8 @@ func (c *Cache[K, V]) Get(key K) (V, bool) {
 
 // Put inserts or updates a value in the cache.
 func (c *Cache[K, V]) Put(key K, value V) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
 		c.order.MoveToFront(elem)
 		elem.Value = entry[K, V]{key, value}
@@ -62,6 +68,8 @@ func (c *Cache[K, V]) Put(key K, value V) {
 }
 
 func (c *Cache[K, V]) evict() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	tail := c.order.Back()
 	if tail != nil {
 		ent := tail.Value.(entry[K, V])
@@ -72,11 +80,15 @@ func (c *Cache[K, V]) evict() {
 
 // Size returns the current number of items in the cache.
 func (c *Cache[K, V]) Size() int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	return c.order.Len()
 }
 
 // DebugPrint prints the contents of the cache from most to least recent.
 func (c *Cache[K, V]) DebugPrint() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	fmt.Print("Cache [Most → Least]: ")
 	for e := c.order.Front(); e != nil; e = e.Next() {
 		ent := e.Value.(entry[K, V])

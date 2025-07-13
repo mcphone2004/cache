@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/mcphone2004/cache/lru"
-	"github.com/mcphone2004/cache/lru/types"
+	lrutypes "github.com/mcphone2004/cache/lru/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -18,7 +18,7 @@ func TestNewCache(t *testing.T) {
 	cache, err = lru.NewCache[int, string]()
 	require.Nil(t, cache)
 	require.NotNil(t, err)
-	var aerr *types.ErrorInvalidOptions
+	var aerr *lrutypes.ErrorInvalidOptions
 	b := errors.As(err, &aerr)
 	require.True(t, b)
 	require.Equal(t, "capacity must be positive", aerr.Error())

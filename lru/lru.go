@@ -8,17 +8,12 @@ import (
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/lru/types"
 )
-
-type Options struct {
-	Capacity uint
-}
 
 // Cache is a thread-unsafe LRU cache.
 type Cache[K comparable, V any] struct {
 	mu      sync.Mutex
-	options Options
+	options options[K, V]
 	items   map[K]*list.Element
 	order   *list.List
 }
@@ -32,12 +27,6 @@ type entry[K comparable, V any] struct {
 	value V
 }
 
-func WithCapacity(cap uint) func(o *Options) {
-	return func(o *Options) {
-		o.Capacity = cap
-	}
-}
-
 // NewCache creates a new LRU cache with the given capacity.
 func NewCache[K comparable, V any](options ...func(o *Options)) (
 	*Cache[K, V], error) {
@@ -46,14 +35,13 @@ func NewCache[K comparable, V any](options ...func(o *Options)) (
 		cb(&o)
 	}
 
-	if o.Capacity == 0 {
-		return nil, &types.ErrorInvalidOptions{
-			Message: "capacity must be positive",
-		}
+	o1, err := toOptions[K, V](o)
+	if err != nil {
+		return nil, err
 	}
 
 	return &Cache[K, V]{
-		options: o,
+		options: o1,
 		items:   make(map[K]*list.Element),
 		order:   list.New(),
 	}, nil
@@ -73,28 +61,47 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 
 // Put inserts or updates a value in the cache.
 func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
+	if ent, ok := c.put(key, value); ok {
+		c.onEvict(ctx, ent)
+	}
+}
+
+func (c *Cache[K, V]) onEvict(ctx context.Context, ent *entry[K, V]) {
+	if c.options.onEvict != nil {
+		c.options.onEvict(ctx, ent.key, ent.value)
+	}
+}
+
+func (c *Cache[K, V]) put(key K, value V) (
+	*entry[K, V], bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
 		c.order.MoveToFront(elem)
 		elem.Value = entry[K, V]{key, value}
-		return
+		return nil, false
 	}
-	if c.order.Len() == int(c.options.Capacity) {
-		c.evict(ctx)
+	var ent *entry[K, V]
+	evicted := false
+	if c.order.Len() == int(c.options.capacity) {
+		ent, evicted = c.evict()
 	}
 	e := entry[K, V]{key, value}
 	elem := c.order.PushFront(e)
 	c.items[key] = elem
+	return ent, evicted
 }
 
-func (c *Cache[K, V]) evict(_ context.Context) {
+func (c *Cache[K, V]) evict() (*entry[K, V], bool) {
 	tail := c.order.Back()
-	if tail != nil {
-		ent := tail.Value.(entry[K, V])
-		delete(c.items, ent.key)
-		c.order.Remove(tail)
+	if tail == nil {
+		return nil, false
 	}
+
+	ent := tail.Value.(entry[K, V])
+	delete(c.items, ent.key)
+	c.order.Remove(tail)
+	return &ent, true
 }
 
 // Size returns the current number of items in the cache.

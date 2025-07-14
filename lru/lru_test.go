@@ -7,18 +7,18 @@ import (
 	"testing"
 
 	"github.com/mcphone2004/cache/lru"
-	lrutypes "github.com/mcphone2004/cache/lru/types"
+	lrutypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/require"
 )
 
 func TestNewCache(t *testing.T) {
 	ctx := context.Background()
-	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	cache, err := lru.New[int, string](lru.WithCapacity(2))
 	require.Nil(t, err)
 	require.NotNil(t, cache)
 	cache.Shutdown(ctx)
 
-	cache, err = lru.NewCache[int, string]()
+	cache, err = lru.New[int, string]()
 	require.Nil(t, cache)
 	require.NotNil(t, err)
 	var aerr *lrutypes.ErrorInvalidOptions
@@ -29,7 +29,7 @@ func TestNewCache(t *testing.T) {
 
 func TestReset(t *testing.T) {
 	records := make(map[int]string)
-	cache, err := lru.NewCache[int, string](
+	cache, err := lru.New[int, string](
 		lru.WithCapacity(2),
 		lru.WithEvictionCB(func(_ context.Context, key int, value string) {
 			records[key] = value // Store evicted records for verification
@@ -56,7 +56,7 @@ func TestReset(t *testing.T) {
 }
 
 func TestLRUCacheBasic(t *testing.T) {
-	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	cache, err := lru.New[int, string](lru.WithCapacity(2))
 	require.Nil(t, err)
 
 	ctx := context.Background()
@@ -84,7 +84,7 @@ func TestLRUCacheBasic(t *testing.T) {
 }
 
 func TestLRUCacheUpdate(t *testing.T) {
-	cache, err := lru.NewCache[string, int](lru.WithCapacity(2))
+	cache, err := lru.New[string, int](lru.WithCapacity(2))
 	require.Nil(t, err)
 
 	ctx := context.Background()
@@ -104,7 +104,7 @@ func TestLRUCacheUpdate(t *testing.T) {
 }
 
 func TestLRUCacheEvictionOrder(t *testing.T) {
-	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	cache, err := lru.New[int, string](lru.WithCapacity(2))
 	require.Nil(t, err)
 
 	ctx := context.Background()
@@ -128,7 +128,7 @@ func TestLRUCacheEvictionOrder(t *testing.T) {
 }
 
 func TestTraverse(t *testing.T) {
-	cache, err := lru.NewCache[int, string](lru.WithCapacity(3))
+	cache, err := lru.New[int, string](lru.WithCapacity(3))
 	require.Nil(t, err)
 
 	ctx := context.Background()
@@ -164,7 +164,7 @@ func TestTraverse(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	cache, err := lru.New[int, string](lru.WithCapacity(2))
 	require.Nil(t, err)
 
 	ctx := context.Background()
@@ -198,7 +198,7 @@ func seqOf[T any](values ...T) iter.Seq[T] {
 }
 
 func TestGetMultiIter(t *testing.T) {
-	cache, err := lru.NewCache[int, string](lru.WithCapacity(3))
+	cache, err := lru.New[int, string](lru.WithCapacity(3))
 	require.Nil(t, err)
 
 	ctx := context.Background()

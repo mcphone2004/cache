@@ -3,7 +3,7 @@ package lru
 import (
 	"context"
 
-	lrutypes "github.com/mcphone2004/cache/lru/types"
+	lrutypes "github.com/mcphone2004/cache/types"
 )
 
 type cbFunc[K comparable, V any] func(context.Context, K, V)

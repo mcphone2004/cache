@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	lrutypes "github.com/mcphone2004/cache/lru/types"
+	lrutypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/require"
 )
 

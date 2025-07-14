@@ -28,8 +28,8 @@ type entry[K comparable, V any] struct {
 	value V
 }
 
-// NewCache creates a new LRU cache with the given capacity.
-func NewCache[K comparable, V any](options ...func(o *Options)) (
+// New creates a new LRU cache with the given capacity.
+func New[K comparable, V any](options ...func(o *Options)) (
 	*Cache[K, V], error) {
 	var o Options
 	for _, cb := range options {

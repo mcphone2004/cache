@@ -56,14 +56,18 @@ func TestLRUCacheBasic(t *testing.T) {
 
 	ctx := context.Background()
 
+	require.Zero(t, cache.Size())
 	cache.Put(ctx, 1, "one")
+	require.Equal(t, 1, cache.Size())
 	cache.Put(ctx, 2, "two")
+	require.Equal(t, 2, cache.Size())
 
 	val, ok := cache.Get(ctx, 1)
 	require.True(t, ok)
 	require.Equal(t, "one", val)
 
 	cache.Put(ctx, 3, "three") // This should evict key 2
+	require.Equal(t, 2, cache.Size())
 
 	_, ok = cache.Get(ctx, 2)
 	require.False(t, ok)
@@ -79,9 +83,13 @@ func TestLRUCacheUpdate(t *testing.T) {
 
 	ctx := context.Background()
 
+	require.Zero(t, cache.Size())
 	cache.Put(ctx, "a", 1)
+	require.Equal(t, 1, cache.Size())
 	cache.Put(ctx, "b", 2)
+	require.Equal(t, 2, cache.Size())
 	cache.Put(ctx, "a", 3) // update existing
+	require.Equal(t, 2, cache.Size())
 
 	val, ok := cache.Get(ctx, "a")
 	require.True(t, ok)
@@ -131,4 +139,17 @@ func TestTraverse(t *testing.T) {
 
 	require.Equal(t, []int{3, 2, 1}, keys) // Most recent first
 	require.Equal(t, []string{"three", "two", "one"}, values)
+
+	keys = keys[:0]
+	values = values[:0]
+	cnt := 0
+	cache.Traverse(ctx, func(_ context.Context, key int, value string) bool {
+		keys = append(keys, key)
+		values = append(values, value)
+		cnt++
+		return cnt < 2 // Stop after 2 iterations
+	})
+	require.Equal(t, 2, cnt)
+	require.Equal(t, []int{3, 2}, keys) // Most recent first
+	require.Equal(t, []string{"three", "two"}, values)
 }

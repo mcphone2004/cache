@@ -137,7 +137,7 @@ func (c *Cache[K, V]) Reset(ctx context.Context) {
 }
 
 // Size returns the current number of items in the cache.
-func (c *Cache[K, V]) Size(_ context.Context) int {
+func (c *Cache[K, V]) Size() int {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	return c.order.Size()

@@ -16,7 +16,7 @@ type Cache[K comparable, V any] interface {
 	// value.
 	Put(ctx context.Context, key K, value V)
 	// Size returns the current number of items in the cache.
-	Size(ctx context.Context) int
+	Size() int
 	// Reset clears the cache and calls the eviction callback for each evicted item.
 	Reset(ctx context.Context)
 	// Traverse iterates over all items in the cache, calling the provided function

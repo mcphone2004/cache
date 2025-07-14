@@ -2,19 +2,19 @@
 package lru
 
 import (
-	"container/list"
 	"context"
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
+	"github.com/mcphone2004/cache/list"
 )
 
 // Cache is a thread-unsafe LRU cache.
 type Cache[K comparable, V any] struct {
 	mu      sync.Mutex
 	options options[K, V]
-	items   map[K]*list.Element
-	order   *list.List
+	items   map[K]*list.Entry[entry[K, V]]
+	order   list.List[entry[K, V]]
 }
 
 // Ensure Cache implements the Cache interface.
@@ -39,11 +39,12 @@ func NewCache[K comparable, V any](options ...func(o *Options)) (
 		return nil, err
 	}
 
-	return &Cache[K, V]{
+	c := &Cache[K, V]{
 		options: o1,
-		items:   make(map[K]*list.Element),
-		order:   list.New(),
-	}, nil
+		items:   make(map[K]*list.Entry[entry[K, V]]),
+	}
+	c.order.Init()
+	return c, nil
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
@@ -51,8 +52,11 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
-		c.order.MoveToFront(elem)
-		return elem.Value.(entry[K, V]).value, true
+		e := c.order.MoveToFront(elem)
+		if e != nil {
+			panic(e)
+		}
+		return elem.Value.value, true
 	}
 	var zero V
 	return zero, false
@@ -60,15 +64,15 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 
 // Put inserts or updates a value in the cache.
 func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
-	if ent, ok := c.put(key, value); ok {
-		c.onEvict(ctx, ent)
+	if k, v, ok := c.put(key, value); ok {
+		c.onEvict(ctx, k, v)
 	}
 }
 
 // onEvict calls the eviction callback if it is set.
-func (c *Cache[K, V]) onEvict(ctx context.Context, ent *entry[K, V]) {
+func (c *Cache[K, V]) onEvict(ctx context.Context, k K, v V) {
 	if c.options.onEvict != nil {
-		c.options.onEvict(ctx, ent.key, ent.value)
+		c.options.onEvict(ctx, k, v)
 	}
 }
 
@@ -78,37 +82,43 @@ func (c *Cache[K, V]) onEvict(ctx context.Context, ent *entry[K, V]) {
 // If the key already exists, it updates the value and moves the entry to the front.
 // If the cache exceeds its capacity, it evicts the least recently used item.
 func (c *Cache[K, V]) put(key K, value V) (
-	*entry[K, V], bool) {
+	K, V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if elem, ok := c.items[key]; ok {
-		c.order.MoveToFront(elem)
+		e := c.order.MoveToFront(elem)
+		if e != nil {
+			panic(e)
+		}
 		elem.Value = entry[K, V]{key, value}
-		return nil, false
+		var zeroK K
+		var zeroV V
+		return zeroK, zeroV, false // No eviction occurred
 	}
-	var ent *entry[K, V]
+	var evictedK K
+	var evictedV V
 	evicted := false
-	if c.order.Len() == int(c.options.capacity) {
-		ent, evicted = c.evict()
+	if c.order.Size() == int(c.options.capacity) {
+		evictedK, evictedV, evicted = c.evict()
 	}
 	e := entry[K, V]{key, value}
 	elem := c.order.PushFront(e)
 	c.items[key] = elem
-	return ent, evicted
+	return evictedK, evictedV, evicted
 }
 
 // evict removes the least recently used item from the cache and returns it.
 // It returns nil if there are no items to evict.
-func (c *Cache[K, V]) evict() (*entry[K, V], bool) {
-	tail := c.order.Back()
-	if tail == nil {
-		return nil, false
+func (c *Cache[K, V]) evict() (K, V, bool) {
+	entry, found := c.order.PopBack()
+	if found {
+		delete(c.items, entry.key)
+		return entry.key, entry.value, true
 	}
 
-	ent := tail.Value.(entry[K, V])
-	delete(c.items, ent.key)
-	c.order.Remove(tail)
-	return &ent, true
+	var zeroK K
+	var zeroV V
+	return zeroK, zeroV, false
 }
 
 // Reset clears the cache and calls the eviction callback for each evicted item.
@@ -116,12 +126,12 @@ func (c *Cache[K, V]) Reset(ctx context.Context) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	for {
-		ent, found := c.evict()
+		k, v, found := c.evict()
 		if !found {
 			break
 		}
 		c.mu.Unlock()
-		c.onEvict(ctx, ent)
+		c.onEvict(ctx, k, v)
 		c.mu.Lock()
 	}
 }
@@ -130,7 +140,7 @@ func (c *Cache[K, V]) Reset(ctx context.Context) {
 func (c *Cache[K, V]) Size(_ context.Context) int {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	return c.order.Len()
+	return c.order.Size()
 }
 
 // Traverse iterates over all items in the cache, calling the provided function
@@ -140,7 +150,7 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	for e := c.order.Front(); e != nil; e = e.Next() {
-		ent := e.Value.(entry[K, V])
+		ent := e.Value
 		if !fn(ctx, ent.key, ent.value) {
 			break
 		}

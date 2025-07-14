@@ -3,6 +3,7 @@ package list
 
 import (
 	"errors"
+	"iter"
 	"sync"
 )
 
@@ -140,4 +141,15 @@ func (l *List[V]) remove(e *Entry[V]) {
 	e.prev = nil // avoid memory leaks
 	e.list = nil
 	l.len--
+}
+
+// Seq returns a forward iterator over the list entries using iter.Seq.
+func (l *List[V]) Seq() iter.Seq[*Entry[V]] {
+	return func(yield func(*Entry[V]) bool) {
+		for e := l.Front(); e != nil; e = e.Next() {
+			if !yield(e) {
+				break
+			}
+		}
+	}
 }

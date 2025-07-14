@@ -149,9 +149,8 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	fn func(context.Context, K, V) bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	for e := c.order.Front(); e != nil; e = e.Next() {
-		ent := e.Value
-		if !fn(ctx, ent.key, ent.value) {
+	for e := range c.order.Seq() {
+		if !fn(ctx, e.Value.key, e.Value.value) {
 			break
 		}
 	}

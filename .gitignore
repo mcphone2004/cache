@@ -9,3 +9,4 @@
 
 # Go stuff
 bin/
+coverage/html/

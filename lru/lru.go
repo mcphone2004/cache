@@ -65,12 +65,18 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	}
 }
 
+// onEvict calls the eviction callback if it is set.
 func (c *Cache[K, V]) onEvict(ctx context.Context, ent *entry[K, V]) {
 	if c.options.onEvict != nil {
 		c.options.onEvict(ctx, ent.key, ent.value)
 	}
 }
 
+// put inserts or updates a value in the cache, evicting the least recently used
+// item if necessary. It returns the evicted entry and a boolean indicating
+// whether an eviction occurred.
+// If the key already exists, it updates the value and moves the entry to the front.
+// If the cache exceeds its capacity, it evicts the least recently used item.
 func (c *Cache[K, V]) put(key K, value V) (
 	*entry[K, V], bool) {
 	c.mu.Lock()
@@ -91,6 +97,8 @@ func (c *Cache[K, V]) put(key K, value V) (
 	return ent, evicted
 }
 
+// evict removes the least recently used item from the cache and returns it.
+// It returns nil if there are no items to evict.
 func (c *Cache[K, V]) evict() (*entry[K, V], bool) {
 	tail := c.order.Back()
 	if tail == nil {

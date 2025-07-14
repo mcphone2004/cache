@@ -4,7 +4,6 @@ package lru
 import (
 	"container/list"
 	"context"
-	"fmt"
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
@@ -104,6 +103,21 @@ func (c *Cache[K, V]) evict() (*entry[K, V], bool) {
 	return &ent, true
 }
 
+// Reset clears the cache and calls the eviction callback for each evicted item.
+func (c *Cache[K, V]) Reset(ctx context.Context) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	for {
+		ent, found := c.evict()
+		if !found {
+			break
+		}
+		c.mu.Unlock()
+		c.onEvict(ctx, ent)
+		c.mu.Lock()
+	}
+}
+
 // Size returns the current number of items in the cache.
 func (c *Cache[K, V]) Size(_ context.Context) int {
 	c.mu.Lock()
@@ -111,14 +125,16 @@ func (c *Cache[K, V]) Size(_ context.Context) int {
 	return c.order.Len()
 }
 
-// DebugPrint prints the contents of the cache from most to least recent.
-func (c *Cache[K, V]) DebugPrint(_ context.Context) {
+// Traverse iterates over all items in the cache, calling the provided function
+// for each key-value pair. If the function returns false, the iteration stops.
+func (c *Cache[K, V]) Traverse(ctx context.Context,
+	fn func(context.Context, K, V) bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	fmt.Print("Cache [Most → Least]: ")
 	for e := c.order.Front(); e != nil; e = e.Next() {
 		ent := e.Value.(entry[K, V])
-		fmt.Printf("%v:%v ", ent.key, ent.value)
+		if !fn(ctx, ent.key, ent.value) {
+			break
+		}
 	}
-	fmt.Println()
 }

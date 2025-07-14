@@ -24,6 +24,32 @@ func TestNewCache(t *testing.T) {
 	require.Equal(t, "capacity must be positive", aerr.Error())
 }
 
+func TestReset(t *testing.T) {
+	records := make(map[int]string)
+	cache, err := lru.NewCache[int, string](
+		lru.WithCapacity(2),
+		lru.WithEvictionCB(func(_ context.Context, key int, value string) {
+			records[key] = value // Store evicted records for verification
+		}),
+	)
+	require.Nil(t, err)
+
+	ctx := context.Background()
+	cache.Put(ctx, 1, "one")
+	cache.Put(ctx, 2, "two")
+
+	cache.Reset(ctx)
+	require.Equal(t, 2, len(records))
+	require.Equal(t, "one", records[1])
+	require.Equal(t, "two", records[2])
+
+	_, ok := cache.Get(ctx, 1)
+	require.False(t, ok)
+
+	_, ok = cache.Get(ctx, 2)
+	require.False(t, ok)
+}
+
 func TestLRUCacheBasic(t *testing.T) {
 	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
 	require.Nil(t, err)
@@ -83,4 +109,26 @@ func TestLRUCacheEvictionOrder(t *testing.T) {
 	val, ok = cache.Get(ctx, 3)
 	require.True(t, ok)
 	require.Equal(t, "three", val)
+}
+
+func TestTraverse(t *testing.T) {
+	cache, err := lru.NewCache[int, string](lru.WithCapacity(3))
+	require.Nil(t, err)
+
+	ctx := context.Background()
+
+	cache.Put(ctx, 1, "one")
+	cache.Put(ctx, 2, "two")
+	cache.Put(ctx, 3, "three")
+
+	var keys []int
+	var values []string
+	cache.Traverse(ctx, func(_ context.Context, key int, value string) bool {
+		keys = append(keys, key)
+		values = append(values, value)
+		return true
+	})
+
+	require.Equal(t, []int{3, 2, 1}, keys) // Most recent first
+	require.Equal(t, []string{"three", "two", "one"}, values)
 }

@@ -35,4 +35,6 @@ type Cache[K comparable, V any] interface {
 	// This is useful for debugging or inspecting the cache contents.
 	// The function is invoked with the mutex held, so it should not block for long.
 	Traverse(ctx context.Context, fn func(context.Context, K, V) bool)
+	// Destroy cleans up the cache, releasing any resources it holds.
+	Shutdown(ctx context.Context)
 }

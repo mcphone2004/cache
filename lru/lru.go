@@ -12,10 +12,11 @@ import (
 
 // Cache is a thread-unsafe LRU cache.
 type Cache[K comparable, V any] struct {
-	mu      sync.Mutex
-	options options[K, V]
-	items   map[K]*list.Entry[entry[K, V]]
-	order   list.List[entry[K, V]]
+	mu         sync.Mutex
+	isShutdown bool
+	options    options[K, V]
+	items      map[K]*list.Entry[entry[K, V]]
+	order      list.List[entry[K, V]]
 }
 
 // Ensure Cache implements the Cache interface.
@@ -52,6 +53,10 @@ func NewCache[K comparable, V any](options ...func(o *Options)) (
 func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.isShutdown {
+		var zero V
+		return zero, false
+	}
 	return c.get(ctx, key)
 }
 
@@ -73,6 +78,9 @@ func (c *Cache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K],
 	hitCB func(K, V), missCB func(K)) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.isShutdown {
+		return
+	}
 
 	for k := range keys {
 		v, found := c.get(ctx, k)
@@ -115,6 +123,11 @@ func (c *Cache[K, V]) put(key K, value V) (
 	K, V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.isShutdown {
+		var zeroK K
+		var zeroV V
+		return zeroK, zeroV, false
+	}
 	if elem, ok := c.items[key]; ok {
 		e := c.order.MoveToFront(elem)
 		if e != nil {
@@ -155,6 +168,13 @@ func (c *Cache[K, V]) evict() (K, V, bool) {
 func (c *Cache[K, V]) Reset(ctx context.Context) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.isShutdown {
+		return
+	}
+	c.reset(ctx)
+}
+
+func (c *Cache[K, V]) reset(ctx context.Context) {
 	for {
 		k, v, found := c.evict()
 		if !found {
@@ -179,6 +199,9 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	fn func(context.Context, K, V) bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.isShutdown {
+		return
+	}
 	for e := range c.order.Seq() {
 		if !fn(ctx, e.Value.key, e.Value.value) {
 			break
@@ -190,6 +213,10 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 // If the entry exists and is removed, it triggers the onEvict callback.
 func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 	c.mu.Lock()
+	if c.isShutdown {
+		c.mu.Unlock()
+		return false
+	}
 	elem, ok := c.items[key]
 	if !ok {
 		c.mu.Unlock()
@@ -202,4 +229,17 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 	c.mu.Unlock() // Unlock before callback to avoid deadlock
 	c.onEvict(ctx, k, v)
 	return true
+}
+
+// Shutdown cleans up the cache, releasing any resources it holds.
+func (c *Cache[K, V]) Shutdown(ctx context.Context) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.isShutdown {
+		return
+	}
+	c.isShutdown = true
+	c.reset(ctx) // Clear the cache and call eviction callbacks
+	c.items = nil
+	c.order = list.List[entry[K, V]]{} // Reset the order list
 }

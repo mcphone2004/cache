@@ -12,9 +12,11 @@ import (
 )
 
 func TestNewCache(t *testing.T) {
+	ctx := context.Background()
 	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
 	require.Nil(t, err)
 	require.NotNil(t, cache)
+	cache.Shutdown(ctx)
 
 	cache, err = lru.NewCache[int, string]()
 	require.Nil(t, cache)
@@ -36,6 +38,8 @@ func TestReset(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
+
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")
 
@@ -56,6 +60,7 @@ func TestLRUCacheBasic(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
 
 	require.Zero(t, cache.Size())
 	cache.Put(ctx, 1, "one")
@@ -83,6 +88,7 @@ func TestLRUCacheUpdate(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
 
 	require.Zero(t, cache.Size())
 	cache.Put(ctx, "a", 1)
@@ -102,6 +108,7 @@ func TestLRUCacheEvictionOrder(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
 
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")
@@ -125,6 +132,7 @@ func TestTraverse(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
 
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")
@@ -160,6 +168,7 @@ func TestDelete(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
 
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")
@@ -193,6 +202,7 @@ func TestGetMultiIter(t *testing.T) {
 	require.Nil(t, err)
 
 	ctx := context.Background()
+	defer cache.Shutdown(ctx)
 
 	cache.Put(ctx, 1, "one")
 	cache.Put(ctx, 2, "two")

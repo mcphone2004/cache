@@ -3,6 +3,7 @@ package lru
 
 import (
 	"context"
+	"iter"
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
@@ -48,9 +49,14 @@ func NewCache[K comparable, V any](options ...func(o *Options)) (
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
-func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
+func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	return c.get(ctx, key)
+}
+
+// get is the internal implementation of Get.
+func (c *Cache[K, V]) get(_ context.Context, key K) (V, bool) {
 	if elem, ok := c.items[key]; ok {
 		e := c.order.MoveToFront(elem)
 		if e != nil {
@@ -60,6 +66,30 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 	}
 	var zero V
 	return zero, false
+}
+
+// GetMultiIter retrieves multiple values from the cache using an iterator.
+func (c *Cache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K],
+	hitCB func(K, V), missCB func(K)) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	for k := range keys {
+		v, found := c.get(ctx, k)
+		if found {
+			if hitCB != nil {
+				c.mu.Unlock()
+				hitCB(k, v)
+				c.mu.Lock() // Re-lock after calling hitCB
+			}
+		} else {
+			if missCB != nil {
+				c.mu.Unlock()
+				missCB(k)
+				c.mu.Lock() // Re-lock after calling hitCB
+			}
+		}
+	}
 }
 
 // Put inserts or updates a value in the cache.

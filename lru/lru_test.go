@@ -3,6 +3,7 @@ package lru_test
 import (
 	"context"
 	"errors"
+	"iter"
 	"testing"
 
 	"github.com/mcphone2004/cache/lru"
@@ -174,4 +175,41 @@ func TestDelete(t *testing.T) {
 	cache.Delete(ctx, 2)
 	_, ok = cache.Get(ctx, 2)
 	require.False(t, ok)
+}
+
+// seqOf creates a standard library iter.Seq[T] from variadic values.
+func seqOf[T any](values ...T) iter.Seq[T] {
+	return func(yield func(T) bool) {
+		for _, v := range values {
+			if !yield(v) {
+				return
+			}
+		}
+	}
+}
+
+func TestGetMultiIter(t *testing.T) {
+	cache, err := lru.NewCache[int, string](lru.WithCapacity(3))
+	require.Nil(t, err)
+
+	ctx := context.Background()
+
+	cache.Put(ctx, 1, "one")
+	cache.Put(ctx, 2, "two")
+	cache.Put(ctx, 3, "three")
+
+	hitCount := 0
+	missCount := 0
+
+	cache.GetMultiIter(ctx, seqOf(1, 2, 4), func(k int, v string) {
+		hitCount++
+		require.Contains(t, []int{1, 2}, k)
+		require.Contains(t, []string{"one", "two"}, v)
+	}, func(k int) {
+		missCount++
+		require.Equal(t, 4, k)
+	})
+
+	require.Equal(t, 2, hitCount)
+	require.Equal(t, 1, missCount)
 }

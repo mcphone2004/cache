@@ -1,7 +1,10 @@
 // Package iface defines interfaces for various cache implementations.
 package iface
 
-import "context"
+import (
+	"context"
+	"iter"
+)
 
 // Cache defines the behavior of an LRU cache.
 type Cache[K comparable, V any] interface {
@@ -10,6 +13,11 @@ type Cache[K comparable, V any] interface {
 	// If the key is not found, it returns the zero value of V and false.
 	// If the key is found, it returns the value and true.
 	Get(ctx context.Context, key K) (V, bool)
+	// GetMultiIter retrieves multiple values from the cache using an iterator.
+	// It calls hitCB for each key that is found and missCB for each key that
+	// is not found. The hitCB and missCB functions are optional.
+	GetMultiIter(ctx context.Context, keys iter.Seq[K],
+		hitCB func(K, V), missCB func(K))
 	// Put inserts or updates a value in the cache.
 	// If the cache exceeds its capacity, it evicts the least recently used item.
 	// If an eviction callback is set, it will be called with the evicted key and

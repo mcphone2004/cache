@@ -153,3 +153,25 @@ func TestTraverse(t *testing.T) {
 	require.Equal(t, []int{3, 2}, keys) // Most recent first
 	require.Equal(t, []string{"three", "two"}, values)
 }
+
+func TestDelete(t *testing.T) {
+	cache, err := lru.NewCache[int, string](lru.WithCapacity(2))
+	require.Nil(t, err)
+
+	ctx := context.Background()
+
+	cache.Put(ctx, 1, "one")
+	cache.Put(ctx, 2, "two")
+
+	cache.Delete(ctx, 1)
+	_, ok := cache.Get(ctx, 1)
+	require.False(t, ok)
+
+	val, ok := cache.Get(ctx, 2)
+	require.True(t, ok)
+	require.Equal(t, "two", val)
+
+	cache.Delete(ctx, 2)
+	_, ok = cache.Get(ctx, 2)
+	require.False(t, ok)
+}

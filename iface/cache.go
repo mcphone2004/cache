@@ -15,6 +15,9 @@ type Cache[K comparable, V any] interface {
 	// If an eviction callback is set, it will be called with the evicted key and
 	// value.
 	Put(ctx context.Context, key K, value V)
+	// Delete removes an entry from the cache and returns true if the entry was
+	// found and deleted.
+	Delete(ctx context.Context, key K) bool
 	// Size returns the current number of items in the cache.
 	Size() int
 	// Reset clears the cache and calls the eviction callback for each evicted item.

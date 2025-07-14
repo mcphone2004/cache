@@ -155,3 +155,21 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 		}
 	}
 }
+
+// Delete removes the entry with the specified key from the cache.
+// If the entry exists and is removed, it triggers the onEvict callback.
+func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
+	c.mu.Lock()
+	elem, ok := c.items[key]
+	if !ok {
+		c.mu.Unlock()
+		return false
+	}
+	delete(c.items, key)
+	k := elem.Value.key
+	v := elem.Value.value
+	c.order.Remove(elem)
+	c.mu.Unlock() // Unlock before callback to avoid deadlock
+	c.onEvict(ctx, k, v)
+	return true
+}

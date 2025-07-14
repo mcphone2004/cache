@@ -2,12 +2,18 @@ package lru_test
 
 import (
 	"context"
+	"runtime"
 	"strconv"
 	"testing"
 
 	"github.com/mcphone2004/cache/lru"
 	"github.com/stretchr/testify/require"
 )
+
+func TestMain(m *testing.M) {
+	runtime.GOMAXPROCS(runtime.NumCPU()) // ✅ Set max concurrency globally
+	m.Run()
+}
 
 func BenchmarkReadHeavy(b *testing.B) {
 	ctx := context.Background()
@@ -17,11 +23,11 @@ func BenchmarkReadHeavy(b *testing.B) {
 		cache.Put(ctx, strconv.Itoa(i), i)
 	}
 	b.ResetTimer()
+	b.ReportAllocs()
 	b.RunParallel(func(pb *testing.PB) {
-		i := 0
-		for pb.Next() {
-			cache.Get(ctx, strconv.Itoa(i%1500))
-			i++
+		for i := 0; pb.Next(); i++ {
+			val, _ := cache.Get(ctx, strconv.Itoa(i%1500))
+			_ = val
 		}
 	})
 }
@@ -31,11 +37,10 @@ func BenchmarkWriteHeavy(b *testing.B) {
 	cache, err := lru.NewCache[string, int](lru.WithCapacity(1500))
 	require.Nil(b, err)
 	b.ResetTimer()
+	b.ReportAllocs()
 	b.RunParallel(func(pb *testing.PB) {
-		i := 0
-		for pb.Next() {
+		for i := 0; pb.Next(); i++ {
 			cache.Put(ctx, strconv.Itoa(i%1500), i)
-			i++
 		}
 	})
 }

@@ -133,6 +133,20 @@ func (l *List[V]) back() *Entry[V] {
 	return l.root.prev
 }
 
+// Remove removes the specified entry from the list.
+func (l *List[V]) Remove(e *Entry[V]) {
+	if e.list != l {
+		return // Entry does not belong to this list
+	}
+	l.remove(e)
+	var zero V
+	e.Value = zero // Clear the value to avoid memory leaks
+	e.prev = nil   // Clear the previous pointer to avoid memory leaks
+	e.next = nil   // Clear the next pointer to avoid memory leaks
+	e.list = nil   // Clear the list pointer to avoid memory leaks
+	l.pool.Put(e)  // Return the entry to the pool
+}
+
 // remove removes e from its list, decrements l.len
 func (l *List[V]) remove(e *Entry[V]) {
 	e.prev.next = e.next

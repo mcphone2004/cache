@@ -42,7 +42,7 @@ func TestListBasic(t *testing.T) {
 	require.Equal(t, 3, l.Front().Value)
 	_ = l.PushFront(4)
 	require.Equal(t, 4, l.Front().Value)
-	_ = l.PushFront(5)
+	ent5 := l.PushFront(5)
 	require.Equal(t, 5, l.Front().Value)
 	e := l.MoveToFront(ent3)
 	require.Nil(t, e)
@@ -51,4 +51,16 @@ func TestListBasic(t *testing.T) {
 	require.Equal(t, 5, l.Front().Next().Value)
 	require.Equal(t, 4, l.Front().Next().Next().Value)
 	require.Nil(t, l.Front().Next().Next().Next())
+
+	l.Remove(ent3)
+	require.Equal(t, 2, l.Size())
+	require.Equal(t, 5, l.Front().Value)
+	require.Equal(t, 4, l.Front().Next().Value)
+	require.Nil(t, l.Front().Next().Next())
+	l.Remove(ent5)
+	require.Equal(t, 1, l.Size())
+	require.Equal(t, 4, l.Front().Value)
+	require.Nil(t, l.Front().Next())
+	l.Remove(ent5) // no-op, already removed
+	require.Equal(t, 1, l.Size())
 }

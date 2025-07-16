@@ -40,7 +40,37 @@ make bench-read    # Run only read-heavy benchmark
 make bench-write   # Run only write-heavy benchmark
 ```
 
+
 By default, benchmarks are defined in `lru/benchmark_test.go` and can be customized or extended.
+
+## 🔧 Profiling Benchmarks
+
+You can also run benchmarks with profiling enabled to analyze performance in detail (CPU, memory, block, and mutex contention):
+
+```bash
+# Run profiling on a specific package (e.g., LRU or Shard)
+make bench-profile PKG=./benchmark/lru
+make bench-profile PKG=./benchmark/shard
+```
+
+Profiles will be saved in `coverage/profiles/` with filenames containing the commit ID and timestamp:
+- `cpu_*.out` for CPU profiles
+- `mem_*.out` for memory allocation profiles
+- `block_*.out` for blocking events
+- `mutex_*.out` for mutex contention
+
+To analyze a profile:
+```bash
+make pprof-cpu     # Inspect the latest CPU profile
+make pprof-mem     # Inspect the latest memory profile
+make pprof-block   # Inspect the latest block profile
+make pprof-mutex   # Inspect the latest mutex profile
+```
+
+You can also launch a web-based visualization:
+```bash
+make pprof-cpu-html  # Opens an interactive web UI on http://localhost:8080
+```
 
 
 ## 📚 Examples

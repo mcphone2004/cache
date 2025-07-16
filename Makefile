@@ -1,4 +1,8 @@
-.PHONY: all download upgrade vet test bench lint cover cover-html snapshot-coverage fmt clean
+.PHONY: all download upgrade vet test bench lint cover cover-html snapshot-coverage fmt clean build
+
+# Build the project
+build:
+	go build ./...
 
 all: download upgrade fmt vet test bench lint cover
 
@@ -26,6 +30,14 @@ test:
 # Run benchmarks
 bench:
 	go test -bench=. -benchtime=10s ./...
+
+# Run only read-heavy benchmark
+bench-read:
+	go test -bench=BenchmarkReadHeavy -benchtime=10s ./...
+
+# Run only write-heavy benchmark
+bench-write:
+	go test -bench=BenchmarkWriteHeavy -benchtime=10s ./...
 
 # Run golangci-lint
 lint:

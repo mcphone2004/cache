@@ -1,0 +1,103 @@
+// Package benchmark provides common benchmark helpers for cache implementations.
+package benchmark
+
+import (
+	"context"
+	"runtime"
+	"testing"
+)
+
+// SetupBenchmark ensures we use all CPUs and resets the timer properly.
+func SetupBenchmark(b *testing.B) {
+	b.Helper()
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	b.ReportAllocs()
+	b.ResetTimer()
+}
+
+// TestMain sets up global runtime parameters for benchmark packages.
+func TestMain(m *testing.M) {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	m.Run()
+}
+
+// PutGetter is an interface that defines Put and Get for benchmarks.
+type PutGetter[K comparable, V any] interface {
+	Put(ctx context.Context, key K, value V)
+	Get(ctx context.Context, key K) (V, bool)
+}
+
+// PreloadCache loads the given number of entries into a cache before benchmarking.
+func PreloadCache[K comparable, V any](
+	ctx context.Context,
+	cache PutGetter[K, V],
+	count int,
+	genKey func(int) K,
+	genVal func(int) V,
+) {
+	for i := 0; i < count; i++ {
+		cache.Put(ctx, genKey(i), genVal(i))
+	}
+}
+
+// Put runs a reusable benchmark for Put operations.
+func Put[K comparable, V any](
+	b *testing.B,
+	newCache func() PutGetter[K, V],
+	genKey func(int) K,
+	genVal func(int) V,
+) {
+	ctx := context.Background()
+	c := newCache()
+	SetupBenchmark(b)
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			c.Put(ctx, genKey(i), genVal(i))
+			i++
+		}
+	})
+}
+
+// Get runs a reusable benchmark for Get operations.
+func Get[K comparable, V any](
+	b *testing.B,
+	newCache func() PutGetter[K, V],
+	preloadCount int,
+	genKey func(int) K,
+	genVal func(int) V,
+) {
+	ctx := context.Background()
+	c := newCache()
+	PreloadCache(ctx, c, preloadCount, genKey, genVal)
+	SetupBenchmark(b)
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			c.Get(ctx, genKey(i%preloadCount))
+			i++
+		}
+	})
+}
+
+// Mixed runs a reusable benchmark for mixed Put/Get operations.
+func Mixed[K comparable, V any](
+	b *testing.B,
+	newCache func() PutGetter[K, V],
+	keyRange int,
+	genKey func(int) K,
+	genVal func(int) V,
+) {
+	ctx := context.Background()
+	c := newCache()
+	SetupBenchmark(b)
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			key := i % keyRange
+			c.Put(ctx, genKey(key), genVal(key))
+			c.Get(ctx, genKey(key))
+			i++
+		}
+	})
+}

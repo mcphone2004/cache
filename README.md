@@ -41,3 +41,37 @@ make bench-write   # Run only write-heavy benchmark
 ```
 
 By default, benchmarks are defined in `lru/benchmark_test.go` and can be customized or extended.
+
+
+## 📚 Examples
+
+This repository includes runnable examples to demonstrate usage:
+
+- **LRU Example**: [`examples/lru/lru.go`](examples/lru/lru.go)
+- **Shard Example**: [`examples/shard/shard.go`](examples/shard/shard.go)
+
+You can run them like this:
+
+```bash
+go run examples/lru/lru.go
+go run examples/shard/shard.go
+```
+
+
+## 📈 Benchmarks
+
+We provide benchmark implementations for both LRU and Shard caches:
+
+- **LRU Benchmarks** (see `lru/lru_test.go`)
+- **Shard Benchmarks** (see `shard/shard_test.go`)
+
+Run them with:
+
+```bash
+make bench         # Run all benchmarks
+make bench-read    # Run only LRU read-heavy benchmark
+make bench-write   # Run only LRU write-heavy benchmark
+# or use `go test -bench=.` inside each package for more options
+```
+
+Both benchmark sets follow the same patterns (Put, Get, Mixed) so you can easily compare performance between the LRU and Shard implementations.

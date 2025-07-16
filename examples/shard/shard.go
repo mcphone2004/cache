@@ -29,6 +29,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer s.Shutdown(ctx) // ensure proper shutdown in all exit paths
 
 	// put some values
 	for i := 0; i < 10; i++ {

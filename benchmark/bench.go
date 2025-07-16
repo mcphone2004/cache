@@ -25,6 +25,7 @@ func TestMain(m *testing.M) {
 type PutGetter[K comparable, V any] interface {
 	Put(ctx context.Context, key K, value V)
 	Get(ctx context.Context, key K) (V, bool)
+	Shutdown(ctx context.Context)
 }
 
 // PreloadCache loads the given number of entries into a cache before benchmarking.
@@ -49,6 +50,7 @@ func Put[K comparable, V any](
 ) {
 	ctx := context.Background()
 	c := newCache()
+	defer c.Shutdown(ctx)
 	SetupBenchmark(b)
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -69,6 +71,7 @@ func Get[K comparable, V any](
 ) {
 	ctx := context.Background()
 	c := newCache()
+	defer c.Shutdown(ctx)
 	PreloadCache(ctx, c, preloadCount, genKey, genVal)
 	SetupBenchmark(b)
 	b.RunParallel(func(pb *testing.PB) {
@@ -90,6 +93,7 @@ func Mixed[K comparable, V any](
 ) {
 	ctx := context.Background()
 	c := newCache()
+	defer c.Shutdown(ctx)
 	SetupBenchmark(b)
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0

@@ -13,15 +13,18 @@ import (
 
 // newShardCache creates a shard cache with 8 shards, each shard backed by an LRU cache.
 func newShardCache() benchmark.PutGetter[int, string] {
-	s, _ := shard.New[int, string](
-		8,
-		func(k int) uint {
-			return uint(k % 8)
-		},
-		func() iface.Cache[int, string] {
-			c, _ := lru.New[int, string](lru.WithCapacity(1024))
-			return c
-		},
+	s, _ := shard.New(
+		shard.WithCapacity[int, string](benchmark.CacheCapacity), // each shard can hold 1024 items
+		// minimum of 8 shards
+		shard.WithMinShards[int, string](8), // minimum of 8 shards
+		// simple shard selector: use key mod 8
+		shard.WithShardsFn[int, string](func(key int) uint {
+			return uint(key % 8)
+		}),
+		// each shard is its own LRU cache
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
+			return lru.New[int, string](lru.WithCapacity(capacity))
+		}),
 	)
 	return s
 }

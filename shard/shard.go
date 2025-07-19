@@ -21,9 +21,22 @@ type Cache[K comparable, V any] struct {
 
 var _ iface.Cache[string, int] = (*Cache[string, int])(nil)
 
-// New creates a new sharded cache with the specified number of shards and a function
-func New[K comparable, V any](maxShards uint, shardsFn func(K) uint,
-	cacherMaker func() iface.Cache[K, V]) (*Cache[K, V], error) {
+// New creates a new sharded cache with the specified options.
+func New[K comparable, V any](options ...func(o *Options[K, V])) (*Cache[K, V], error) {
+	var o Options[K, V]
+	for _, cb := range options {
+		cb(&o)
+	}
+	o1, err := toOptions[K, V](o)
+	if err != nil {
+		return nil, err
+	}
+	return newCache(o1.maxShards, o1.shardsFn, o1.cacherMaker)
+}
+
+// newCache creates a new sharded cache with the specified number of shards and a function
+func newCache[K comparable, V any](maxShards uint, shardsFn func(K) uint,
+	cacherMaker func() (iface.Cache[K, V], error)) (*Cache[K, V], error) {
 
 	switch {
 	case maxShards == 0:
@@ -42,7 +55,11 @@ func New[K comparable, V any](maxShards uint, shardsFn func(K) uint,
 
 	shards := make([]iface.Cache[K, V], maxShards)
 	for i := range maxShards {
-		shards[i] = cacherMaker()
+		var err error
+		shards[i], err = cacherMaker()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &Cache[K, V]{
@@ -54,7 +71,12 @@ func New[K comparable, V any](maxShards uint, shardsFn func(K) uint,
 
 // keyToShardIndex calculates the shard index for a given key using the provided shards function.
 func (c *Cache[K, V]) keyToShardIndex(key K) uint {
-	return c.shardsFn(key) % c.maxShards
+	idx := c.shardsFn(key)
+	if idx >= c.maxShards {
+		// % is expensive, shardsFn should ensure idx is within bounds
+		return idx % c.maxShards // Ensure index is within bounds
+	}
+	return idx
 }
 
 // Get retrieves a value from the appropriate shard based on the key.

@@ -13,13 +13,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestNew(t *testing.T) {
-	_, err := New(0,
+func TestNewCache(t *testing.T) {
+	_, err := newCache(0,
 		func(k uint) uint {
 			return k
 		},
-		func() iface.Cache[uint, string] {
-			return &nop.Cache[uint, string]{}
+		func() (iface.Cache[uint, string], error) {
+			return &nop.Cache[uint, string]{}, nil
 		})
 	require.NotNil(t, err)
 	require.Equal(t, "maxShards must be positive", err.Error())
@@ -28,9 +28,9 @@ func TestNew(t *testing.T) {
 	require.True(t, b)
 	require.Equal(t, "maxShards must be positive", aerr.Error())
 
-	_, err = New(1, nil,
-		func() iface.Cache[uint, string] {
-			return &nop.Cache[uint, string]{}
+	_, err = newCache(1, nil,
+		func() (iface.Cache[uint, string], error) {
+			return &nop.Cache[uint, string]{}, nil
 		})
 	require.NotNil(t, err)
 	require.Equal(t, "shardsFn cannot be nil", err.Error())
@@ -38,7 +38,7 @@ func TestNew(t *testing.T) {
 	require.True(t, b)
 	require.Equal(t, "shardsFn cannot be nil", aerr.Error())
 
-	_, err = New[uint, string](1,
+	_, err = newCache[uint, string](1,
 		func(k uint) uint {
 			return k
 		},
@@ -49,12 +49,12 @@ func TestNew(t *testing.T) {
 	require.True(t, b)
 	require.Equal(t, "cacherMaker cannot be nil", aerr.Error())
 
-	cache, err := New(1,
+	cache, err := newCache(1,
 		func(k uint) uint {
 			return k
 		},
-		func() iface.Cache[uint, string] {
-			return &nop.Cache[uint, string]{}
+		func() (iface.Cache[uint, string], error) {
+			return &nop.Cache[uint, string]{}, nil
 		})
 	require.Nil(t, err)
 	require.NotNil(t, cache)

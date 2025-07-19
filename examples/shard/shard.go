@@ -14,17 +14,17 @@ func main() {
 	ctx := context.Background()
 
 	// create a sharded cache with 8 shards
-	s, err := shard.New[int, string](
-		8,
-		func(key int) uint {
+	s, err := shard.New(
+		shard.WithCapacity[int, string](1024), // each shard can hold 1024 items
+		shard.WithMinShards[int, string](8),   // minimum of 8 shards
+		shard.WithShardsFn[int, string](func(key int) uint {
 			// simple shard selector: use key mod 8
 			return uint(key % 8)
-		},
-		func() iface.Cache[int, string] {
+		}),
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
 			// each shard is its own LRU cache
-			c, _ := lru.New[int, string](lru.WithCapacity(64))
-			return c
-		},
+			return lru.New[int, string](lru.WithCapacity(capacity))
+		}),
 	)
 	if err != nil {
 		panic(err)

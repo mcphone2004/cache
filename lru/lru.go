@@ -174,6 +174,9 @@ func (c *Cache[K, V]) Reset(ctx context.Context) {
 	c.reset(ctx)
 }
 
+// reset clears the cache and calls the eviction callback for each evicted item.
+// It is called with the mutex held, so it should not be called directly
+// outside of the Cache methods.
 func (c *Cache[K, V]) reset(ctx context.Context) {
 	for {
 		k, v, found := c.evict()

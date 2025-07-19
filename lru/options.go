@@ -3,7 +3,7 @@ package lru
 import (
 	"context"
 
-	lrutypes "github.com/mcphone2004/cache/types"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 type cbFunc[K comparable, V any] func(context.Context, K, V)
@@ -43,7 +43,7 @@ func WithEvictionCB[K comparable, V any](cb cbFunc[K, V]) func(o *Options) {
 func toOptions[K comparable, V any](o Options) (options[K, V], error) {
 	var opt options[K, V]
 	if o.Capacity == 0 {
-		return opt, &lrutypes.ErrorInvalidOptions{
+		return opt, &cachetypes.ErrorInvalidOptions{
 			Message: "capacity must be positive",
 		}
 	}
@@ -52,7 +52,7 @@ func toOptions[K comparable, V any](o Options) (options[K, V], error) {
 		if cb, ok := o.OnEvict.(cbFunc[K, V]); ok {
 			opt.onEvict = cb
 		} else {
-			return opt, &lrutypes.ErrorInvalidOptions{
+			return opt, &cachetypes.ErrorInvalidOptions{
 				Message: "incorrect type for OnEvict",
 			}
 		}

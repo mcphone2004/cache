@@ -1,6 +1,7 @@
 package lru_test
 
 import (
+	"fmt"
 	"strconv"
 	"testing"
 
@@ -8,37 +9,33 @@ import (
 	"github.com/mcphone2004/cache/lru"
 )
 
+func newCache() benchmark.PutGetter[int, string] {
+	c, _ := lru.New[int, string](lru.WithCapacity(benchmark.CacheCapacity))
+	return c
+}
+
 func BenchmarkLRUGet(b *testing.B) {
-	benchmark.Get[string, int](b,
-		func() benchmark.PutGetter[string, int] {
-			c, _ := lru.New[string, int](lru.WithCapacity(1500))
-			return c
-		},
-		1500,
-		strconv.Itoa,
+	benchmark.Get[int, string](b,
+		newCache,
+		10000,
 		func(i int) int { return i },
+		strconv.Itoa,
 	)
 }
 
 func BenchmarkLRUPut(b *testing.B) {
-	benchmark.Put[string, int](b,
-		func() benchmark.PutGetter[string, int] {
-			c, _ := lru.New[string, int](lru.WithCapacity(1500))
-			return c
-		},
-		strconv.Itoa,
+	benchmark.Put[int, string](b,
+		newCache,
 		func(i int) int { return i },
+		func(i int) string { return fmt.Sprintf("val-%d", i) },
 	)
 }
 
 func BenchmarkLRUMixed(b *testing.B) {
-	benchmark.Mixed[string, int](b,
-		func() benchmark.PutGetter[string, int] {
-			c, _ := lru.New[string, int](lru.WithCapacity(1500))
-			return c
-		},
+	benchmark.Mixed[int, string](b,
+		newCache,
 		1000,
-		strconv.Itoa,
 		func(i int) int { return i },
+		strconv.Itoa,
 	)
 }

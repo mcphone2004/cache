@@ -1,5 +1,5 @@
-// Package lrutypes defines types used in the LRU cache implementation.
-package lrutypes
+// Package cachetypes defines types used in the LRU cache implementation.
+package cachetypes
 
 // ErrorInvalidOptions represents an error for invalid options in the LRU cache.
 type ErrorInvalidOptions struct {

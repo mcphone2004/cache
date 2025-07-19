@@ -7,6 +7,10 @@ import (
 	"testing"
 )
 
+const (
+	CacheCapacity = 1500 // Default cache capacity for benchmarks
+)
+
 // SetupBenchmark ensures we use all CPUs and resets the timer properly.
 func SetupBenchmark(b *testing.B) {
 	b.Helper()

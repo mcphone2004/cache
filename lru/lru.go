@@ -10,7 +10,7 @@ import (
 	"github.com/mcphone2004/cache/list"
 )
 
-// Cache is a thread-unsafe LRU cache.
+// Cache is a thread-safe LRU cache.
 type Cache[K comparable, V any] struct {
 	mu         sync.Mutex
 	isShutdown bool
@@ -54,8 +54,7 @@ func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		var zero V
-		return zero, false
+		return zeroOf[V](), false
 	}
 	return c.get(ctx, key)
 }
@@ -69,8 +68,7 @@ func (c *Cache[K, V]) get(_ context.Context, key K) (V, bool) {
 		}
 		return elem.Value.value, true
 	}
-	var zero V
-	return zero, false
+	return zeroOf[V](), false
 }
 
 // GetMultiIter retrieves multiple values from the cache using an iterator.
@@ -114,6 +112,8 @@ func (c *Cache[K, V]) onEvict(ctx context.Context, k K, v V) {
 	}
 }
 
+func zeroOf[T any]() (t T) { return }
+
 // put inserts or updates a value in the cache, evicting the least recently used
 // item if necessary. It returns the evicted entry and a boolean indicating
 // whether an eviction occurred.
@@ -124,9 +124,7 @@ func (c *Cache[K, V]) put(key K, value V) (
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		var zeroK K
-		var zeroV V
-		return zeroK, zeroV, false
+		return zeroOf[K](), zeroOf[V](), false
 	}
 	if elem, ok := c.items[key]; ok {
 		e := c.order.MoveToFront(elem)
@@ -134,9 +132,7 @@ func (c *Cache[K, V]) put(key K, value V) (
 			panic(e)
 		}
 		elem.Value = entry[K, V]{key, value}
-		var zeroK K
-		var zeroV V
-		return zeroK, zeroV, false // No eviction occurred
+		return zeroOf[K](), zeroOf[V](), false // No eviction occurred
 	}
 	var evictedK K
 	var evictedV V
@@ -159,9 +155,7 @@ func (c *Cache[K, V]) evict() (K, V, bool) {
 		return entry.key, entry.value, true
 	}
 
-	var zeroK K
-	var zeroV V
-	return zeroK, zeroV, false
+	return zeroOf[K](), zeroOf[V](), false
 }
 
 // Reset clears the cache and calls the eviction callback for each evicted item.

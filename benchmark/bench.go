@@ -8,7 +8,14 @@ import (
 )
 
 const (
-	CacheCapacity = 1500 // Default cache capacity for benchmarks
+	// CacheCapacity is the cache capacity for benchmarks
+	CacheCapacity = 1500
+
+	// PreloadCount is the number of entries to preload in benchmarks
+	PreloadCount = 10000
+
+	// KeyRange is the range of keys for mixed benchmarks
+	KeyRange = 100000
 )
 
 // SetupBenchmark ensures we use all CPUs and resets the timer properly.

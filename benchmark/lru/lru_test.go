@@ -17,7 +17,7 @@ func newCache() benchmark.PutGetter[int, string] {
 func BenchmarkLRUGet(b *testing.B) {
 	benchmark.Get[int, string](b,
 		newCache,
-		10000,
+		benchmark.PreloadCount,
 		func(i int) int { return i },
 		strconv.Itoa,
 	)
@@ -34,7 +34,7 @@ func BenchmarkLRUPut(b *testing.B) {
 func BenchmarkLRUMixed(b *testing.B) {
 	benchmark.Mixed[int, string](b,
 		newCache,
-		1000,
+		benchmark.KeyRange,
 		func(i int) int { return i },
 		strconv.Itoa,
 	)

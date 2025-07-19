@@ -42,7 +42,7 @@ func BenchmarkShardGet(b *testing.B) {
 	benchmark.Get[int, string](
 		b,
 		newShardCache,
-		10000,
+		benchmark.PreloadCount,
 		func(i int) int { return i },
 		strconv.Itoa,
 	)
@@ -52,7 +52,7 @@ func BenchmarkShardMixed(b *testing.B) {
 	benchmark.Mixed[int, string](
 		b,
 		newShardCache,
-		1000,
+		benchmark.KeyRange,
 		func(i int) int { return i },
 		strconv.Itoa,
 	)

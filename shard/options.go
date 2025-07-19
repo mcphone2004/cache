@@ -19,7 +19,7 @@ type Options[K comparable, V any] struct {
 	// Minimum number of shards. If not set, a reasonable default is computed based on heuristics.
 	MinShards uint
 	// ShardsFn is a function that determines the shard index for a given key.
-	ShardsFn func(K) uint
+	ShardsFn func(K, uint) uint
 	// CacherMaker is a function that creates a new cache for each shard.
 	CacherMaker func(uint) (iface.Cache[K, V], error)
 }
@@ -46,7 +46,7 @@ func WithMinShards[K comparable, V any](minShards uint) func(o *Options[K, V]) {
 }
 
 // WithShardsFn sets the function that determines the shard index for a given key.
-func WithShardsFn[K comparable, V any](shardsFn func(K) uint) func(o *Options[K, V]) {
+func WithShardsFn[K comparable, V any](shardsFn func(K, uint) uint) func(o *Options[K, V]) {
 	return func(o *Options[K, V]) {
 		o.ShardsFn = shardsFn
 	}
@@ -134,7 +134,9 @@ func toOptions[K comparable, V any](o Options[K, V]) (options[K, V], error) {
 	opt.maxShards = ComputeMaxshards(o.Capacity, o.TargetPerShard, o.MinShards)
 
 	perShardCapacity := (o.Capacity + opt.maxShards - 1) / opt.maxShards
-	opt.shardsFn = o.ShardsFn
+	opt.shardsFn = func(k K) uint {
+		return o.ShardsFn(k, opt.maxShards)
+	}
 	opt.cacherMaker = func() (iface.Cache[K, V], error) {
 		return o.CacherMaker(perShardCapacity)
 	}

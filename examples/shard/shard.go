@@ -17,9 +17,9 @@ func main() {
 	s, err := shard.New(
 		shard.WithCapacity[int, string](1024), // each shard can hold 1024 items
 		shard.WithMinShards[int, string](8),   // minimum of 8 shards
-		shard.WithShardsFn[int, string](func(key int) uint {
+		shard.WithShardsFn[int, string](func(key int, maxShard uint) uint {
 			// simple shard selector: use key mod 8
-			return uint(key % 8)
+			return uint(key) % maxShard
 		}),
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
 			// each shard is its own LRU cache

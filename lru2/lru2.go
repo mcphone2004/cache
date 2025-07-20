@@ -116,11 +116,13 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	en := c.entryPool.Get().(*entry[K, V])
 	en.key = key
 	en.value = value
-	var evicted *entry[K, V]
-	c.items[key], evicted = c.queue.pushFront(ctx, en)
-	if evicted != nil {
-		delete(c.items, evicted.key)
-		c.entryPool.Put(evicted)
+	var evict *list.Entry[*entry[K, V]]
+	c.items[key], evict = c.queue.pushFront(ctx, en)
+	if evict != nil {
+		en := evict.Value
+		delete(c.items, en.key)
+		c.queue.remove(ctx, evict)
+		c.entryPool.Put(en)
 	}
 }
 

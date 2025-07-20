@@ -108,6 +108,14 @@ func (l *List[V]) Front() *Entry[V] {
 	return l.root.next
 }
 
+// Back returns the last element of list l or nil if the list is empty.
+func (l *List[V]) Back() *Entry[V] {
+	if l.len == 0 {
+		return nil
+	}
+	return l.root.prev
+}
+
 // PopBack removes and returns the last element of the list.
 func (l *List[V]) PopBack() (V, bool) {
 	var zero V

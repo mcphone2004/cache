@@ -28,7 +28,7 @@ type cmd[K comparable, V any] struct {
 	wg    *sync.WaitGroup
 
 	newElem **list.Entry[*entry[K, V]]
-	evicted **entry[K, V]
+	evict   **list.Entry[*entry[K, V]]
 }
 
 // queue is the LRU queue
@@ -92,12 +92,12 @@ func (q *queue[K, V]) moveToFront(ctx context.Context, elem *list.Entry[*entry[K
 }
 
 func (q *queue[K, V]) pushFront(ctx context.Context, en *entry[K, V]) (
-	elem *list.Entry[*entry[K, V]], evicted *entry[K, V]) {
+	elem *list.Entry[*entry[K, V]], evict *list.Entry[*entry[K, V]]) {
 	wg := q.wgPool.Get().(*sync.WaitGroup)
 	cmd := q.acquireCmd(ctx, pushFront, wg)
 	cmd.entry = en
 	cmd.newElem = &elem
-	cmd.evicted = &evicted
+	cmd.evict = &evict
 	q.cmdCh <- cmd
 	wg.Wait()
 	q.wgPool.Put(wg)
@@ -146,16 +146,16 @@ func (q *queue[K, V]) processCmd(c *cmd[K, V]) {
 			panic(e)
 		}
 	case pushFront:
-		var evicted *entry[K, V]
+		var evict *list.Entry[*entry[K, V]]
 		if q.order.Size() >= int(q.options.capacity) {
-			if entry, found := q.order.PopBack(); found {
-				q.onEvict(c.ctx, entry)
-				evicted = entry
+			if elem := q.order.Back(); elem != nil {
+				// candidate for eviction if needed
+				evict = elem
 			}
 		}
 		elem := q.order.PushFront(c.entry)
 		*c.newElem = elem
-		*c.evicted = evicted
+		*c.evict = evict
 	case remove:
 		ent := c.elem.Value
 		q.order.Remove(c.elem)

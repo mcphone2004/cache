@@ -36,13 +36,15 @@ type queue[K comparable, V any] struct {
 	cmdPool *sync.Pool
 	wgPool  *sync.Pool
 
-	order   list.List[*entry[K, V]]
-	cmdCh   chan *cmd[K, V]
-	options options[K, V]
-	wg      sync.WaitGroup
+	order     list.List[*entry[K, V]]
+	cmdCh     chan *cmd[K, V]
+	options   options[K, V]
+	wg        sync.WaitGroup
+	onEvictCB func(context.Context, *entry[K, V])
 }
 
-func newQueue[K comparable, V any](options options[K, V]) *queue[K, V] {
+func newQueue[K comparable, V any](options options[K, V],
+	onEvict func(ctx context.Context, en *entry[K, V])) *queue[K, V] {
 	q := &queue[K, V]{
 		cmdCh:   make(chan *cmd[K, V], 10), // Buffered channel for commands
 		options: options,
@@ -57,6 +59,7 @@ func newQueue[K comparable, V any](options options[K, V]) *queue[K, V] {
 				return &wg
 			},
 		},
+		onEvictCB: onEvict,
 	}
 	q.order.Init()
 	q.wg.Add(1)
@@ -127,14 +130,14 @@ func (q *queue[K, V]) releaseCmd(c *cmd[K, V]) {
 }
 
 func (q *queue[K, V]) onEvict(ctx context.Context, entry *entry[K, V]) {
-	if cb := q.options.onEvict; cb != nil {
+	if cb := q.onEvictCB; cb != nil {
 		defer func() {
 			if r := recover(); r != nil {
 				// r is the value passed to panic
 				fmt.Println("Recovered from panic:", r)
 			}
 		}()
-		cb(ctx, entry.key, entry.value)
+		cb(ctx, entry)
 	}
 }
 

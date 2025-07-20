@@ -16,6 +16,7 @@ type Cache[K comparable, V any] struct {
 	mu         sync.RWMutex
 	isShutdown bool
 	items      map[K]*list.Entry[*entry[K, V]]
+	opt        options[K, V]
 
 	// LRU queue to maintain the order of items.
 	queue *queue[K, V]
@@ -44,6 +45,7 @@ func New[K comparable, V any](options ...func(o *Options)) (
 	}
 
 	c := &Cache[K, V]{
+		opt:   o1,
 		items: make(map[K]*list.Entry[*entry[K, V]]),
 		entryPool: &sync.Pool{
 			New: func() any {
@@ -55,7 +57,7 @@ func New[K comparable, V any](options ...func(o *Options)) (
 	for range o1.capacity {
 		c.entryPool.Put(&entry[K, V]{})
 	}
-	c.queue = newQueue(o1)
+	c.queue = newQueue(o1, c.onEvict)
 	return c, nil
 }
 
@@ -122,7 +124,6 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 		en := evict.Value
 		delete(c.items, en.key)
 		c.queue.remove(ctx, evict)
-		c.entryPool.Put(en)
 	}
 }
 
@@ -151,6 +152,16 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	}
 }
 
+func (c *Cache[K, V]) onEvict(ctx context.Context, en *entry[K, V]) {
+	if cb := c.opt.onEvict; cb != nil {
+		cb(ctx, en.key, en.value)
+	}
+
+	en.key = zeroOf[K]()
+	en.value = zeroOf[V]()
+	c.entryPool.Put(en)
+}
+
 // Delete removes the entry with the specified key from the cache.
 // If the entry exists and is removed, it triggers the onEvict callback.
 func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
@@ -165,9 +176,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 		return false
 	}
 	delete(c.items, key)
-	en := elem.Value
 	c.queue.remove(ctx, elem)
-	c.entryPool.Put(en)
 	return true
 }
 

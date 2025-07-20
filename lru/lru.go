@@ -12,11 +12,12 @@ import (
 
 // Cache is a thread-safe LRU cache.
 type Cache[K comparable, V any] struct {
+	entryPool  *sync.Pool
 	mu         sync.Mutex
 	isShutdown bool
 	options    options[K, V]
-	items      map[K]*list.Entry[entry[K, V]]
-	order      list.List[entry[K, V]]
+	items      map[K]*list.Entry[*entry[K, V]]
+	order      list.List[*entry[K, V]]
 }
 
 // Ensure Cache implements the Cache interface.
@@ -43,7 +44,16 @@ func New[K comparable, V any](options ...func(o *Options)) (
 
 	c := &Cache[K, V]{
 		options: o1,
-		items:   make(map[K]*list.Entry[entry[K, V]]),
+		items:   make(map[K]*list.Entry[*entry[K, V]]),
+		entryPool: &sync.Pool{
+			New: func() any {
+				return &entry[K, V]{}
+			},
+		},
+	}
+	// pre-populate the pool
+	for range o1.capacity {
+		c.entryPool.Put(&entry[K, V]{})
 	}
 	c.order.Init()
 	return c, nil
@@ -100,15 +110,15 @@ func (c *Cache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K],
 
 // Put inserts or updates a value in the cache.
 func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
-	if k, v, ok := c.put(key, value); ok {
-		c.onEvict(ctx, k, v)
+	if evicted := c.put(key, value); evicted != nil {
+		c.onEvict(ctx, evicted)
 	}
 }
 
 // onEvict calls the eviction callback if it is set.
-func (c *Cache[K, V]) onEvict(ctx context.Context, k K, v V) {
+func (c *Cache[K, V]) onEvict(ctx context.Context, en *entry[K, V]) {
 	if c.options.onEvict != nil {
-		c.options.onEvict(ctx, k, v)
+		c.options.onEvict(ctx, en.key, en.value)
 	}
 }
 
@@ -119,43 +129,44 @@ func zeroOf[T any]() (t T) { return }
 // whether an eviction occurred.
 // If the key already exists, it updates the value and moves the entry to the front.
 // If the cache exceeds its capacity, it evicts the least recently used item.
-func (c *Cache[K, V]) put(key K, value V) (
-	K, V, bool) {
+func (c *Cache[K, V]) put(key K, value V) *entry[K, V] {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return zeroOf[K](), zeroOf[V](), false
+		return nil
 	}
 	if elem, ok := c.items[key]; ok {
 		e := c.order.MoveToFront(elem)
 		if e != nil {
 			panic(e)
 		}
-		elem.Value = entry[K, V]{key, value}
-		return zeroOf[K](), zeroOf[V](), false // No eviction occurred
+		elem.Value.value = value
+		return nil
 	}
-	var evictedK K
-	var evictedV V
-	evicted := false
+	var en *entry[K, V]
 	if c.order.Size() == int(c.options.capacity) {
-		evictedK, evictedV, evicted = c.evict()
+		en = c.evict()
 	}
-	e := entry[K, V]{key, value}
-	elem := c.order.PushFront(e)
+	if en == nil {
+		en = c.entryPool.Get().(*entry[K, V])
+	}
+	en.key = key
+	en.value = value
+	elem := c.order.PushFront(en)
 	c.items[key] = elem
-	return evictedK, evictedV, evicted
+	return en
 }
 
 // evict removes the least recently used item from the cache and returns it.
 // It returns nil if there are no items to evict.
-func (c *Cache[K, V]) evict() (K, V, bool) {
+func (c *Cache[K, V]) evict() *entry[K, V] {
 	entry, found := c.order.PopBack()
 	if found {
 		delete(c.items, entry.key)
-		return entry.key, entry.value, true
+		return entry
 	}
 
-	return zeroOf[K](), zeroOf[V](), false
+	return nil
 }
 
 // Reset clears the cache and calls the eviction callback for each evicted item.
@@ -173,13 +184,14 @@ func (c *Cache[K, V]) Reset(ctx context.Context) {
 // outside of the Cache methods.
 func (c *Cache[K, V]) reset(ctx context.Context) {
 	for {
-		k, v, found := c.evict()
-		if !found {
+		en := c.evict()
+		if en == nil {
 			break
 		}
 		c.mu.Unlock()
-		c.onEvict(ctx, k, v)
+		c.onEvict(ctx, en)
 		c.mu.Lock()
+		c.entryPool.Put(en)
 	}
 }
 
@@ -220,11 +232,11 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 		return false
 	}
 	delete(c.items, key)
-	k := elem.Value.key
-	v := elem.Value.value
+	evicted := elem.Value
 	c.order.Remove(elem)
 	c.mu.Unlock() // Unlock before callback to avoid deadlock
-	c.onEvict(ctx, k, v)
+	c.onEvict(ctx, evicted)
+	c.entryPool.Put(evicted)
 	return true
 }
 
@@ -238,5 +250,5 @@ func (c *Cache[K, V]) Shutdown(ctx context.Context) {
 	c.isShutdown = true
 	c.reset(ctx) // Clear the cache and call eviction callbacks
 	c.items = nil
-	c.order = list.List[entry[K, V]]{} // Reset the order list
+	c.order = list.List[*entry[K, V]]{} // Reset the order list
 }

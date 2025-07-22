@@ -62,26 +62,31 @@ func New[K comparable, V any](options ...func(o *Options)) (
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
-func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
+func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 	c.mu.RLock()
-	defer c.mu.RUnlock()
 	if c.isShutdown {
+		c.mu.RUnlock()
 		return zeroOf[V](), false
 	}
-	return c.get(ctx, key)
-}
-
-// get is the internal implementation of Get.
-func (c *Cache[K, V]) get(ctx context.Context, key K) (V, bool) {
 	if elem, ok := c.items[key]; ok {
-		c.queue.moveToFront(ctx, elem)
-		return elem.Value.value, true
+		c.queue.mu.Lock()
+		val := elem.Value.value
+		c.mu.RUnlock()
+		func() {
+			defer c.queue.mu.Unlock()
+			e := c.queue.order.MoveToFront(elem)
+			if e != nil {
+				panic(e)
+			}
+		}()
+		return val, true
 	}
+	c.mu.RUnlock()
 	return zeroOf[V](), false
 }
 
 // GetMultiIter retrieves multiple values from the cache using an iterator.
-func (c *Cache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K],
+func (c *Cache[K, V]) GetMultiIter(_ context.Context, keys iter.Seq[K],
 	hitCB func(K, V), missCB func(K)) {
 
 	for k := range keys {
@@ -90,13 +95,24 @@ func (c *Cache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K],
 			c.mu.RUnlock()
 			return
 		}
-		v, found := c.get(ctx, k)
-		c.mu.RUnlock()
-		if found {
+
+		elem, ok := c.items[k]
+		if ok {
+			c.queue.mu.Lock()
+			v := elem.Value.value
+			c.mu.RUnlock()
+			func() {
+				defer c.queue.mu.Unlock()
+				e := c.queue.order.MoveToFront(elem)
+				if e != nil {
+					panic(e)
+				}
+			}()
 			if hitCB != nil {
 				hitCB(k, v)
 			}
 		} else {
+			c.mu.RUnlock()
 			if missCB != nil {
 				missCB(k)
 			}
@@ -109,22 +125,38 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	c.mu.Lock()
 	if elem, ok := c.items[key]; ok {
 		elem.Value.value = value
-		c.queue.moveToFront(ctx, elem)
+		c.queue.mu.Lock()
 		c.mu.Unlock()
+		func() {
+			defer c.queue.mu.Unlock()
+			e := c.queue.order.MoveToFront(elem)
+			if e != nil {
+				panic(e)
+			}
+		}()
 		return
 	}
 
-	defer c.mu.Unlock()
 	en := c.entryPool.Get().(*entry[K, V])
 	en.key = key
 	en.value = value
+	c.queue.mu.Lock()
 	var evict *list.Entry[*entry[K, V]]
-	c.items[key], evict = c.queue.pushFront(ctx, en)
+	if c.queue.order.Size() >= int(c.queue.options.capacity) {
+		evict = c.queue.order.Back()
+	}
+	c.items[key] = c.queue.order.PushFront(en)
 	if evict != nil {
 		en := evict.Value
 		delete(c.items, en.key)
-		c.queue.remove(ctx, evict)
 	}
+	c.mu.Unlock()
+	func() {
+		defer c.queue.mu.Unlock()
+		if evict != nil {
+			c.queue.removeElem(ctx, evict)
+		}
+	}()
 }
 
 func zeroOf[T any]() (t T) { return }
@@ -176,14 +208,19 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 		return false
 	}
 	delete(c.items, key)
-	c.queue.remove(ctx, elem)
+	c.queue.mu.Lock()
+	ent := elem.Value
+	c.mu.Unlock()
+	c.queue.order.Remove(elem)
+	c.queue.mu.Unlock()
+	c.queue.onEvict(ctx, ent)
 	return true
 }
 
 func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) {
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if c.isShutdown {
+		c.mu.Unlock()
 		return
 	}
 	if isShutdown {
@@ -192,10 +229,15 @@ func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) {
 	for k := range c.items {
 		delete(c.items, k)
 	}
-	if isShutdown {
-		c.queue.shutdown(ctx) // Shutdown the queue
-	} else {
-		c.queue.reset(ctx) // Reset the queue
+	c.queue.mu.Lock()
+	c.mu.Unlock()
+	defer c.queue.mu.Unlock()
+	for {
+		elem := c.queue.order.Back()
+		if elem == nil {
+			break
+		}
+		c.queue.removeElem(ctx, elem)
 	}
 }
 

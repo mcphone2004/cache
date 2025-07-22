@@ -11,7 +11,12 @@ import (
 	lrutypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestNewCache(t *testing.T) {
 	_, err := newCache(0,

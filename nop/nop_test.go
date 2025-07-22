@@ -5,7 +5,12 @@ import (
 	"testing"
 
 	"github.com/mcphone2004/cache/nop"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 // TestNoopCacheExists simply ensures the methods compile and can be called.
 // No functional behavior is expected for this dummy implementation.

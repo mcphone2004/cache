@@ -9,7 +9,12 @@ import (
 	"github.com/mcphone2004/cache/lru"
 	lrutypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestNewCache(t *testing.T) {
 	ctx := context.Background()

@@ -12,14 +12,11 @@ import (
 type queue[K comparable, V any] struct {
 	mu        sync.Mutex
 	order     list.List[*entry[K, V]]
-	options   options[K, V]
 	onEvictCB func(context.Context, *entry[K, V])
 }
 
-func newQueue[K comparable, V any](options options[K, V],
-	onEvict func(ctx context.Context, en *entry[K, V])) *queue[K, V] {
+func newQueue[K comparable, V any](onEvict func(ctx context.Context, en *entry[K, V])) *queue[K, V] {
 	q := &queue[K, V]{
-		options:   options,
 		onEvictCB: onEvict,
 	}
 	q.order.Init()
@@ -36,6 +33,10 @@ func (q *queue[K, V]) onEvict(ctx context.Context, entry *entry[K, V]) {
 		}()
 		cb(ctx, entry)
 	}
+}
+
+func (q *queue[K, V]) Lock() {
+	q.mu.Lock()
 }
 
 func (q *queue[K, V]) removeElem(ctx context.Context, elem *list.Entry[*entry[K, V]]) {
@@ -58,5 +59,16 @@ func (q *queue[K, V]) moveToFrontUnlock(elem *list.Entry[*entry[K, V]]) {
 	e := q.order.MoveToFront(elem)
 	if e != nil {
 		panic(e)
+	}
+}
+
+func (q *queue[K, V]) resetUnlock(ctx context.Context) {
+	defer q.mu.Unlock()
+	for {
+		elem := q.order.Back()
+		if elem == nil {
+			break
+		}
+		q.removeElem(ctx, elem)
 	}
 }

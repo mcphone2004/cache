@@ -31,31 +31,31 @@ func new8ShardLRUCache() benchmark.PutGetter[int, string] {
 }
 
 func Benchmark8ShardLRUGet(b *testing.B) {
-	benchmark.Get[int, string](
+	benchmark.Get(
 		b,
 		new8ShardLRUCache,
 		benchmark.PreloadCount,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func Benchmark8ShardLRUPut(b *testing.B) {
-	benchmark.Put[int, string](
+	benchmark.Put(
 		b,
 		new8ShardLRUCache,
-		func(i int) int { return i },
-		func(i int) string { return fmt.Sprintf("val-%d", i) },
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func Benchmark8ShardLRUMixed(b *testing.B) {
-	benchmark.Mixed[int, string](
+	benchmark.Mixed(
 		b,
 		new8ShardLRUCache,
 		benchmark.KeyRange,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
@@ -78,31 +78,31 @@ func new8ShardLRU2Cache() benchmark.PutGetter[int, string] {
 }
 
 func Benchmark8ShardLRU2Get(b *testing.B) {
-	benchmark.Get[int, string](
+	benchmark.Get(
 		b,
 		new8ShardLRU2Cache,
 		benchmark.PreloadCount,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func Benchmark8ShardLRU2Put(b *testing.B) {
-	benchmark.Put[int, string](
+	benchmark.Put(
 		b,
 		new8ShardLRU2Cache,
-		func(i int) int { return i },
-		func(i int) string { return fmt.Sprintf("val-%d", i) },
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func Benchmark8ShardLRU2Mixed(b *testing.B) {
-	benchmark.Mixed[int, string](
+	benchmark.Mixed(
 		b,
 		new8ShardLRU2Cache,
 		benchmark.KeyRange,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 

@@ -57,7 +57,7 @@ func New[K comparable, V any](options ...func(o *Options)) (
 	for range o1.capacity {
 		c.entryPool.Put(&entry[K, V]{})
 	}
-	c.queue = newQueue(o1, c.onEvict)
+	c.queue = newQueue(c.onEvict)
 	return c, nil
 }
 
@@ -74,8 +74,8 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 		return zeroOf[V](), false
 	}
 
-	c.queue.mu.Lock()
 	val := elem.Value.value
+	c.queue.Lock()
 	c.mu.RUnlock()
 	c.queue.moveToFrontUnlock(elem)
 	return val, true
@@ -94,8 +94,8 @@ func (c *Cache[K, V]) GetMultiIter(_ context.Context, keys iter.Seq[K],
 
 		elem, ok := c.items[k]
 		if ok {
-			c.queue.mu.Lock()
 			v := elem.Value.value
+			c.queue.Lock()
 			c.mu.RUnlock()
 			c.queue.moveToFrontUnlock(elem)
 			if hitCB != nil {
@@ -115,7 +115,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	c.mu.Lock()
 	if elem, ok := c.items[key]; ok {
 		elem.Value.value = value
-		c.queue.mu.Lock()
+		c.queue.Lock()
 		c.mu.Unlock()
 		c.queue.moveToFrontUnlock(elem)
 		return
@@ -124,15 +124,15 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	en := c.entryPool.Get().(*entry[K, V])
 	en.key = key
 	en.value = value
-	c.queue.mu.Lock()
 	var evict *list.Entry[*entry[K, V]]
-	if c.queue.order.Size() >= int(c.queue.options.capacity) {
+	c.queue.Lock()
+	if c.queue.order.Size() >= int(c.opt.capacity) {
 		evict = c.queue.order.Back()
+		if evict != nil {
+			delete(c.items, evict.Value.key)
+		}
 	}
 	c.items[key] = c.queue.order.PushFront(en)
-	if evict != nil {
-		delete(c.items, evict.Value.key)
-	}
 	c.mu.Unlock()
 	if evict != nil {
 		c.queue.removeElemUnlock(ctx, evict)
@@ -190,7 +190,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 		return false
 	}
 	delete(c.items, key)
-	c.queue.mu.Lock()
+	c.queue.Lock()
 	c.mu.Unlock()
 	c.queue.removeElemUnlock(ctx, elem)
 	return true
@@ -208,16 +208,9 @@ func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) {
 	for k := range c.items {
 		delete(c.items, k)
 	}
-	c.queue.mu.Lock()
+	c.queue.Lock()
 	c.mu.Unlock()
-	defer c.queue.mu.Unlock()
-	for {
-		elem := c.queue.order.Back()
-		if elem == nil {
-			break
-		}
-		c.queue.removeElem(ctx, elem)
-	}
+	c.queue.resetUnlock(ctx)
 }
 
 // Shutdown cleans up the cache, releasing any resources it holds.

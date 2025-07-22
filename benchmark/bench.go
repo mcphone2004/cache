@@ -4,6 +4,7 @@ package benchmark
 import (
 	"context"
 	"runtime"
+	"strconv"
 	"testing"
 )
 
@@ -115,4 +116,23 @@ func Mixed[K comparable, V any](
 			i++
 		}
 	})
+}
+
+var valmap map[int]string
+
+func init() {
+	valmap = make(map[int]string)
+	for i := range KeyRange {
+		valmap[i] = strconv.Itoa(i % 10)
+	}
+}
+
+// GenKey generates key
+func GenKey(i int) int {
+	return i
+}
+
+// GenValue generates value
+func GenValue(i int) string {
+	return valmap[i]
 }

@@ -1,8 +1,6 @@
 package lru_test
 
 import (
-	"fmt"
-	"strconv"
 	"testing"
 
 	"github.com/mcphone2004/cache/benchmark"
@@ -15,27 +13,27 @@ func newCache() benchmark.PutGetter[int, string] {
 }
 
 func BenchmarkLRUGet(b *testing.B) {
-	benchmark.Get[int, string](b,
+	benchmark.Get(b,
 		newCache,
 		benchmark.PreloadCount,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func BenchmarkLRUPut(b *testing.B) {
-	benchmark.Put[int, string](b,
+	benchmark.Put(b,
 		newCache,
-		func(i int) int { return i },
-		func(i int) string { return fmt.Sprintf("val-%d", i) },
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func BenchmarkLRUMixed(b *testing.B) {
-	benchmark.Mixed[int, string](b,
+	benchmark.Mixed(b,
 		newCache,
 		benchmark.KeyRange,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }

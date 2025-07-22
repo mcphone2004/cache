@@ -68,21 +68,17 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
 		c.mu.RUnlock()
 		return zeroOf[V](), false
 	}
-	if elem, ok := c.items[key]; ok {
-		c.queue.mu.Lock()
-		val := elem.Value.value
+	elem, ok := c.items[key]
+	if !ok {
 		c.mu.RUnlock()
-		func() {
-			defer c.queue.mu.Unlock()
-			e := c.queue.order.MoveToFront(elem)
-			if e != nil {
-				panic(e)
-			}
-		}()
-		return val, true
+		return zeroOf[V](), false
 	}
+
+	c.queue.mu.Lock()
+	val := elem.Value.value
 	c.mu.RUnlock()
-	return zeroOf[V](), false
+	c.queue.moveToFrontUnlock(elem)
+	return val, true
 }
 
 // GetMultiIter retrieves multiple values from the cache using an iterator.
@@ -101,13 +97,7 @@ func (c *Cache[K, V]) GetMultiIter(_ context.Context, keys iter.Seq[K],
 			c.queue.mu.Lock()
 			v := elem.Value.value
 			c.mu.RUnlock()
-			func() {
-				defer c.queue.mu.Unlock()
-				e := c.queue.order.MoveToFront(elem)
-				if e != nil {
-					panic(e)
-				}
-			}()
+			c.queue.moveToFrontUnlock(elem)
 			if hitCB != nil {
 				hitCB(k, v)
 			}
@@ -127,13 +117,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 		elem.Value.value = value
 		c.queue.mu.Lock()
 		c.mu.Unlock()
-		func() {
-			defer c.queue.mu.Unlock()
-			e := c.queue.order.MoveToFront(elem)
-			if e != nil {
-				panic(e)
-			}
-		}()
+		c.queue.moveToFrontUnlock(elem)
 		return
 	}
 
@@ -147,16 +131,14 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	}
 	c.items[key] = c.queue.order.PushFront(en)
 	if evict != nil {
-		en := evict.Value
-		delete(c.items, en.key)
+		delete(c.items, evict.Value.key)
 	}
 	c.mu.Unlock()
-	func() {
-		defer c.queue.mu.Unlock()
-		if evict != nil {
-			c.queue.removeElem(ctx, evict)
-		}
-	}()
+	if evict != nil {
+		c.queue.removeElemUnlock(ctx, evict)
+	} else {
+		c.queue.mu.Unlock()
+	}
 }
 
 func zeroOf[T any]() (t T) { return }
@@ -209,11 +191,8 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
 	}
 	delete(c.items, key)
 	c.queue.mu.Lock()
-	ent := elem.Value
 	c.mu.Unlock()
-	c.queue.order.Remove(elem)
-	c.queue.mu.Unlock()
-	c.queue.onEvict(ctx, ent)
+	c.queue.removeElemUnlock(ctx, elem)
 	return true
 }
 

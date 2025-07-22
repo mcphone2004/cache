@@ -40,6 +40,23 @@ func (q *queue[K, V]) onEvict(ctx context.Context, entry *entry[K, V]) {
 
 func (q *queue[K, V]) removeElem(ctx context.Context, elem *list.Entry[*entry[K, V]]) {
 	ent := elem.Value
+	elem.Value = nil
 	q.order.Remove(elem)
 	q.onEvict(ctx, ent)
+}
+
+func (q *queue[K, V]) removeElemUnlock(ctx context.Context, elem *list.Entry[*entry[K, V]]) {
+	ent := elem.Value
+	elem.Value = nil
+	q.order.Remove(elem)
+	q.mu.Unlock()
+	q.onEvict(ctx, ent)
+}
+
+func (q *queue[K, V]) moveToFrontUnlock(elem *list.Entry[*entry[K, V]]) {
+	defer q.mu.Unlock()
+	e := q.order.MoveToFront(elem)
+	if e != nil {
+		panic(e)
+	}
 }

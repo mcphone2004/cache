@@ -159,8 +159,10 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	if c.isShutdown {
 		return
 	}
-	for k, v := range c.items {
-		if !fn(ctx, k, v.Value.value) {
+	c.queue.Lock()
+	defer c.queue.mu.Unlock()
+	for e := range c.queue.order.Seq() {
+		if !fn(ctx, e.Value.key, e.Value.value) {
 			break
 		}
 	}

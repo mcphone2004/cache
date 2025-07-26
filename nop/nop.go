@@ -54,3 +54,8 @@ func (Cache[K, V]) Traverse(_ context.Context, _ func(context.Context, K, V) boo
 func (Cache[K, V]) Size() int {
 	return 0
 }
+
+// Capacity returns the maximum number of items the cache can hold, which is always 0 for a nop cache.
+func (Cache[K, V]) Capacity() int {
+	return 0
+}

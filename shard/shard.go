@@ -142,12 +142,23 @@ func (c *Cache[K, V]) Shutdown(ctx context.Context) {
 }
 
 // Traverse iterates over all shards and applies the provided function to each key-value pair.
+// If the provided function returns false, the traversal stops immediately.
 func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) {
 	if c.isShutdown() {
 		return // No items in a shutdown cache
 	}
 	for _, shard := range c.shards {
-		shard.Traverse(ctx, fn)
+		stop := false
+		shard.Traverse(ctx, func(innerCtx context.Context, k K, v V) bool {
+			if !fn(innerCtx, k, v) {
+				stop = true
+				return false // stop this shard traversal
+			}
+			return true
+		})
+		if stop {
+			break
+		}
 	}
 }
 
@@ -161,4 +172,16 @@ func (c *Cache[K, V]) Size() int {
 		size += shard.Size()
 	}
 	return size
+}
+
+// Capacity returns the total maximum number of items across all shards.
+func (c *Cache[K, V]) Capacity() int {
+	if c.isShutdown() {
+		return 0 // No capacity in a shutdown cache
+	}
+	total := 0
+	for _, shard := range c.shards {
+		total += shard.Capacity()
+	}
+	return total
 }

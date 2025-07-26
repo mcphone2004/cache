@@ -150,6 +150,11 @@ func (c *Cache[K, V]) Size() int {
 	return len(c.items)
 }
 
+// Capacity returns the maximum number of items the cache can hold.
+func (c *Cache[K, V]) Capacity() int {
+	return int(c.opt.capacity)
+}
+
 // Traverse iterates over all items in the cache, calling the provided function
 // for each key-value pair. If the function returns false, the iteration stops.
 func (c *Cache[K, V]) Traverse(ctx context.Context,

@@ -38,6 +38,50 @@ func (_m *MockCache[K, V]) EXPECT() *MockCache_Expecter[K, V] {
 	return &MockCache_Expecter[K, V]{mock: &_m.Mock}
 }
 
+// Capacity provides a mock function for the type MockCache
+func (_mock *MockCache[K, V]) Capacity() int {
+	ret := _mock.Called()
+
+	if len(ret) == 0 {
+		panic("no return value specified for Capacity")
+	}
+
+	var r0 int
+	if returnFunc, ok := ret.Get(0).(func() int); ok {
+		r0 = returnFunc()
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+	return r0
+}
+
+// MockCache_Capacity_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Capacity'
+type MockCache_Capacity_Call[K comparable, V any] struct {
+	*mock.Call
+}
+
+// Capacity is a helper method to define mock.On call
+func (_e *MockCache_Expecter[K, V]) Capacity() *MockCache_Capacity_Call[K, V] {
+	return &MockCache_Capacity_Call[K, V]{Call: _e.mock.On("Capacity")}
+}
+
+func (_c *MockCache_Capacity_Call[K, V]) Run(run func()) *MockCache_Capacity_Call[K, V] {
+	_c.Call.Run(func(args mock.Arguments) {
+		run()
+	})
+	return _c
+}
+
+func (_c *MockCache_Capacity_Call[K, V]) Return(n int) *MockCache_Capacity_Call[K, V] {
+	_c.Call.Return(n)
+	return _c
+}
+
+func (_c *MockCache_Capacity_Call[K, V]) RunAndReturn(run func() int) *MockCache_Capacity_Call[K, V] {
+	_c.Call.Return(run)
+	return _c
+}
+
 // Delete provides a mock function for the type MockCache
 func (_mock *MockCache[K, V]) Delete(ctx context.Context, key K) bool {
 	ret := _mock.Called(ctx, key)

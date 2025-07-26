@@ -50,13 +50,17 @@ func Benchmark8ShardLRUPut(b *testing.B) {
 }
 
 func Benchmark8ShardLRUMixed(b *testing.B) {
-	benchmark.Mixed(
-		b,
-		new8ShardLRUCache,
-		benchmark.KeyRange,
-		benchmark.GenKey,
-		benchmark.GenValue,
-	)
+	for p := 10; p <= 90; p += 10 {
+		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
+			benchmark.Mixed(b,
+				new8ShardLRUCache,
+				benchmark.KeyRange,
+				benchmark.GenKey,
+				benchmark.GenValue,
+				p,
+			)
+		})
+	}
 }
 
 // new8ShardLRUCache creates a shard cache with 8 shards, each shard backed by an LRU cache.
@@ -97,13 +101,17 @@ func Benchmark8ShardLRU2Put(b *testing.B) {
 }
 
 func Benchmark8ShardLRU2Mixed(b *testing.B) {
-	benchmark.Mixed(
-		b,
-		new8ShardLRU2Cache,
-		benchmark.KeyRange,
-		benchmark.GenKey,
-		benchmark.GenValue,
-	)
+	for p := 10; p <= 90; p += 10 {
+		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
+			benchmark.Mixed(b,
+				new8ShardLRU2Cache,
+				benchmark.KeyRange,
+				benchmark.GenKey,
+				benchmark.GenValue,
+				p,
+			)
+		})
+	}
 }
 
 // newShardLRUCacheH creates a shard cache based on heuristic, each shard backed by an LRU cache.
@@ -142,13 +150,17 @@ func BenchmarkHeuristicShardLRUPut(b *testing.B) {
 }
 
 func BenchmarkHeuristicShardLRUMixed(b *testing.B) {
-	benchmark.Mixed[int, string](
-		b,
-		newShardLRUCacheH,
-		benchmark.KeyRange,
-		func(i int) int { return i },
-		strconv.Itoa,
-	)
+	for p := 10; p <= 90; p += 10 {
+		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
+			benchmark.Mixed(b,
+				newShardLRUCacheH,
+				benchmark.KeyRange,
+				benchmark.GenKey,
+				benchmark.GenValue,
+				p,
+			)
+		})
+	}
 }
 
 // newShardLRU2CacheH creates a shard cache based on heuristic, each shard backed by an LRU cache.
@@ -187,11 +199,15 @@ func BenchmarkHeuristicShardLRU2Put(b *testing.B) {
 }
 
 func BenchmarkHeuristicShardLRU2Mixed(b *testing.B) {
-	benchmark.Mixed[int, string](
-		b,
-		newShardLRU2CacheH,
-		benchmark.KeyRange,
-		func(i int) int { return i },
-		strconv.Itoa,
-	)
+	for p := 10; p <= 90; p += 10 {
+		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
+			benchmark.Mixed(b,
+				newShardLRU2CacheH,
+				benchmark.KeyRange,
+				benchmark.GenKey,
+				benchmark.GenValue,
+				p,
+			)
+		})
+	}
 }

@@ -29,7 +29,7 @@ test:
 
 # Run benchmarks
 bench:
-	go test -bench=. -benchtime=10s ./...
+	go test -bench=. -benchtime=30s ./...
 
 # Run only read-heavy benchmark
 bench-read:

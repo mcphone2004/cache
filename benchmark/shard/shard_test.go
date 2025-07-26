@@ -8,6 +8,7 @@ import (
 	"github.com/mcphone2004/cache/lru"
 	"github.com/mcphone2004/cache/lru2"
 	"github.com/mcphone2004/cache/shard"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 // new8ShardLRUCache creates a shard cache with 8 shards, each shard backed by an LRU cache.
@@ -22,7 +23,7 @@ func new8ShardLRUCache() benchmark.PutGetter[int, string] {
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
-			return lru.New[int, string](lru.WithCapacity(capacity))
+			return lru.New[int, string](cachetypes.WithCapacity(capacity))
 		}),
 	)
 	return s
@@ -68,7 +69,7 @@ func new8ShardLRU2Cache() benchmark.PutGetter[int, string] {
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
-			return lru2.New[int, string](lru2.WithCapacity(capacity))
+			return lru2.New[int, string](cachetypes.WithCapacity(capacity))
 		}),
 	)
 	return s
@@ -112,7 +113,7 @@ func newShardLRUCacheH() benchmark.PutGetter[int, string] {
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
-			return lru.New[int, string](lru.WithCapacity(capacity))
+			return lru.New[int, string](cachetypes.WithCapacity(capacity))
 		}),
 	)
 	return s
@@ -156,7 +157,7 @@ func newShardLRU2CacheH() benchmark.PutGetter[int, string] {
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
-			return lru2.New[int, string](lru2.WithCapacity(capacity))
+			return lru2.New[int, string](cachetypes.WithCapacity(capacity))
 		}),
 	)
 	return s

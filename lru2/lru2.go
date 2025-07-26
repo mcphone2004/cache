@@ -7,7 +7,9 @@ import (
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
+	"github.com/mcphone2004/cache/internal"
 	"github.com/mcphone2004/cache/list"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 // Cache is a thread-safe LRU cache.
@@ -16,7 +18,7 @@ type Cache[K comparable, V any] struct {
 	mu         sync.RWMutex
 	isShutdown bool
 	items      map[K]*list.Entry[*entry[K, V]]
-	opt        options[K, V]
+	opt        internal.Options[K, V]
 
 	// LRU queue to maintain the order of items.
 	queue *queue[K, V]
@@ -32,14 +34,14 @@ type entry[K comparable, V any] struct {
 }
 
 // New creates a new LRU cache with the given capacity.
-func New[K comparable, V any](options ...func(o *Options)) (
+func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 	*Cache[K, V], error) {
-	var o Options
+	var o cachetypes.Options
 	for _, cb := range options {
 		cb(&o)
 	}
 
-	o1, err := toOptions[K, V](o)
+	o1, err := internal.ToOptions[K, V](o)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +56,7 @@ func New[K comparable, V any](options ...func(o *Options)) (
 		},
 	}
 	// pre-populate the pool
-	for range o1.capacity {
+	for range o1.Capacity {
 		c.entryPool.Put(&entry[K, V]{})
 	}
 	c.queue = newQueue(c.onEvict)
@@ -126,7 +128,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 	en.value = value
 	var evict *list.Entry[*entry[K, V]]
 	c.queue.Lock()
-	if c.queue.order.Size() >= int(c.opt.capacity) {
+	if c.queue.order.Size() >= int(c.opt.Capacity) {
 		evict = c.queue.order.Back()
 		if evict != nil {
 			delete(c.items, evict.Value.key)
@@ -152,7 +154,7 @@ func (c *Cache[K, V]) Size() int {
 
 // Capacity returns the maximum number of items the cache can hold.
 func (c *Cache[K, V]) Capacity() int {
-	return int(c.opt.capacity)
+	return int(c.opt.Capacity)
 }
 
 // Traverse iterates over all items in the cache, calling the provided function
@@ -174,7 +176,7 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 }
 
 func (c *Cache[K, V]) onEvict(ctx context.Context, en *entry[K, V]) {
-	if cb := c.opt.onEvict; cb != nil {
+	if cb := c.opt.OnEvict; cb != nil {
 		cb(ctx, en.key, en.value)
 	}
 

@@ -8,7 +8,7 @@ import (
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/internaltest"
 	"github.com/mcphone2004/cache/lru2"
-	lrutypes "github.com/mcphone2004/cache/types"
+	cachetypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
@@ -19,7 +19,7 @@ func TestMain(m *testing.M) {
 
 func TestNewCache(t *testing.T) {
 	ctx := context.Background()
-	cache, err := lru2.New[int, string](lru2.WithCapacity(2))
+	cache, err := lru2.New[int, string](cachetypes.WithCapacity(2))
 	require.Nil(t, err)
 	require.NotNil(t, cache)
 	cache.Shutdown(ctx)
@@ -27,7 +27,7 @@ func TestNewCache(t *testing.T) {
 	cache, err = lru2.New[int, string]()
 	require.Nil(t, cache)
 	require.NotNil(t, err)
-	var aerr *lrutypes.ErrorInvalidOptions
+	var aerr *cachetypes.ErrorInvalidOptions
 	b := errors.As(err, &aerr)
 	require.True(t, b)
 	require.Equal(t, "capacity must be positive", aerr.Error())
@@ -35,8 +35,8 @@ func TestNewCache(t *testing.T) {
 
 func newCache[K comparable, T any](capacity uint, evictionCB func(context.Context, K, T)) (iface.Cache[K, T], error) {
 	return lru2.New[K, T](
-		lru2.WithCapacity(capacity),
-		lru2.WithEvictionCB(evictionCB),
+		cachetypes.WithCapacity(capacity),
+		cachetypes.WithEvictionCB(evictionCB),
 	)
 }
 

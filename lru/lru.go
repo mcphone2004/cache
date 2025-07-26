@@ -7,7 +7,9 @@ import (
 	"sync"
 
 	"github.com/mcphone2004/cache/iface"
+	"github.com/mcphone2004/cache/internal"
 	"github.com/mcphone2004/cache/list"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 // Cache is a thread-safe LRU cache.
@@ -15,7 +17,7 @@ type Cache[K comparable, V any] struct {
 	entryPool  *sync.Pool
 	mu         sync.Mutex
 	isShutdown bool
-	options    options[K, V]
+	options    internal.Options[K, V]
 	items      map[K]*list.Entry[*entry[K, V]]
 	order      list.List[*entry[K, V]]
 }
@@ -30,14 +32,14 @@ type entry[K comparable, V any] struct {
 }
 
 // New creates a new LRU cache with the given capacity.
-func New[K comparable, V any](options ...func(o *Options)) (
+func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 	*Cache[K, V], error) {
-	var o Options
+	var o cachetypes.Options
 	for _, cb := range options {
 		cb(&o)
 	}
 
-	o1, err := toOptions[K, V](o)
+	o1, err := internal.ToOptions[K, V](o)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +54,7 @@ func New[K comparable, V any](options ...func(o *Options)) (
 		},
 	}
 	// pre-populate the pool
-	for range o1.capacity {
+	for range o1.Capacity {
 		c.entryPool.Put(&entry[K, V]{})
 	}
 	c.order.Init()
@@ -117,8 +119,8 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
 
 // onEvict calls the eviction callback if it is set.
 func (c *Cache[K, V]) onEvict(ctx context.Context, en *entry[K, V]) {
-	if c.options.onEvict != nil {
-		c.options.onEvict(ctx, en.key, en.value)
+	if c.options.OnEvict != nil {
+		c.options.OnEvict(ctx, en.key, en.value)
 	}
 }
 
@@ -144,7 +146,7 @@ func (c *Cache[K, V]) put(key K, value V) *entry[K, V] {
 		return nil
 	}
 	var en *entry[K, V]
-	if c.order.Size() == int(c.options.capacity) {
+	if c.order.Size() == int(c.options.Capacity) {
 		en = c.evict()
 	}
 	if en == nil {
@@ -205,7 +207,7 @@ func (c *Cache[K, V]) Size() int {
 // Capacity returns the maximum number of items the cache can hold.
 func (c *Cache[K, V]) Capacity() int {
 	// capacity is stored as an unsigned integer, so convert to int
-	return int(c.options.capacity)
+	return int(c.options.Capacity)
 }
 
 // Traverse iterates over all items in the cache, calling the provided function

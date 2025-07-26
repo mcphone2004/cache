@@ -5,10 +5,11 @@ import (
 
 	"github.com/mcphone2004/cache/benchmark"
 	"github.com/mcphone2004/cache/lru2"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 func newCache() benchmark.PutGetter[int, string] {
-	c, _ := lru2.New[int, string](lru2.WithCapacity(benchmark.CacheCapacity))
+	c, _ := lru2.New[int, string](cachetypes.WithCapacity(benchmark.CacheCapacity))
 	return c
 }
 

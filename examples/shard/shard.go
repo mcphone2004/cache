@@ -8,6 +8,7 @@ import (
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/lru"
 	"github.com/mcphone2004/cache/shard"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 		}),
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
 			// each shard is its own LRU cache
-			return lru.New[int, string](lru.WithCapacity(capacity))
+			return lru.New[int, string](cachetypes.WithCapacity(capacity))
 		}),
 	)
 	if err != nil {

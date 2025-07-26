@@ -10,6 +10,7 @@ import (
 	"github.com/mcphone2004/cache/internaltest"
 	"github.com/mcphone2004/cache/lru"
 	"github.com/mcphone2004/cache/shard"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 func newCache[K comparable, T any](capacity uint, evictionCB func(context.Context, K, T)) (iface.Cache[K, T], error) {
@@ -34,8 +35,8 @@ func newCache[K comparable, T any](capacity uint, evictionCB func(context.Contex
 			iface.Cache[K, T], error) {
 			// each shard is its own LRU cache
 			return lru.New[K, T](
-				lru.WithCapacity(capacity),
-				lru.WithEvictionCB(evictionCB))
+				cachetypes.WithCapacity(capacity),
+				cachetypes.WithEvictionCB(evictionCB))
 		}),
 	)
 }

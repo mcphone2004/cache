@@ -8,13 +8,14 @@ import (
 	"time"
 
 	"github.com/mcphone2004/cache/lru"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 func main() {
 	ctx := context.Background()
 
 	// Create a new LRU cache with a capacity of 3
-	cache, err := lru.New[string, string](lru.WithCapacity(3))
+	cache, err := lru.New[string, string](cachetypes.WithCapacity(3))
 	if err != nil {
 		log.Fatalf("failed to create cache: %v", err)
 	}

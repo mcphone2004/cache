@@ -3,6 +3,7 @@ package benchmark
 
 import (
 	"context"
+	"fmt"
 	"math/rand"
 	"runtime"
 	"strconv"
@@ -98,6 +99,24 @@ func Get[K comparable, V any](
 
 // Mixed runs a reusable benchmark for mixed Put/Get operations with a configurable percentage of Put operations.
 func Mixed[K comparable, V any](
+	b *testing.B,
+	newCache func() PutGetter[K, V],
+	keyRange int,
+	genKey func(int) K,
+	genVal func(int) V,
+) {
+	putPercents := []int{
+		50,
+	}
+
+	for _, p := range putPercents {
+		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
+			mixed(b, newCache, keyRange, genKey, genVal, p)
+		})
+	}
+}
+
+func mixed[K comparable, V any](
 	b *testing.B,
 	newCache func() PutGetter[K, V],
 	keyRange int,

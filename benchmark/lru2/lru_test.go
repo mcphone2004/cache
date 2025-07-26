@@ -1,7 +1,6 @@
 package lru2_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/mcphone2004/cache/benchmark"
@@ -31,15 +30,10 @@ func BenchmarkLRU2Put(b *testing.B) {
 }
 
 func BenchmarkLRU2Mixed(b *testing.B) {
-	for p := 10; p <= 90; p += 10 {
-		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
-			benchmark.Mixed(b,
-				newCache,
-				benchmark.KeyRange,
-				benchmark.GenKey,
-				benchmark.GenValue,
-				p,
-			)
-		})
-	}
+	benchmark.Mixed(b,
+		newCache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenValue,
+	)
 }

@@ -1,8 +1,6 @@
 package shard_test
 
 import (
-	"fmt"
-	"strconv"
 	"testing"
 
 	"github.com/mcphone2004/cache/benchmark"
@@ -50,17 +48,12 @@ func Benchmark8ShardLRUPut(b *testing.B) {
 }
 
 func Benchmark8ShardLRUMixed(b *testing.B) {
-	for p := 10; p <= 90; p += 10 {
-		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
-			benchmark.Mixed(b,
-				new8ShardLRUCache,
-				benchmark.KeyRange,
-				benchmark.GenKey,
-				benchmark.GenValue,
-				p,
-			)
-		})
-	}
+	benchmark.Mixed(b,
+		new8ShardLRUCache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenValue,
+	)
 }
 
 // new8ShardLRUCache creates a shard cache with 8 shards, each shard backed by an LRU cache.
@@ -101,17 +94,12 @@ func Benchmark8ShardLRU2Put(b *testing.B) {
 }
 
 func Benchmark8ShardLRU2Mixed(b *testing.B) {
-	for p := 10; p <= 90; p += 10 {
-		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
-			benchmark.Mixed(b,
-				new8ShardLRU2Cache,
-				benchmark.KeyRange,
-				benchmark.GenKey,
-				benchmark.GenValue,
-				p,
-			)
-		})
-	}
+	benchmark.Mixed(b,
+		new8ShardLRU2Cache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenValue,
+	)
 }
 
 // newShardLRUCacheH creates a shard cache based on heuristic, each shard backed by an LRU cache.
@@ -135,8 +123,8 @@ func BenchmarkHeuristicShardLRUGet(b *testing.B) {
 		b,
 		newShardLRUCacheH,
 		benchmark.PreloadCount,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
@@ -144,23 +132,18 @@ func BenchmarkHeuristicShardLRUPut(b *testing.B) {
 	benchmark.Put[int, string](
 		b,
 		newShardLRUCacheH,
-		func(i int) int { return i },
-		func(i int) string { return fmt.Sprintf("val-%d", i) },
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func BenchmarkHeuristicShardLRUMixed(b *testing.B) {
-	for p := 10; p <= 90; p += 10 {
-		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
-			benchmark.Mixed(b,
-				newShardLRUCacheH,
-				benchmark.KeyRange,
-				benchmark.GenKey,
-				benchmark.GenValue,
-				p,
-			)
-		})
-	}
+	benchmark.Mixed(b,
+		newShardLRUCacheH,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenValue,
+	)
 }
 
 // newShardLRU2CacheH creates a shard cache based on heuristic, each shard backed by an LRU cache.
@@ -184,8 +167,8 @@ func BenchmarkHeuristicShardLRU2Get(b *testing.B) {
 		b,
 		newShardLRU2CacheH,
 		benchmark.PreloadCount,
-		func(i int) int { return i },
-		strconv.Itoa,
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
@@ -193,21 +176,16 @@ func BenchmarkHeuristicShardLRU2Put(b *testing.B) {
 	benchmark.Put[int, string](
 		b,
 		newShardLRU2CacheH,
-		func(i int) int { return i },
-		func(i int) string { return fmt.Sprintf("val-%d", i) },
+		benchmark.GenKey,
+		benchmark.GenValue,
 	)
 }
 
 func BenchmarkHeuristicShardLRU2Mixed(b *testing.B) {
-	for p := 10; p <= 90; p += 10 {
-		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
-			benchmark.Mixed(b,
-				newShardLRU2CacheH,
-				benchmark.KeyRange,
-				benchmark.GenKey,
-				benchmark.GenValue,
-				p,
-			)
-		})
-	}
+	benchmark.Mixed(b,
+		newShardLRU2CacheH,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenValue,
+	)
 }

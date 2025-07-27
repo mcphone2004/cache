@@ -3,11 +3,10 @@ package shard
 
 import (
 	"context"
-	"iter"
 
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/nop"
-	lrutypes "github.com/mcphone2004/cache/types"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 // Cache represents a sharded cache that distributes keys across multiple shards.
@@ -40,15 +39,15 @@ func newCache[K comparable, V any](maxShards uint, shardsFn func(K) uint,
 
 	switch {
 	case maxShards == 0:
-		return nil, &lrutypes.ErrorInvalidOptions{
+		return nil, &cachetypes.ErrorInvalidOptions{
 			Message: "maxShards must be positive",
 		}
 	case shardsFn == nil:
-		return nil, &lrutypes.ErrorInvalidOptions{
+		return nil, &cachetypes.ErrorInvalidOptions{
 			Message: "shardsFn cannot be nil",
 		}
 	case cacherMaker == nil:
-		return nil, &lrutypes.ErrorInvalidOptions{
+		return nil, &cachetypes.ErrorInvalidOptions{
 			Message: "cacherMaker cannot be nil",
 		}
 	}
@@ -80,49 +79,31 @@ func (c *Cache[K, V]) keyToShardIndex(key K) uint {
 }
 
 // Get retrieves a value from the appropriate shard based on the key.
-func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool) {
+func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool, error) {
 	return c.shards[c.keyToShardIndex(key)].Get(ctx, key)
 }
 
-// GetMultiIter retrieves multiple values from the cache using an iterator.
-func (c *Cache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K],
-	hitCB func(K, V), missCB func(K)) {
-	if c.isShutdown() {
-		return // No items in a shutdown cache
-	}
-
-	for key := range keys {
-		v, found := c.shards[c.keyToShardIndex(key)].Get(ctx, key)
-		if found {
-			if hitCB != nil {
-				hitCB(key, v)
-			}
-		} else {
-			if missCB != nil {
-				missCB(key)
-			}
-		}
-	}
-}
-
 // Put stores a value in the appropriate shard based on the key.
-func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
-	c.shards[c.keyToShardIndex(key)].Put(ctx, key, value)
+func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
+	return c.shards[c.keyToShardIndex(key)].Put(ctx, key, value)
 }
 
 // Delete removes a value from the appropriate shard based on the key.
-func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
+func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	return c.shards[c.keyToShardIndex(key)].Delete(ctx, key)
 }
 
 // Reset clears all shards in the cache.
-func (c *Cache[K, V]) Reset(ctx context.Context) {
+func (c *Cache[K, V]) Reset(ctx context.Context) error {
 	if c.isShutdown() {
-		return // No items in a shutdown cache
+		return &cachetypes.ErrorShutdown{}
 	}
 	for _, shard := range c.shards {
-		shard.Reset(ctx)
+		if err := shard.Reset(ctx); err != nil {
+			return err
+		}
 	}
+	return nil
 }
 
 func (c *Cache[K, V]) isShutdown() bool {
@@ -143,45 +124,57 @@ func (c *Cache[K, V]) Shutdown(ctx context.Context) {
 
 // Traverse iterates over all shards and applies the provided function to each key-value pair.
 // If the provided function returns false, the traversal stops immediately.
-func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) {
+func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) error {
 	if c.isShutdown() {
-		return // No items in a shutdown cache
+		return &cachetypes.ErrorShutdown{}
 	}
 	for _, shard := range c.shards {
 		stop := false
-		shard.Traverse(ctx, func(innerCtx context.Context, k K, v V) bool {
+		err := shard.Traverse(ctx, func(innerCtx context.Context, k K, v V) bool {
 			if !fn(innerCtx, k, v) {
 				stop = true
 				return false // stop this shard traversal
 			}
 			return true
 		})
+		if err != nil {
+			return err
+		}
 		if stop {
 			break
 		}
 	}
+	return nil
 }
 
 // Size returns the total number of items across all shards.
-func (c *Cache[K, V]) Size() int {
+func (c *Cache[K, V]) Size() (int, error) {
 	if c.isShutdown() {
-		return 0 // No items in a shutdown cache
+		return 0, &cachetypes.ErrorShutdown{}
 	}
 	size := 0
 	for _, shard := range c.shards {
-		size += shard.Size()
+		s, err := shard.Size()
+		if err != nil {
+			return 0, err
+		}
+		size += s
 	}
-	return size
+	return size, nil
 }
 
 // Capacity returns the total maximum number of items across all shards.
-func (c *Cache[K, V]) Capacity() int {
+func (c *Cache[K, V]) Capacity() (int, error) {
 	if c.isShutdown() {
-		return 0 // No capacity in a shutdown cache
+		return 0, &cachetypes.ErrorShutdown{}
 	}
 	total := 0
 	for _, shard := range c.shards {
-		total += shard.Capacity()
+		s, err := shard.Capacity()
+		if err != nil {
+			return 0, err
+		}
+		total += s
 	}
-	return total
+	return total, nil
 }

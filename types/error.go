@@ -11,5 +11,17 @@ func (e *ErrorInvalidOptions) Error() string {
 	return e.Message
 }
 
+// ErrorShutdown represents that cache already shutdown
+type ErrorShutdown struct {
+	Message string
+}
+
+func (e *ErrorShutdown) Error() string {
+	if e.Message == "" {
+		return "The cache has been shutdown"
+	}
+	return e.Message
+}
+
 // Ensure ErrorInvalidOptions implements the error interface.
 var _ error = (*ErrorInvalidOptions)(nil)

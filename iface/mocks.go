@@ -6,7 +6,6 @@ package iface
 
 import (
 	"context"
-	"iter"
 
 	mock "github.com/stretchr/testify/mock"
 )
@@ -39,7 +38,7 @@ func (_m *MockCache[K, V]) EXPECT() *MockCache_Expecter[K, V] {
 }
 
 // Capacity provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Capacity() int {
+func (_mock *MockCache[K, V]) Capacity() (int, error) {
 	ret := _mock.Called()
 
 	if len(ret) == 0 {
@@ -47,12 +46,21 @@ func (_mock *MockCache[K, V]) Capacity() int {
 	}
 
 	var r0 int
+	var r1 error
+	if returnFunc, ok := ret.Get(0).(func() (int, error)); ok {
+		return returnFunc()
+	}
 	if returnFunc, ok := ret.Get(0).(func() int); ok {
 		r0 = returnFunc()
 	} else {
 		r0 = ret.Get(0).(int)
 	}
-	return r0
+	if returnFunc, ok := ret.Get(1).(func() error); ok {
+		r1 = returnFunc()
+	} else {
+		r1 = ret.Error(1)
+	}
+	return r0, r1
 }
 
 // MockCache_Capacity_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Capacity'
@@ -72,18 +80,18 @@ func (_c *MockCache_Capacity_Call[K, V]) Run(run func()) *MockCache_Capacity_Cal
 	return _c
 }
 
-func (_c *MockCache_Capacity_Call[K, V]) Return(n int) *MockCache_Capacity_Call[K, V] {
-	_c.Call.Return(n)
+func (_c *MockCache_Capacity_Call[K, V]) Return(n int, err error) *MockCache_Capacity_Call[K, V] {
+	_c.Call.Return(n, err)
 	return _c
 }
 
-func (_c *MockCache_Capacity_Call[K, V]) RunAndReturn(run func() int) *MockCache_Capacity_Call[K, V] {
+func (_c *MockCache_Capacity_Call[K, V]) RunAndReturn(run func() (int, error)) *MockCache_Capacity_Call[K, V] {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Delete provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Delete(ctx context.Context, key K) bool {
+func (_mock *MockCache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	ret := _mock.Called(ctx, key)
 
 	if len(ret) == 0 {
@@ -91,12 +99,21 @@ func (_mock *MockCache[K, V]) Delete(ctx context.Context, key K) bool {
 	}
 
 	var r0 bool
+	var r1 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context, K) (bool, error)); ok {
+		return returnFunc(ctx, key)
+	}
 	if returnFunc, ok := ret.Get(0).(func(context.Context, K) bool); ok {
 		r0 = returnFunc(ctx, key)
 	} else {
 		r0 = ret.Get(0).(bool)
 	}
-	return r0
+	if returnFunc, ok := ret.Get(1).(func(context.Context, K) error); ok {
+		r1 = returnFunc(ctx, key)
+	} else {
+		r1 = ret.Error(1)
+	}
+	return r0, r1
 }
 
 // MockCache_Delete_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Delete'
@@ -129,18 +146,18 @@ func (_c *MockCache_Delete_Call[K, V]) Run(run func(ctx context.Context, key K))
 	return _c
 }
 
-func (_c *MockCache_Delete_Call[K, V]) Return(b bool) *MockCache_Delete_Call[K, V] {
-	_c.Call.Return(b)
+func (_c *MockCache_Delete_Call[K, V]) Return(b bool, err error) *MockCache_Delete_Call[K, V] {
+	_c.Call.Return(b, err)
 	return _c
 }
 
-func (_c *MockCache_Delete_Call[K, V]) RunAndReturn(run func(ctx context.Context, key K) bool) *MockCache_Delete_Call[K, V] {
+func (_c *MockCache_Delete_Call[K, V]) RunAndReturn(run func(ctx context.Context, key K) (bool, error)) *MockCache_Delete_Call[K, V] {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Get provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Get(ctx context.Context, key K) (V, bool) {
+func (_mock *MockCache[K, V]) Get(ctx context.Context, key K) (V, bool, error) {
 	ret := _mock.Called(ctx, key)
 
 	if len(ret) == 0 {
@@ -149,7 +166,8 @@ func (_mock *MockCache[K, V]) Get(ctx context.Context, key K) (V, bool) {
 
 	var r0 V
 	var r1 bool
-	if returnFunc, ok := ret.Get(0).(func(context.Context, K) (V, bool)); ok {
+	var r2 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context, K) (V, bool, error)); ok {
 		return returnFunc(ctx, key)
 	}
 	if returnFunc, ok := ret.Get(0).(func(context.Context, K) V); ok {
@@ -164,7 +182,12 @@ func (_mock *MockCache[K, V]) Get(ctx context.Context, key K) (V, bool) {
 	} else {
 		r1 = ret.Get(1).(bool)
 	}
-	return r0, r1
+	if returnFunc, ok := ret.Get(2).(func(context.Context, K) error); ok {
+		r2 = returnFunc(ctx, key)
+	} else {
+		r2 = ret.Error(2)
+	}
+	return r0, r1, r2
 }
 
 // MockCache_Get_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Get'
@@ -197,78 +220,31 @@ func (_c *MockCache_Get_Call[K, V]) Run(run func(ctx context.Context, key K)) *M
 	return _c
 }
 
-func (_c *MockCache_Get_Call[K, V]) Return(v V, b bool) *MockCache_Get_Call[K, V] {
-	_c.Call.Return(v, b)
+func (_c *MockCache_Get_Call[K, V]) Return(v V, b bool, err error) *MockCache_Get_Call[K, V] {
+	_c.Call.Return(v, b, err)
 	return _c
 }
 
-func (_c *MockCache_Get_Call[K, V]) RunAndReturn(run func(ctx context.Context, key K) (V, bool)) *MockCache_Get_Call[K, V] {
+func (_c *MockCache_Get_Call[K, V]) RunAndReturn(run func(ctx context.Context, key K) (V, bool, error)) *MockCache_Get_Call[K, V] {
 	_c.Call.Return(run)
 	return _c
 }
 
-// GetMultiIter provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) GetMultiIter(ctx context.Context, keys iter.Seq[K], hitCB func(K, V), missCB func(K)) {
-	_mock.Called(ctx, keys, hitCB, missCB)
-	return
-}
-
-// MockCache_GetMultiIter_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetMultiIter'
-type MockCache_GetMultiIter_Call[K comparable, V any] struct {
-	*mock.Call
-}
-
-// GetMultiIter is a helper method to define mock.On call
-//   - ctx context.Context
-//   - keys iter.Seq[K]
-//   - hitCB func(K, V)
-//   - missCB func(K)
-func (_e *MockCache_Expecter[K, V]) GetMultiIter(ctx interface{}, keys interface{}, hitCB interface{}, missCB interface{}) *MockCache_GetMultiIter_Call[K, V] {
-	return &MockCache_GetMultiIter_Call[K, V]{Call: _e.mock.On("GetMultiIter", ctx, keys, hitCB, missCB)}
-}
-
-func (_c *MockCache_GetMultiIter_Call[K, V]) Run(run func(ctx context.Context, keys iter.Seq[K], hitCB func(K, V), missCB func(K))) *MockCache_GetMultiIter_Call[K, V] {
-	_c.Call.Run(func(args mock.Arguments) {
-		var arg0 context.Context
-		if args[0] != nil {
-			arg0 = args[0].(context.Context)
-		}
-		var arg1 iter.Seq[K]
-		if args[1] != nil {
-			arg1 = args[1].(iter.Seq[K])
-		}
-		var arg2 func(K, V)
-		if args[2] != nil {
-			arg2 = args[2].(func(K, V))
-		}
-		var arg3 func(K)
-		if args[3] != nil {
-			arg3 = args[3].(func(K))
-		}
-		run(
-			arg0,
-			arg1,
-			arg2,
-			arg3,
-		)
-	})
-	return _c
-}
-
-func (_c *MockCache_GetMultiIter_Call[K, V]) Return() *MockCache_GetMultiIter_Call[K, V] {
-	_c.Call.Return()
-	return _c
-}
-
-func (_c *MockCache_GetMultiIter_Call[K, V]) RunAndReturn(run func(ctx context.Context, keys iter.Seq[K], hitCB func(K, V), missCB func(K))) *MockCache_GetMultiIter_Call[K, V] {
-	_c.Run(run)
-	return _c
-}
-
 // Put provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Put(ctx context.Context, key K, value V) {
-	_mock.Called(ctx, key, value)
-	return
+func (_mock *MockCache[K, V]) Put(ctx context.Context, key K, value V) error {
+	ret := _mock.Called(ctx, key, value)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Put")
+	}
+
+	var r0 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context, K, V) error); ok {
+		r0 = returnFunc(ctx, key, value)
+	} else {
+		r0 = ret.Error(0)
+	}
+	return r0
 }
 
 // MockCache_Put_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Put'
@@ -307,20 +283,31 @@ func (_c *MockCache_Put_Call[K, V]) Run(run func(ctx context.Context, key K, val
 	return _c
 }
 
-func (_c *MockCache_Put_Call[K, V]) Return() *MockCache_Put_Call[K, V] {
-	_c.Call.Return()
+func (_c *MockCache_Put_Call[K, V]) Return(err error) *MockCache_Put_Call[K, V] {
+	_c.Call.Return(err)
 	return _c
 }
 
-func (_c *MockCache_Put_Call[K, V]) RunAndReturn(run func(ctx context.Context, key K, value V)) *MockCache_Put_Call[K, V] {
-	_c.Run(run)
+func (_c *MockCache_Put_Call[K, V]) RunAndReturn(run func(ctx context.Context, key K, value V) error) *MockCache_Put_Call[K, V] {
+	_c.Call.Return(run)
 	return _c
 }
 
 // Reset provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Reset(ctx context.Context) {
-	_mock.Called(ctx)
-	return
+func (_mock *MockCache[K, V]) Reset(ctx context.Context) error {
+	ret := _mock.Called(ctx)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Reset")
+	}
+
+	var r0 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context) error); ok {
+		r0 = returnFunc(ctx)
+	} else {
+		r0 = ret.Error(0)
+	}
+	return r0
 }
 
 // MockCache_Reset_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Reset'
@@ -347,13 +334,13 @@ func (_c *MockCache_Reset_Call[K, V]) Run(run func(ctx context.Context)) *MockCa
 	return _c
 }
 
-func (_c *MockCache_Reset_Call[K, V]) Return() *MockCache_Reset_Call[K, V] {
-	_c.Call.Return()
+func (_c *MockCache_Reset_Call[K, V]) Return(err error) *MockCache_Reset_Call[K, V] {
+	_c.Call.Return(err)
 	return _c
 }
 
-func (_c *MockCache_Reset_Call[K, V]) RunAndReturn(run func(ctx context.Context)) *MockCache_Reset_Call[K, V] {
-	_c.Run(run)
+func (_c *MockCache_Reset_Call[K, V]) RunAndReturn(run func(ctx context.Context) error) *MockCache_Reset_Call[K, V] {
+	_c.Call.Return(run)
 	return _c
 }
 
@@ -398,7 +385,7 @@ func (_c *MockCache_Shutdown_Call[K, V]) RunAndReturn(run func(ctx context.Conte
 }
 
 // Size provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Size() int {
+func (_mock *MockCache[K, V]) Size() (int, error) {
 	ret := _mock.Called()
 
 	if len(ret) == 0 {
@@ -406,12 +393,21 @@ func (_mock *MockCache[K, V]) Size() int {
 	}
 
 	var r0 int
+	var r1 error
+	if returnFunc, ok := ret.Get(0).(func() (int, error)); ok {
+		return returnFunc()
+	}
 	if returnFunc, ok := ret.Get(0).(func() int); ok {
 		r0 = returnFunc()
 	} else {
 		r0 = ret.Get(0).(int)
 	}
-	return r0
+	if returnFunc, ok := ret.Get(1).(func() error); ok {
+		r1 = returnFunc()
+	} else {
+		r1 = ret.Error(1)
+	}
+	return r0, r1
 }
 
 // MockCache_Size_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Size'
@@ -431,20 +427,31 @@ func (_c *MockCache_Size_Call[K, V]) Run(run func()) *MockCache_Size_Call[K, V] 
 	return _c
 }
 
-func (_c *MockCache_Size_Call[K, V]) Return(n int) *MockCache_Size_Call[K, V] {
-	_c.Call.Return(n)
+func (_c *MockCache_Size_Call[K, V]) Return(n int, err error) *MockCache_Size_Call[K, V] {
+	_c.Call.Return(n, err)
 	return _c
 }
 
-func (_c *MockCache_Size_Call[K, V]) RunAndReturn(run func() int) *MockCache_Size_Call[K, V] {
+func (_c *MockCache_Size_Call[K, V]) RunAndReturn(run func() (int, error)) *MockCache_Size_Call[K, V] {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Traverse provides a mock function for the type MockCache
-func (_mock *MockCache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) {
-	_mock.Called(ctx, fn)
-	return
+func (_mock *MockCache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) error {
+	ret := _mock.Called(ctx, fn)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Traverse")
+	}
+
+	var r0 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context, func(context.Context, K, V) bool) error); ok {
+		r0 = returnFunc(ctx, fn)
+	} else {
+		r0 = ret.Error(0)
+	}
+	return r0
 }
 
 // MockCache_Traverse_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Traverse'
@@ -477,12 +484,12 @@ func (_c *MockCache_Traverse_Call[K, V]) Run(run func(ctx context.Context, fn fu
 	return _c
 }
 
-func (_c *MockCache_Traverse_Call[K, V]) Return() *MockCache_Traverse_Call[K, V] {
-	_c.Call.Return()
+func (_c *MockCache_Traverse_Call[K, V]) Return(err error) *MockCache_Traverse_Call[K, V] {
+	_c.Call.Return(err)
 	return _c
 }
 
-func (_c *MockCache_Traverse_Call[K, V]) RunAndReturn(run func(ctx context.Context, fn func(context.Context, K, V) bool)) *MockCache_Traverse_Call[K, V] {
-	_c.Run(run)
+func (_c *MockCache_Traverse_Call[K, V]) RunAndReturn(run func(ctx context.Context, fn func(context.Context, K, V) bool) error) *MockCache_Traverse_Call[K, V] {
+	_c.Call.Return(run)
 	return _c
 }

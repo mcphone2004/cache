@@ -34,12 +34,12 @@ func main() {
 
 	// put some values
 	for i := 0; i < 10; i++ {
-		s.Put(ctx, i, fmt.Sprintf("value-%d", i))
+		_ = s.Put(ctx, i, fmt.Sprintf("value-%d", i))
 	}
 
 	// get and print values
 	for i := 0; i < 10; i++ {
-		if v, ok := s.Get(ctx, i); ok {
+		if v, ok, _ := s.Get(ctx, i); ok {
 			fmt.Printf("Key %d => %s\n", i, v)
 		} else {
 			fmt.Printf("Key %d not found\n", i)

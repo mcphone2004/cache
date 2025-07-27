@@ -9,6 +9,7 @@ import (
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/nop"
 	lrutypes "github.com/mcphone2004/cache/types"
+	cacheutils "github.com/mcphone2004/cache/utils"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
@@ -67,8 +68,9 @@ func TestNewCache(t *testing.T) {
 	require.NotNil(t, cache.shardsFn)
 	require.Len(t, cache.shards, 1)
 	require.NotNil(t, cache.shards[0])
-	require.Zero(t, cache.Size())
-	cache.Shutdown(context.Background())
+	size, err := cache.Size()
+	require.NotNil(t, err)
+	require.Zero(t, size)
 }
 
 func TestShardCacheWithMocks(t *testing.T) {
@@ -92,68 +94,85 @@ func TestShardCacheWithMocks(t *testing.T) {
 	}
 
 	// --- Get ---
-	mockShard1.EXPECT().Get(ctx, uint(2)).Return("even", true).Once()
-	mockShard2.EXPECT().Get(ctx, uint(3)).Return("odd", true).Once()
-	v, ok := cache.Get(ctx, 2)
+	mockShard1.EXPECT().Get(ctx, uint(2)).Return("even", true, nil).Once()
+	mockShard2.EXPECT().Get(ctx, uint(3)).Return("odd", true, nil).Once()
+	v, ok, err := cache.Get(ctx, 2)
+	require.Nil(t, err)
 	require.True(t, ok)
 	require.Equal(t, "even", v)
-	v, ok = cache.Get(ctx, 3)
+	v, ok, err = cache.Get(ctx, 3)
+	require.Nil(t, err)
 	require.True(t, ok)
 	require.Equal(t, "odd", v)
 
 	// --- Put ---
-	mockShard1.EXPECT().Put(ctx, uint(2), "val2").Once()
-	mockShard2.EXPECT().Put(ctx, uint(3), "val3").Once()
-	cache.Put(ctx, 2, "val2")
-	cache.Put(ctx, 3, "val3")
+	mockShard1.EXPECT().Put(ctx, uint(2), "val2").Once().Return(nil)
+	mockShard2.EXPECT().Put(ctx, uint(3), "val3").Once().Return(nil)
+	err = cache.Put(ctx, 2, "val2")
+	require.Nil(t, err)
+	err = cache.Put(ctx, 3, "val3")
+	require.Nil(t, err)
 
 	// --- Delete ---
-	mockShard1.EXPECT().Delete(ctx, uint(2)).Return(true).Once()
-	mockShard2.EXPECT().Delete(ctx, uint(3)).Return(false).Once()
-	require.True(t, cache.Delete(ctx, 2))
-	require.False(t, cache.Delete(ctx, 3))
+	mockShard1.EXPECT().Delete(ctx, uint(2)).Return(true, nil).Once()
+	mockShard2.EXPECT().Delete(ctx, uint(3)).Return(false, nil).Once()
+	found, err := cache.Delete(ctx, 2)
+	require.Nil(t, err)
+	require.True(t, found)
+	found, err = cache.Delete(ctx, 3)
+	require.Nil(t, err)
+	require.False(t, found)
 
 	// --- Size ---
-	mockShard1.EXPECT().Size().Return(5).Once()
-	mockShard2.EXPECT().Size().Return(7).Once()
-	require.Equal(t, 12, cache.Size())
+	mockShard1.EXPECT().Size().Return(5, nil).Once()
+	mockShard2.EXPECT().Size().Return(7, nil).Once()
+	size, err := cache.Size()
+	require.Nil(t, err)
+	require.Equal(t, 12, size)
 
 	// --- Traverse ---
 	traverseCount := 0
-	mockShard1.EXPECT().Traverse(ctx, mock.AnythingOfType("func(context.Context, uint, string) bool")).
-		Run(func(_ context.Context, fn func(context.Context, uint, string) bool) {
+	mockShard1.EXPECT().Traverse(ctx,
+		mock.AnythingOfType("func(context.Context, uint, string) bool")).
+		RunAndReturn(func(_ context.Context, fn func(context.Context, uint, string) bool) error {
 			traverseCount++
 			fn(ctx, 2, "val2")
+			return nil
 		}).Once()
-	mockShard2.EXPECT().Traverse(ctx, mock.AnythingOfType("func(context.Context, uint, string) bool")).
-		Run(func(_ context.Context, fn func(context.Context, uint, string) bool) {
+	mockShard2.EXPECT().Traverse(ctx,
+		mock.AnythingOfType("func(context.Context, uint, string) bool")).
+		RunAndReturn(func(_ context.Context, fn func(context.Context, uint, string) bool) error {
 			traverseCount++
 			fn(ctx, 3, "val3")
+			return nil
 		}).Once()
-	cache.Traverse(ctx, func(_ context.Context, _ uint, _ string) bool {
+	err = cache.Traverse(ctx, func(_ context.Context, _ uint, _ string) bool {
 		return true
 	})
 	require.Equal(t, 2, traverseCount)
+	require.Nil(t, err)
 
 	// --- GetMultiIter ---
-	mockShard1.EXPECT().Get(ctx, uint(2)).Return("multi2", true).Once()
-	mockShard2.EXPECT().Get(ctx, uint(3)).Return("", false).Once()
+	mockShard1.EXPECT().Get(ctx, uint(2)).Return("multi2", true, nil).Once()
+	mockShard2.EXPECT().Get(ctx, uint(3)).Return("", false, nil).Once()
 	hits := make(map[uint]string)
 	misses := make([]uint, 0)
-	cache.GetMultiIter(ctx, iter.Seq[uint](func(yield func(uint) bool) {
+	err = cacheutils.GetMultiIter(ctx, cache, iter.Seq[uint](func(yield func(uint) bool) {
 		yield(2)
 		yield(3)
 	}),
 		func(k uint, v string) { hits[k] = v },
 		func(k uint) { misses = append(misses, k) },
 	)
+	require.Nil(t, err)
 	require.Equal(t, "multi2", hits[2])
 	require.Equal(t, []uint{3}, misses)
 
 	// --- Reset ---
-	mockShard1.EXPECT().Reset(ctx).Once()
-	mockShard2.EXPECT().Reset(ctx).Once()
-	cache.Reset(ctx)
+	mockShard1.EXPECT().Reset(ctx).Once().Return(nil)
+	mockShard2.EXPECT().Reset(ctx).Once().Return(nil)
+	err = cache.Reset(ctx)
+	require.Nil(t, err)
 
 	// --- Shutdown ---
 	mockShard1.EXPECT().Shutdown(ctx).Once()

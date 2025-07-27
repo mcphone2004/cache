@@ -2,9 +2,12 @@ package nop_test
 
 import (
 	"context"
+	"errors"
 	"testing"
 
 	"github.com/mcphone2004/cache/nop"
+	cachetypes "github.com/mcphone2004/cache/types"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
 
@@ -19,14 +22,18 @@ func TestNoopCacheExists(t *testing.T) {
 	c := nop.Cache[string, string]{}
 
 	// Methods should not panic or return unexpected types
-	if _, ok := c.Get(ctx, "key"); ok {
-		t.Log("Get returned a value, but noop cache should not store values")
-	}
-	c.Put(ctx, "key", "value")
-	c.Delete(ctx, "key")
-	c.Reset(ctx)
-	if size := c.Size(); size != 0 {
-		t.Errorf("expected Size to be 0, got %d", size)
-	}
+	_, ok, err := c.Get(ctx, "key")
+	require.False(t, ok)
+	var sErr *cachetypes.ErrorShutdown
+	require.True(t, errors.As(err, &sErr))
+	err = c.Put(ctx, "key", "value")
+	require.True(t, errors.As(err, &sErr))
+	_, err = c.Delete(ctx, "key")
+	require.True(t, errors.As(err, &sErr))
+	err = c.Reset(ctx)
+	require.True(t, errors.As(err, &sErr))
+	size, err := c.Size()
+	require.Zero(t, size)
+	require.True(t, errors.As(err, &sErr))
 	c.Shutdown(ctx)
 }

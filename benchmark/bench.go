@@ -37,8 +37,8 @@ func TestMain(m *testing.M) {
 
 // PutGetter is an interface that defines Put and Get for benchmarks.
 type PutGetter[K comparable, V any] interface {
-	Put(ctx context.Context, key K, value V)
-	Get(ctx context.Context, key K) (V, bool)
+	Put(ctx context.Context, key K, value V) error
+	Get(ctx context.Context, key K) (V, bool, error)
 	Shutdown(ctx context.Context)
 }
 
@@ -51,7 +51,7 @@ func PreloadCache[K comparable, V any](
 	genVal func(int) V,
 ) {
 	for i := 0; i < count; i++ {
-		cache.Put(ctx, genKey(i), genVal(i))
+		_ = cache.Put(ctx, genKey(i), genVal(i))
 	}
 }
 
@@ -69,7 +69,7 @@ func Put[K comparable, V any](
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			c.Put(ctx, genKey(i), genVal(i))
+			_ = c.Put(ctx, genKey(i), genVal(i))
 			i++
 		}
 	})
@@ -91,7 +91,7 @@ func Get[K comparable, V any](
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			c.Get(ctx, genKey(i%preloadCount))
+			_, _, _ = c.Get(ctx, genKey(i%preloadCount))
 			i++
 		}
 	})
@@ -133,9 +133,9 @@ func mixed[K comparable, V any](
 		for pb.Next() {
 			key := i % keyRange
 			if rand.Intn(100) < putPercent {
-				c.Put(ctx, genKey(key), genVal(key))
+				_ = c.Put(ctx, genKey(key), genVal(key))
 			} else {
-				c.Get(ctx, genKey(key))
+				_, _, _ = c.Get(ctx, genKey(key))
 			}
 			i++
 		}

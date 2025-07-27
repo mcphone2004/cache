@@ -8,30 +8,21 @@ import (
 
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/internal"
-	"github.com/mcphone2004/cache/list"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 // Cache is a thread-safe LRU cache.
 type Cache[K comparable, V any] struct {
-	entryPool  *sync.Pool
-	mu         sync.RWMutex
+	mapMutex   sync.RWMutex // mutex for map
 	isShutdown bool
-	items      map[K]*list.Entry[*entry[K, V]]
-	opt        internal.Options[K, V]
+	items      map[K]*internal.ListEntry[K, V]
 
-	// LRU queue to maintain the order of items.
-	queue *queue[K, V]
+	qMutex sync.Mutex // mutex for queue
+	queue  *internal.List[K, V]
 }
 
 // Ensure Cache implements the Cache interface.
 var _ iface.Cache[string, int] = (*Cache[string, int])(nil)
-
-// entry represents a key-value pair in the cache.
-type entry[K comparable, V any] struct {
-	key   K
-	value V
-}
 
 // New creates a new LRU cache with the given capacity.
 func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
@@ -47,39 +38,30 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 	}
 
 	c := &Cache[K, V]{
-		opt:   o1,
-		items: make(map[K]*list.Entry[*entry[K, V]]),
-		entryPool: &sync.Pool{
-			New: func() any {
-				return &entry[K, V]{}
-			},
-		},
+		items: make(map[K]*internal.ListEntry[K, V]),
+		queue: internal.NewList(int(o1.Capacity), o1.OnEvict),
 	}
-	// pre-populate the pool
-	for range o1.Capacity {
-		c.entryPool.Put(&entry[K, V]{})
-	}
-	c.queue = newQueue(c.onEvict)
 	return c, nil
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
 func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool) {
-	c.mu.RLock()
+	c.mapMutex.RLock()
 	if c.isShutdown {
-		c.mu.RUnlock()
+		c.mapMutex.RUnlock()
 		return zeroOf[V](), false
 	}
 	elem, ok := c.items[key]
 	if !ok {
-		c.mu.RUnlock()
+		c.mapMutex.RUnlock()
 		return zeroOf[V](), false
 	}
 
-	val := elem.Value.value
-	c.queue.Lock()
-	c.mu.RUnlock()
-	c.queue.moveToFrontUnlock(elem)
+	val := elem.Value.Value
+	c.qMutex.Lock()
+	c.mapMutex.RUnlock()
+	defer c.qMutex.Unlock()
+	c.queue.MoveToFront(elem)
 	return val, true
 }
 
@@ -88,58 +70,60 @@ func (c *Cache[K, V]) GetMultiIter(_ context.Context, keys iter.Seq[K],
 	hitCB func(K, V), missCB func(K)) {
 
 	for k := range keys {
-		c.mu.RLock()
+		c.mapMutex.RLock()
 		if c.isShutdown {
-			c.mu.RUnlock()
+			c.mapMutex.RUnlock()
 			return
 		}
 
 		elem, ok := c.items[k]
 		if ok {
-			v := elem.Value.value
-			c.queue.Lock()
-			c.mu.RUnlock()
-			c.queue.moveToFrontUnlock(elem)
+			v := elem.Value.Value
+			c.qMutex.Lock()
+			c.mapMutex.RUnlock()
+			c.queue.MoveToFront(elem)
+			c.qMutex.Unlock()
 			if hitCB != nil {
 				hitCB(k, v)
 			}
-		} else {
-			c.mu.RUnlock()
-			if missCB != nil {
-				missCB(k)
-			}
+			continue
+		}
+
+		c.mapMutex.RUnlock()
+		if missCB != nil {
+			missCB(k)
 		}
 	}
 }
 
 // Put inserts or updates a value in the cache.
 func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) {
-	c.mu.Lock()
+	c.mapMutex.Lock()
 	if elem, ok := c.items[key]; ok {
-		elem.Value.value = value
-		c.queue.Lock()
-		c.mu.Unlock()
-		c.queue.moveToFrontUnlock(elem)
+		elem.Value.Value = value
+		c.qMutex.Lock()
+		c.mapMutex.Unlock()
+		defer c.qMutex.Unlock()
+		c.queue.MoveToFront(elem)
 		return
 	}
 
-	en := c.entryPool.Get().(*entry[K, V])
-	en.key = key
-	en.value = value
-	var evict *list.Entry[*entry[K, V]]
-	c.queue.Lock()
-	if c.queue.order.Size() >= int(c.opt.Capacity) {
-		evict = c.queue.order.Back()
+	var evict *internal.ListEntry[K, V]
+	c.qMutex.Lock()
+	if c.queue.Size() >= c.queue.Capacity() {
+		evict = c.queue.Back()
 		if evict != nil {
-			delete(c.items, evict.Value.key)
+			delete(c.items, evict.Value.Key)
 		}
 	}
-	c.items[key] = c.queue.order.PushFront(en)
-	c.mu.Unlock()
+	c.items[key] = c.queue.PushFront(key, value)
+	c.mapMutex.Unlock()
 	if evict != nil {
-		c.queue.removeElemUnlock(ctx, evict)
+		ent := c.queue.Remove(evict)
+		c.qMutex.Unlock()
+		c.queue.OnEvict(ctx, ent)
 	} else {
-		c.queue.mu.Unlock()
+		c.qMutex.Unlock()
 	}
 }
 
@@ -147,68 +131,60 @@ func zeroOf[T any]() (t T) { return }
 
 // Size returns the current number of items in the cache.
 func (c *Cache[K, V]) Size() int {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
-	return len(c.items)
+	c.qMutex.Lock()
+	defer c.qMutex.Unlock()
+	return c.queue.Size()
 }
 
 // Capacity returns the maximum number of items the cache can hold.
 func (c *Cache[K, V]) Capacity() int {
-	return int(c.opt.Capacity)
+	return c.queue.Capacity()
 }
 
 // Traverse iterates over all items in the cache, calling the provided function
 // for each key-value pair. If the function returns false, the iteration stops.
 func (c *Cache[K, V]) Traverse(ctx context.Context,
 	fn func(context.Context, K, V) bool) {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mapMutex.RLock()
+	defer c.mapMutex.RUnlock()
 	if c.isShutdown {
 		return
 	}
-	c.queue.Lock()
-	defer c.queue.mu.Unlock()
-	for e := range c.queue.order.Seq() {
-		if !fn(ctx, e.Value.key, e.Value.value) {
+	c.qMutex.Lock()
+	defer c.qMutex.Unlock()
+	for e := range c.queue.Seq() {
+		if !fn(ctx, e.Value.Key, e.Value.Value) {
 			break
 		}
 	}
 }
 
-func (c *Cache[K, V]) onEvict(ctx context.Context, en *entry[K, V]) {
-	if cb := c.opt.OnEvict; cb != nil {
-		cb(ctx, en.key, en.value)
-	}
-
-	en.key = zeroOf[K]()
-	en.value = zeroOf[V]()
-	c.entryPool.Put(en)
-}
-
 // Delete removes the entry with the specified key from the cache.
 // If the entry exists and is removed, it triggers the onEvict callback.
 func (c *Cache[K, V]) Delete(ctx context.Context, key K) bool {
-	c.mu.Lock()
+	c.mapMutex.Lock()
 	if c.isShutdown {
-		c.mu.Unlock()
+		c.mapMutex.Unlock()
 		return false
 	}
 	elem, ok := c.items[key]
 	if !ok {
-		c.mu.Unlock()
+		c.mapMutex.Unlock()
 		return false
 	}
 	delete(c.items, key)
-	c.queue.Lock()
-	c.mu.Unlock()
-	c.queue.removeElemUnlock(ctx, elem)
+	c.qMutex.Lock()
+	c.mapMutex.Unlock()
+	ent := c.queue.Remove(elem)
+	c.qMutex.Unlock()
+	c.queue.OnEvict(ctx, ent)
 	return true
 }
 
 func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) {
-	c.mu.Lock()
+	c.mapMutex.Lock()
 	if c.isShutdown {
-		c.mu.Unlock()
+		c.mapMutex.Unlock()
 		return
 	}
 	if isShutdown {
@@ -217,9 +193,17 @@ func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) {
 	for k := range c.items {
 		delete(c.items, k)
 	}
-	c.queue.Lock()
-	c.mu.Unlock()
-	c.queue.resetUnlock(ctx)
+	c.qMutex.Lock()
+	c.mapMutex.Unlock()
+	defer c.qMutex.Unlock()
+	for {
+		elem := c.queue.Back()
+		if elem == nil {
+			break
+		}
+		ent := c.queue.Remove(elem)
+		c.queue.OnEvict(ctx, ent)
+	}
 }
 
 // Shutdown cleans up the cache, releasing any resources it holds.

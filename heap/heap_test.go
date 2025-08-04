@@ -12,13 +12,19 @@ func intLess(a, b int) bool {
 
 func TestHeapPushPop(t *testing.T) {
 	h := New(intLess)
+	_, found := h.Peep()
+	require.False(t, found)
 	h.Push(3)
 	h.Push(1)
 	h.Push(2)
 
 	require.Equal(t, 3, h.Len(), "expected length 3")
 
-	val := h.Pop()
+	val, found := h.Peep()
+	require.True(t, found)
+	require.Equal(t, 1, val)
+
+	val = h.Pop()
 	require.Equal(t, 1, val, "expected smallest value 1")
 	val = h.Pop()
 	require.Equal(t, 2, val, "expected next smallest value 2")

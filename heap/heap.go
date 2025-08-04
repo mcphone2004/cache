@@ -34,12 +34,26 @@ func (h *Heap[T]) Push(x T) {
 // Pop removes and returns the root element from the heap (e.g., smallest if less is a<b).
 // The complexity is O(log n). Calling Pop on an empty heap will panic.
 func (h *Heap[T]) Pop() T {
+	if len(h.data) == 0 {
+		panic("Pop from empty heap")
+	}
 	n := len(h.data) - 1
 	h.swap(0, n)
 	h.down(0, n)
 	x := h.data[n]
 	h.data = h.data[:n]
 	return x
+}
+
+// Peep returns the root element without removing it from the heap.
+// The second return value indicates whether the heap was non-empty.
+func (h *Heap[T]) Peep() (val T, found bool) {
+	if h.Len() == 0 {
+		return
+	}
+	val = h.data[0]
+	found = true
+	return
 }
 
 // Fix re-establishes the heap ordering for the element at index i after its value changed.

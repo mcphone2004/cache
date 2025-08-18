@@ -3,8 +3,9 @@ package benchmark
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
-	"math/rand"
+	"math/big"
 	"runtime"
 	"strconv"
 	"testing"
@@ -132,7 +133,11 @@ func mixed[K comparable, V any](
 		i := 0
 		for pb.Next() {
 			key := i % keyRange
-			if rand.Intn(100) < putPercent {
+			n, err := rand.Int(rand.Reader, big.NewInt(100))
+			if err != nil {
+				panic(fmt.Sprintf("failed to generate random number: %v", err))
+			}
+			if n.Int64() < int64(putPercent) {
 				_ = c.Put(ctx, genKey(key), genVal(key))
 			} else {
 				_, _, _ = c.Get(ctx, genKey(key))

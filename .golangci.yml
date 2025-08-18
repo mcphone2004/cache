@@ -33,8 +33,12 @@ linters:
     - containedctx
     - decorder
     - embeddedstructfieldcheck
-#    - cyclop
-#    - gosec
+    - gosec
+    - cyclop
+  settings:
+    gosec:
+      excludes:
+        - G115
 
 issues:
   exclude-use-default: false

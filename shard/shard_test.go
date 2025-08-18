@@ -24,7 +24,7 @@ func newCache[K comparable, T any](capacity uint, evictionCB func(context.Contex
 				return uint(v) % maxShard
 			case string:
 				h := fnv.New32a()
-				h.Write([]byte(v))
+				_, _ = h.Write([]byte(v))
 				return uint(h.Sum32()) % maxShard
 			default:
 				err := fmt.Errorf("Unknown type %+v", key)

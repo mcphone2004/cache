@@ -48,6 +48,39 @@ type ExpiryMap[K comparable] struct {
 	avgSetSize int
 }
 
+// eventType represents the kind of wake-up the run loop received.
+type eventType int
+
+const (
+	evtTick eventType = iota
+	evtQuit
+	evtWake
+)
+
+// waitEvent waits for either a timer tick, a wake-up signal, or a quit signal.
+// It stops the timer on quit/wake to avoid leaked timers and returns the event type.
+func (r *ExpiryMap[K]) waitEvent(timer *time.Timer) eventType {
+	var timerChan <-chan time.Time
+	if timer != nil {
+		timerChan = timer.C
+	}
+
+	select {
+	case <-r.quit:
+		if timer != nil {
+			timer.Stop()
+		}
+		return evtQuit
+	case <-r.wakeUp:
+		if timer != nil {
+			timer.Stop()
+		}
+		return evtWake
+	case <-timerChan:
+		return evtTick
+	}
+}
+
 // timeHeapLessThan compares two time.Time values and returns true if t1 is before t2.
 // It is used as the comparison function for the min-heap.
 func timeHeapLessThan(t1, t2 time.Time) bool {
@@ -193,24 +226,13 @@ func (r *ExpiryMap[K]) run() {
 	for {
 		timer = r.setupTimer(timer)
 
-		var timerChan <-chan time.Time
-		if timer != nil {
-			timerChan = timer.C
-		}
-
-		select {
-		case <-r.quit:
-			if timer != nil {
-				timer.Stop()
-			}
+		switch r.waitEvent(timer) {
+		case evtQuit:
 			return
-		case <-r.wakeUp:
-			if timer != nil {
-				timer.Stop()
-			}
+		case evtWake:
 			continue
-		case <-timerChan:
-			// wakup to expire entries
+		case evtTick:
+			// proceed to expire entries
 		}
 
 		expiredRecords := r.getExpiryRecords()

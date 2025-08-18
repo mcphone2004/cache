@@ -19,6 +19,9 @@ func new8ShardLRUCache() benchmark.PutGetter[int, string] {
 		shard.WithMinShards[int, string](8), // minimum of 8 shards
 		// simple shard selector: use key mod 8
 		shard.WithShardsFn[int, string](func(key int, maxShard uint) uint {
+			if key < 0 {
+				key = -key // handle negative keys
+			}
 			return uint(key) % maxShard
 		}),
 		// each shard is its own LRU cache
@@ -65,6 +68,9 @@ func new8ShardLRU2Cache() benchmark.PutGetter[int, string] {
 		shard.WithMinShards[int, string](8), // minimum of 8 shards
 		// simple shard selector: use key mod 8
 		shard.WithShardsFn[int, string](func(key int, maxShard uint) uint {
+			if key < 0 {
+				key = -key // handle negative keys
+			}
 			return uint(key) % maxShard
 		}),
 		// each shard is its own LRU cache
@@ -109,6 +115,9 @@ func newShardLRUCacheH() benchmark.PutGetter[int, string] {
 		shard.WithCapacity[int, string](benchmark.CacheCapacity), // each shard can hold 1024 items
 		// simple shard selector: use key mod 8
 		shard.WithShardsFn[int, string](func(key int, maxShard uint) uint {
+			if key < 0 {
+				key = -key // handle negative keys
+			}
 			return uint(key) % maxShard
 		}),
 		// each shard is its own LRU cache
@@ -153,6 +162,9 @@ func newShardLRU2CacheH() benchmark.PutGetter[int, string] {
 		shard.WithCapacity[int, string](benchmark.CacheCapacity), // each shard can hold 1024 items
 		// simple shard selector: use key mod 8
 		shard.WithShardsFn[int, string](func(key int, maxShard uint) uint {
+			if key < 0 {
+				key = -key // handle negative keys
+			}
 			return uint(key) % maxShard
 		}),
 		// each shard is its own LRU cache

@@ -42,31 +42,38 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 }
 
 // Get retrieves a value from the cache and marks it as recently used.
-func (c *Cache[K, V]) Get(ctx context.Context, key K) (V, bool, error) {
+func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
 		return zeroOf[V](), false, &cachetypes.ErrorShutdown{}
 	}
-	res, found := c.get(ctx, key)
-	return res, found, nil
-}
-
-// get is the internal implementation of Get.
-func (c *Cache[K, V]) get(_ context.Context, key K) (V, bool) {
 	if elem, ok := c.items[key]; ok {
 		c.queue.MoveToFront(elem)
-		return elem.Value.Value, true
+		return elem.Value.Value, true, nil
 	}
-	return zeroOf[V](), false
+	return zeroOf[V](), false, nil
 }
 
 // Put inserts or updates a value in the cache.
 func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
-	evicted, err := c.put(key, value)
-	if err != nil {
-		return err
+	c.mu.Lock()
+	if c.isShutdown {
+		c.mu.Unlock()
+		return nil
 	}
+	if elem, ok := c.items[key]; ok {
+		c.queue.MoveToFront(elem)
+		elem.Value.Value = value
+		c.mu.Unlock()
+		return nil
+	}
+	var evicted *internal.Entry[K, V]
+	if c.queue.Size() == c.queue.Capacity() {
+		evicted = c.evict()
+	}
+	c.items[key] = c.queue.PushFront(key, value)
+	c.mu.Unlock()
 	if evicted != nil {
 		c.queue.OnEvict(ctx, evicted)
 	}
@@ -74,30 +81,6 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
 }
 
 func zeroOf[T any]() (t T) { return }
-
-// put inserts or updates a value in the cache, evicting the least recently used
-// item if necessary. It returns the evicted entry and a boolean indicating
-// whether an eviction occurred.
-// If the key already exists, it updates the value and moves the entry to the front.
-// If the cache exceeds its capacity, it evicts the least recently used item.
-func (c *Cache[K, V]) put(key K, value V) (*internal.Entry[K, V], error) {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	if c.isShutdown {
-		return nil, &cachetypes.ErrorShutdown{}
-	}
-	if elem, ok := c.items[key]; ok {
-		c.queue.MoveToFront(elem)
-		elem.Value.Value = value
-		return nil, nil
-	}
-	var evicted *internal.Entry[K, V]
-	if c.queue.Size() == c.queue.Capacity() {
-		evicted = c.evict()
-	}
-	c.items[key] = c.queue.PushFront(key, value)
-	return evicted, nil
-}
 
 // evict removes the least recently used item from the cache and returns it.
 // It returns nil if there are no items to evict.

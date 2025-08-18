@@ -46,7 +46,7 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return zeroOf[V](), false, &cachetypes.ErrorShutdown{}
+		return zeroOf[V](), false, &cachetypes.ShutdownError{}
 	}
 	if elem, ok := c.items[key]; ok {
 		c.queue.MoveToFront(elem)
@@ -98,7 +98,7 @@ func (c *Cache[K, V]) Reset(ctx context.Context) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	c.reset(ctx)
 	return nil
@@ -124,7 +124,7 @@ func (c *Cache[K, V]) Size() (int, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return 0, &cachetypes.ErrorShutdown{}
+		return 0, &cachetypes.ShutdownError{}
 	}
 	return c.queue.Size(), nil
 }
@@ -134,7 +134,7 @@ func (c *Cache[K, V]) Capacity() (int, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return 0, &cachetypes.ErrorShutdown{}
+		return 0, &cachetypes.ShutdownError{}
 	}
 	return c.queue.Capacity(), nil
 }
@@ -146,7 +146,7 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	for e := range c.queue.Seq() {
 		if !fn(ctx, e.Value.Key, e.Value.Value) {
@@ -162,7 +162,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	c.mu.Lock()
 	if c.isShutdown {
 		c.mu.Unlock()
-		return false, &cachetypes.ErrorShutdown{}
+		return false, &cachetypes.ShutdownError{}
 	}
 	elem, ok := c.items[key]
 	if !ok {

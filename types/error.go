@@ -1,22 +1,22 @@
 // Package cachetypes defines types used in the LRU cache implementation.
 package cachetypes
 
-// ErrorInvalidOptions represents an error for invalid options in the LRU cache.
-type ErrorInvalidOptions struct {
+// InvalidOptionsError represents an error for invalid options in the LRU cache.
+type InvalidOptionsError struct {
 	Message string
 }
 
 // Error implements the error interface for ErrorInvalidOptions.
-func (e *ErrorInvalidOptions) Error() string {
+func (e *InvalidOptionsError) Error() string {
 	return e.Message
 }
 
-// ErrorShutdown represents that cache already shutdown
-type ErrorShutdown struct {
+// ShutdownError represents that cache already shutdown
+type ShutdownError struct {
 	Message string
 }
 
-func (e *ErrorShutdown) Error() string {
+func (e *ShutdownError) Error() string {
 	if e.Message == "" {
 		return "The cache has been shutdown"
 	}
@@ -24,4 +24,4 @@ func (e *ErrorShutdown) Error() string {
 }
 
 // Ensure ErrorInvalidOptions implements the error interface.
-var _ error = (*ErrorInvalidOptions)(nil)
+var _ error = (*InvalidOptionsError)(nil)

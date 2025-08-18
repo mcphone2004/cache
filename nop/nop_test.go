@@ -24,7 +24,7 @@ func TestNoopCacheExists(t *testing.T) {
 	// Methods should not panic or return unexpected types
 	_, ok, err := c.Get(ctx, "key")
 	require.False(t, ok)
-	var sErr *cachetypes.ErrorShutdown
+	var sErr *cachetypes.ShutdownError
 	require.True(t, errors.As(err, &sErr))
 	err = c.Put(ctx, "key", "value")
 	require.True(t, errors.As(err, &sErr))

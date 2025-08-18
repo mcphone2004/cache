@@ -15,7 +15,7 @@ func TestWithCapacity(t *testing.T) {
 	require.NotNil(t, err)
 	require.Equal(t, "capacity must be positive", err.Error())
 
-	var aerr *cachetypes.ErrorInvalidOptions
+	var aerr *cachetypes.InvalidOptionsError
 	b := errors.As(err, &aerr)
 	require.True(t, b)
 	require.Equal(t, "capacity must be positive", aerr.Error())

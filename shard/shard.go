@@ -39,15 +39,15 @@ func newCache[K comparable, V any](maxShards uint, shardsFn func(K) uint,
 
 	switch {
 	case maxShards == 0:
-		return nil, &cachetypes.ErrorInvalidOptions{
+		return nil, &cachetypes.InvalidOptionsError{
 			Message: "maxShards must be positive",
 		}
 	case shardsFn == nil:
-		return nil, &cachetypes.ErrorInvalidOptions{
+		return nil, &cachetypes.InvalidOptionsError{
 			Message: "shardsFn cannot be nil",
 		}
 	case cacherMaker == nil:
-		return nil, &cachetypes.ErrorInvalidOptions{
+		return nil, &cachetypes.InvalidOptionsError{
 			Message: "cacherMaker cannot be nil",
 		}
 	}
@@ -96,7 +96,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 // Reset clears all shards in the cache.
 func (c *Cache[K, V]) Reset(ctx context.Context) error {
 	if c.isShutdown() {
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	for _, shard := range c.shards {
 		if err := shard.Reset(ctx); err != nil {
@@ -126,7 +126,7 @@ func (c *Cache[K, V]) Shutdown(ctx context.Context) {
 // If the provided function returns false, the traversal stops immediately.
 func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) error {
 	if c.isShutdown() {
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	for _, shard := range c.shards {
 		stop := false
@@ -150,7 +150,7 @@ func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, 
 // Size returns the total number of items across all shards.
 func (c *Cache[K, V]) Size() (int, error) {
 	if c.isShutdown() {
-		return 0, &cachetypes.ErrorShutdown{}
+		return 0, &cachetypes.ShutdownError{}
 	}
 	size := 0
 	for _, shard := range c.shards {
@@ -166,7 +166,7 @@ func (c *Cache[K, V]) Size() (int, error) {
 // Capacity returns the total maximum number of items across all shards.
 func (c *Cache[K, V]) Capacity() (int, error) {
 	if c.isShutdown() {
-		return 0, &cachetypes.ErrorShutdown{}
+		return 0, &cachetypes.ShutdownError{}
 	}
 	total := 0
 	for _, shard := range c.shards {

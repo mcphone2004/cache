@@ -29,7 +29,7 @@ func TestNewCache(t *testing.T) {
 		})
 	require.NotNil(t, err)
 	require.Equal(t, "maxShards must be positive", err.Error())
-	var aerr *lrutypes.ErrorInvalidOptions
+	var aerr *lrutypes.InvalidOptionsError
 	b := errors.As(err, &aerr)
 	require.True(t, b)
 	require.Equal(t, "maxShards must be positive", aerr.Error())

@@ -48,7 +48,7 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool, error) {
 	c.mapMutex.RLock()
 	if c.isShutdown {
 		c.mapMutex.RUnlock()
-		return zeroOf[V](), false, &cachetypes.ErrorShutdown{}
+		return zeroOf[V](), false, &cachetypes.ShutdownError{}
 	}
 	elem, ok := c.items[key]
 	if !ok {
@@ -69,7 +69,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
 	c.mapMutex.Lock()
 	if c.isShutdown {
 		c.mapMutex.RUnlock()
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	if elem, ok := c.items[key]; ok {
 		elem.Value.Value = value
@@ -107,7 +107,7 @@ func (c *Cache[K, V]) Size() (int, error) {
 	c.qMutex.Lock()
 	defer c.qMutex.Unlock()
 	if c.isShutdown {
-		return 0, &cachetypes.ErrorShutdown{}
+		return 0, &cachetypes.ShutdownError{}
 	}
 	return c.queue.Size(), nil
 }
@@ -117,7 +117,7 @@ func (c *Cache[K, V]) Capacity() (int, error) {
 	c.qMutex.Lock()
 	defer c.qMutex.Unlock()
 	if c.isShutdown {
-		return 0, &cachetypes.ErrorShutdown{}
+		return 0, &cachetypes.ShutdownError{}
 	}
 	return c.queue.Capacity(), nil
 }
@@ -129,7 +129,7 @@ func (c *Cache[K, V]) Traverse(ctx context.Context,
 	c.mapMutex.RLock()
 	defer c.mapMutex.RUnlock()
 	if c.isShutdown {
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	c.qMutex.Lock()
 	defer c.qMutex.Unlock()
@@ -147,7 +147,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	c.mapMutex.Lock()
 	if c.isShutdown {
 		c.mapMutex.Unlock()
-		return false, &cachetypes.ErrorShutdown{}
+		return false, &cachetypes.ShutdownError{}
 	}
 	elem, ok := c.items[key]
 	if !ok {
@@ -167,7 +167,7 @@ func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) error {
 	c.mapMutex.Lock()
 	if c.isShutdown {
 		c.mapMutex.Unlock()
-		return &cachetypes.ErrorShutdown{}
+		return &cachetypes.ShutdownError{}
 	}
 	if isShutdown {
 		c.isShutdown = isShutdown

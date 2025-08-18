@@ -18,7 +18,7 @@ func ToOptions[K comparable, V any](o cachetypes.Options) (
 	Options[K, V], error) {
 	var opt Options[K, V]
 	if o.Capacity == 0 {
-		return opt, &cachetypes.ErrorInvalidOptions{
+		return opt, &cachetypes.InvalidOptionsError{
 			Message: "capacity must be positive",
 		}
 	}
@@ -27,7 +27,7 @@ func ToOptions[K comparable, V any](o cachetypes.Options) (
 		if cb, ok := o.OnEvict.(cachetypes.CBFunc[K, V]); ok {
 			opt.OnEvict = cb
 		} else {
-			return opt, &cachetypes.ErrorInvalidOptions{
+			return opt, &cachetypes.InvalidOptionsError{
 				Message: "incorrect type for OnEvict",
 			}
 		}

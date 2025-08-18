@@ -16,25 +16,25 @@ var _ iface.Cache[string, int] = (*Cache[string, int])(nil)
 // Get retrieves no value from the cache.
 func (Cache[K, V]) Get(_ context.Context, _ K) (V, bool, error) {
 	var zero V
-	return zero, false, &cachetypes.ErrorShutdown{}
+	return zero, false, &cachetypes.ShutdownError{}
 }
 
 // Put does nothing in the nop cache.
 func (Cache[K, V]) Put(_ context.Context, _ K, _ V) error {
 	// No operation
-	return &cachetypes.ErrorShutdown{}
+	return &cachetypes.ShutdownError{}
 }
 
 // Delete does nothing in the nop cache.
 func (Cache[K, V]) Delete(_ context.Context, _ K) (bool, error) {
 	// No operation
-	return false, &cachetypes.ErrorShutdown{}
+	return false, &cachetypes.ShutdownError{}
 }
 
 // Reset clears the cache, but does nothing in the nop cache.
 func (Cache[K, V]) Reset(_ context.Context) error {
 	// No operation
-	return &cachetypes.ErrorShutdown{}
+	return &cachetypes.ShutdownError{}
 }
 
 // Shutdown gracefully shuts down all shards in the cache.
@@ -45,15 +45,15 @@ func (Cache[K, V]) Shutdown(_ context.Context) {
 // Traverse iterates over all shards and applies the provided function to each key-value pair.
 func (Cache[K, V]) Traverse(_ context.Context, _ func(context.Context, K, V) bool) error {
 	// No operation
-	return &cachetypes.ErrorShutdown{}
+	return &cachetypes.ShutdownError{}
 }
 
 // Size returns the total number of items across all shards.
 func (Cache[K, V]) Size() (int, error) {
-	return 0, &cachetypes.ErrorShutdown{}
+	return 0, &cachetypes.ShutdownError{}
 }
 
 // Capacity returns the maximum number of items the cache can hold, which is always 0 for a nop cache.
 func (Cache[K, V]) Capacity() (int, error) {
-	return 0, &cachetypes.ErrorShutdown{}
+	return 0, &cachetypes.ShutdownError{}
 }

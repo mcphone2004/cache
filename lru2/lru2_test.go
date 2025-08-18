@@ -27,7 +27,7 @@ func TestNewCache(t *testing.T) {
 	cache, err = lru2.New[int, string]()
 	require.Nil(t, cache)
 	require.NotNil(t, err)
-	var aerr *cachetypes.ErrorInvalidOptions
+	var aerr *cachetypes.InvalidOptionsError
 	b := errors.As(err, &aerr)
 	require.True(t, b)
 	require.Equal(t, "capacity must be positive", aerr.Error())

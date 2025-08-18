@@ -117,15 +117,15 @@ func toOptions[K comparable, V any](o Options[K, V]) (options[K, V], error) {
 	switch {
 
 	case o.Capacity == 0:
-		return opt, &cachetypes.ErrorInvalidOptions{
+		return opt, &cachetypes.InvalidOptionsError{
 			Message: "capacity must be positive",
 		}
 	case o.ShardsFn == nil:
-		return opt, &cachetypes.ErrorInvalidOptions{
+		return opt, &cachetypes.InvalidOptionsError{
 			Message: "shardsFn cannot be nil",
 		}
 	case o.CacherMaker == nil:
-		return opt, &cachetypes.ErrorInvalidOptions{
+		return opt, &cachetypes.InvalidOptionsError{
 			Message: "cacherMaker cannot be nil",
 		}
 	}

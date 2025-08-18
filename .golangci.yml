@@ -18,6 +18,23 @@ linters:
     - gocritic           # Assorted correctness/style suggestions
     - prealloc           # Suggest preallocating slices
     - makezero           # Prefer `x = T{}` over `x = new(T)`
+    - misspell
+    - errname
+    - gocritic
+    - dupl
+    - bodyclose
+    - durationcheck
+    - exhaustive
+    - dupword
+    - copyloopvar
+    - errorlint
+    - errchkjson
+    - contextcheck
+    - containedctx
+    - decorder
+    - embeddedstructfieldcheck
+#    - cyclop
+#    - gosec
 
 issues:
   exclude-use-default: false

@@ -105,6 +105,7 @@ pprof-cpu-html:
 # Install required profiling/visualization tools
 install-tools:
 	brew install graphviz || true
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.4.0
 
 # Clean up generated coverage files
 clean:

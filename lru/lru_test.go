@@ -5,12 +5,13 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
+
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/internaltest"
 	"github.com/mcphone2004/cache/lru"
 	cachetypes "github.com/mcphone2004/cache/types"
-	"github.com/stretchr/testify/require"
-	"go.uber.org/goleak"
 )
 
 func TestMain(m *testing.M) {

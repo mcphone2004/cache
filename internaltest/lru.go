@@ -7,9 +7,10 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/mcphone2004/cache/iface"
 	cacheutils "github.com/mcphone2004/cache/utils"
-	"github.com/stretchr/testify/require"
 )
 
 type newCacheFn[K comparable, V any] func(capacity uint,

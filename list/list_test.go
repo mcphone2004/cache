@@ -3,8 +3,9 @@ package list_test
 import (
 	"testing"
 
-	"github.com/mcphone2004/cache/list"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mcphone2004/cache/list"
 )
 
 func TestListBasic(t *testing.T) {

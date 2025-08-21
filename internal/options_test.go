@@ -5,8 +5,9 @@ import (
 	"errors"
 	"testing"
 
-	cachetypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/require"
+
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 func TestWithCapacity(t *testing.T) {

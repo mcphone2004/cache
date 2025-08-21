@@ -49,7 +49,14 @@ formatters:
   enable:
     - gofmt
     - goimports
-
-formatters-settings:
-  gofmt:
-    simplify: true
+    - gci
+  settings:
+    gofmt:
+      simplify: true
+    gci:
+      custom-order: true
+      sections:
+        - standard
+        - default
+        - prefix(github.com/mcphone2004/cache)
+      local-prefixes: "github.com/mcphone2004/cache/"

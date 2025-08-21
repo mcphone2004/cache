@@ -6,13 +6,14 @@ import (
 	"iter"
 	"testing"
 
+	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
+
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/nop"
 	lrutypes "github.com/mcphone2004/cache/types"
 	cacheutils "github.com/mcphone2004/cache/utils"
-	"github.com/stretchr/testify/mock"
-	"github.com/stretchr/testify/require"
-	"go.uber.org/goleak"
 )
 
 func TestMain(m *testing.M) {

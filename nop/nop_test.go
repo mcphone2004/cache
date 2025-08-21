@@ -5,10 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/mcphone2004/cache/nop"
-	cachetypes "github.com/mcphone2004/cache/types"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
+
+	"github.com/mcphone2004/cache/nop"
+	cachetypes "github.com/mcphone2004/cache/types"
 )
 
 func TestMain(m *testing.M) {

@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.2.2
+    hooks:
+      - id: golangci-lint
+        entry: golangci-lint run --fix
+        stages: [pre-commit]
+        language: system
+        types: [go]
+        pass_filenames: false
+        verbose: true
+    hooks:
+      - id: golangci-lint-fmt
+        entry: golangci-lint fmt
+        stages: [pre-commit]
+        language: system
+        types: [go]
+        pass_filenames: false
+        verbose: true

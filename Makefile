@@ -106,6 +106,8 @@ pprof-cpu-html:
 install-tools:
 	brew install graphviz || true
 	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.4.0
+	brew install pre-commit
+	pre-commit install
 
 # Clean up generated coverage files
 clean:

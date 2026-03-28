@@ -1,0 +1,32 @@
+name: Fuzz
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # 02:00 UTC every night
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  fuzz:
+    name: Fuzz cache implementations
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Fuzz lru
+        run: go test -fuzz=FuzzCache -fuzztime=60s ./lru/
+
+      - name: Fuzz lru2
+        run: go test -fuzz=FuzzCache -fuzztime=60s ./lru2/
+
+      - name: Fuzz tlru
+        run: go test -fuzz=FuzzCache -fuzztime=60s ./tlru/
+
+      - name: Fuzz shard
+        run: go test -fuzz=FuzzCache -fuzztime=60s ./shard/

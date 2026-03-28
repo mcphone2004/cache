@@ -144,3 +144,85 @@ func TestGetMultiIter_ShutdownError(t *testing.T) {
 	require.ErrorAs(t, err, &sErr)
 	_ = errors.As(err, &sErr) // ensure errors package is used
 }
+
+func TestGetMulti_HitsAndMisses(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	require.NoError(t, c.Put(ctx, 1, "one"))
+	require.NoError(t, c.Put(ctx, 2, "two"))
+
+	hits, misses, err := cacheutils.GetMulti(ctx, c, []int{1, 2, 3})
+	require.NoError(t, err)
+	require.Equal(t, map[int]string{1: "one", 2: "two"}, hits)
+	require.Equal(t, []int{3}, misses)
+}
+
+func TestGetMulti_AllHits(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	require.NoError(t, c.Put(ctx, 1, "one"))
+	require.NoError(t, c.Put(ctx, 2, "two"))
+
+	hits, misses, err := cacheutils.GetMulti(ctx, c, []int{1, 2})
+	require.NoError(t, err)
+	require.Equal(t, map[int]string{1: "one", 2: "two"}, hits)
+	require.Empty(t, misses)
+}
+
+func TestGetMulti_AllMisses(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+
+	hits, misses, err := cacheutils.GetMulti(ctx, c, []int{1, 2})
+	require.NoError(t, err)
+	require.Empty(t, hits)
+	require.Equal(t, []int{1, 2}, misses)
+}
+
+func TestGetMulti_Error(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	c.Shutdown(ctx)
+
+	hits, misses, err := cacheutils.GetMulti(ctx, c, []int{1})
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+	require.Nil(t, hits)
+	require.Nil(t, misses)
+}
+
+func TestPutIfNotExists_Insert(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+
+	inserted, err := cacheutils.PutIfNotExists(ctx, c, 1, "one")
+	require.NoError(t, err)
+	require.True(t, inserted)
+
+	v, ok, _ := c.Get(ctx, 1)
+	require.True(t, ok)
+	require.Equal(t, "one", v)
+}
+
+func TestPutIfNotExists_AlreadyExists(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	require.NoError(t, c.Put(ctx, 1, "one"))
+
+	inserted, err := cacheutils.PutIfNotExists(ctx, c, 1, "ONE")
+	require.NoError(t, err)
+	require.False(t, inserted)
+
+	// original value must be unchanged
+	v, ok, _ := c.Get(ctx, 1)
+	require.True(t, ok)
+	require.Equal(t, "one", v)
+}
+
+func TestPutIfNotExists_Error(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	c.Shutdown(ctx)
+
+	_, err := cacheutils.PutIfNotExists(ctx, c, 1, "one")
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+}

@@ -3,9 +3,9 @@ package shard
 
 import (
 	"context"
+	"sync/atomic"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/internal/nop"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
 
@@ -13,8 +13,10 @@ import (
 type Cache[K comparable, V any] struct {
 	shardsFn  func(K) uint
 	maxShards uint
-	// Shards is a slice of caches, each representing a shard.
-	shards []iface.Cache[K, V]
+	// shards is written only during construction; all later access is read-only,
+	// so no lock is needed to read from it after New returns.
+	shards   []iface.Cache[K, V]
+	shutdown atomic.Bool
 }
 
 var _ iface.Cache[string, int] = (*Cache[string, int])(nil)
@@ -101,19 +103,18 @@ func (c *Cache[K, V]) Reset(ctx context.Context) error {
 }
 
 func (c *Cache[K, V]) isShutdown() bool {
-	_, ok := c.shards[0].(*nop.Cache[K, V])
-	return ok
+	return c.shutdown.Load()
 }
 
 // Shutdown gracefully shuts down all shards in the cache.
+// c.shards is never written after construction, so concurrent reads of
+// c.shards[i] in Get/Put/Delete are safe without a lock.
 func (c *Cache[K, V]) Shutdown(ctx context.Context) {
-	if c.isShutdown() {
+	if !c.shutdown.CompareAndSwap(false, true) {
 		return // Already shutdown
 	}
-	nopShard := &nop.Cache[K, V]{}
 	for i := range c.maxShards {
 		c.shards[i].Shutdown(ctx)
-		c.shards[i] = nopShard
 	}
 }
 

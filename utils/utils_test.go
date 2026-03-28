@@ -226,3 +226,59 @@ func TestPutIfNotExists_Error(t *testing.T) {
 	_, err := cacheutils.PutIfNotExists(ctx, c, 1, "one")
 	require.ErrorIs(t, err, cachetypes.ErrShutdown)
 }
+
+func TestGetAndDelete_Hit(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	require.NoError(t, c.Put(ctx, 1, "one"))
+
+	v, found, err := cacheutils.GetAndDelete(ctx, c, 1)
+	require.NoError(t, err)
+	require.True(t, found)
+	require.Equal(t, "one", v)
+
+	// key must be gone
+	_, ok, err := c.Get(ctx, 1)
+	require.NoError(t, err)
+	require.False(t, ok)
+}
+
+func TestGetAndDelete_Miss(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+
+	v, found, err := cacheutils.GetAndDelete(ctx, c, 99)
+	require.NoError(t, err)
+	require.False(t, found)
+	require.Empty(t, v)
+}
+
+func TestGetAndDelete_Error(t *testing.T) {
+	ctx := context.Background()
+	c := newLRU(t)
+	c.Shutdown(ctx)
+
+	_, _, err := cacheutils.GetAndDelete(ctx, c, 1)
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+}
+
+func TestGetAndDelete_DeleteOnlyOnce(t *testing.T) {
+	ctx := context.Background()
+	deletions := 0
+	c, err := lru.New[int, string](
+		cachetypes.WithCapacity(10),
+		cachetypes.WithEvictionCB(func(_ context.Context, _ int, _ string) {
+			deletions++
+		}),
+	)
+	require.NoError(t, err)
+	defer c.Shutdown(ctx)
+
+	require.NoError(t, c.Put(ctx, 1, "one"))
+
+	v, found, err := cacheutils.GetAndDelete(ctx, c, 1)
+	require.NoError(t, err)
+	require.True(t, found)
+	require.Equal(t, "one", v)
+	require.Equal(t, 1, deletions) // eviction callback fired exactly once
+}

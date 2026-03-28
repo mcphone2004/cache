@@ -47,6 +47,24 @@ func GetMulti[K comparable, V any](ctx context.Context,
 	return hits, misses, nil
 }
 
+// GetAndDelete atomically fetches a value and removes it from the cache in a
+// single operation. Returns the value and true if the key existed, or the zero
+// value and false if it did not.
+//
+// Prefer this over a separate Get + Delete when you want to consume an entry
+// exactly once (e.g. work-queue or one-time token patterns), as it avoids a
+// second lock acquisition and eliminates the race between the two calls.
+func GetAndDelete[K comparable, V any](ctx context.Context,
+	c iface.Cache[K, V], key K) (V, bool, error) {
+
+	v, found, err := c.Get(ctx, key)
+	if err != nil || !found {
+		return v, false, err
+	}
+	_, err = c.Delete(ctx, key)
+	return v, true, err
+}
+
 // PutIfNotExists inserts key/value only when the key is not already present.
 // It returns true if the key was inserted, false if it already existed.
 //

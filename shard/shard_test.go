@@ -137,3 +137,7 @@ func TestShutdown(t *testing.T) {
 func TestTraverseCancel(t *testing.T) {
 	testhelper.CommonTraverseCancelTest(t, newCache)
 }
+
+func TestStressShutdown(t *testing.T) {
+	testhelper.CommonStressShutdownTest(t, newCache[int, string])
+}

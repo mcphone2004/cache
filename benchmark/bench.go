@@ -170,3 +170,17 @@ func GenKey(i int) int {
 func GenValue(i int) string {
 	return valmap[i]
 }
+
+// LargeValue simulates a realistic cache payload with a fixed-size data buffer.
+// Use it in benchmarks to observe allocation and copy costs for non-trivial values.
+type LargeValue struct {
+	ID   int
+	Data [128]byte
+}
+
+// GenLargeValue generates a LargeValue for benchmarking.
+func GenLargeValue(i int) LargeValue {
+	v := LargeValue{ID: i}
+	v.Data[0] = byte(i) //nolint:gosec // sets a marker byte, not security-sensitive
+	return v
+}

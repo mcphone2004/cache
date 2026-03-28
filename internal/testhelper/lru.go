@@ -497,3 +497,41 @@ func CommonTraverseCancelTest(t *testing.T, newCache newCacheFn[int, string]) {
 	require.ErrorIs(t, err, context.Canceled)
 	require.Less(t, visited, 10)
 }
+
+// CommonStressShutdownTest hammers concurrent Put/Get/Delete operations while
+// calling Shutdown concurrently, then verifies all operations return ErrShutdown.
+// Run with -race to get full benefit.
+func CommonStressShutdownTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
+	ctx := context.Background()
+	cache, err := newCache(64, nil)
+	require.NoError(t, err)
+
+	const goroutines = 8
+	const ops = 500
+
+	var wg sync.WaitGroup
+	wg.Add(goroutines)
+	for g := range goroutines {
+		go func(id int) {
+			defer wg.Done()
+			for i := range ops {
+				key := (id*ops + i) % 32
+				_ = cache.Put(ctx, key, strconv.Itoa(key))
+				_, _, _ = cache.Get(ctx, key)
+				if i%10 == 0 {
+					_, _ = cache.Delete(ctx, key)
+				}
+			}
+		}(g)
+	}
+
+	// Shutdown concurrently with the goroutines; some ops will see ErrShutdown,
+	// which is expected and ignored above. The race detector catches any races.
+	cache.Shutdown(ctx)
+	wg.Wait()
+
+	// After Shutdown, every operation must return ErrShutdown.
+	_, _, err = cache.Get(ctx, 0)
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+}

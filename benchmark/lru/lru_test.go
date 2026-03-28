@@ -13,6 +13,11 @@ func newCache() benchmark.PutGetter[int, string] {
 	return c
 }
 
+func newLargeCache() benchmark.PutGetter[int, benchmark.LargeValue] {
+	c, _ := lru.New[int, benchmark.LargeValue](cachetypes.WithCapacity(benchmark.CacheCapacity))
+	return c
+}
+
 func BenchmarkLRUGet(b *testing.B) {
 	benchmark.Get(b,
 		newCache,
@@ -36,5 +41,31 @@ func BenchmarkLRUMixed(b *testing.B) {
 		benchmark.KeyRange,
 		benchmark.GenKey,
 		benchmark.GenValue,
+	)
+}
+
+func BenchmarkLRUGetLargeValue(b *testing.B) {
+	benchmark.Get(b,
+		newLargeCache,
+		benchmark.PreloadCount,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func BenchmarkLRUPutLargeValue(b *testing.B) {
+	benchmark.Put(b,
+		newLargeCache,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func BenchmarkLRUMixedLargeValue(b *testing.B) {
+	benchmark.Mixed(b,
+		newLargeCache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
 	)
 }

@@ -33,12 +33,12 @@ func main() {
 	defer s.Shutdown(ctx) // ensure proper shutdown in all exit paths
 
 	// put some values
-	for i := 0; i < 10; i++ {
+	for i := range 10 {
 		_ = s.Put(ctx, i, fmt.Sprintf("value-%d", i))
 	}
 
 	// get and print values
-	for i := 0; i < 10; i++ {
+	for i := range 10 {
 		if v, ok, _ := s.Get(ctx, i); ok {
 			fmt.Printf("Key %d => %s\n", i, v)
 		} else {

@@ -91,10 +91,7 @@ func computeMaxshards(capacity, targetPerShard, minShards, cpuCount uint) uint {
 		}
 		cpuMultiplier := uint(4)
 		rawByCPU := cpuCount * cpuMultiplier
-		rawMinShards := rawByCapacity
-		if rawByCPU > rawMinShards {
-			rawMinShards = rawByCPU
-		}
+		rawMinShards := max(rawByCPU, rawByCapacity)
 
 		// round up to the next power of two, with a maximum of 256
 		// to avoid excessive memory usage

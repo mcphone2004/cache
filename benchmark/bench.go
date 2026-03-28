@@ -49,7 +49,7 @@ func PreloadCache[K comparable, V any](
 	genKey func(int) K,
 	genVal func(int) V,
 ) {
-	for i := 0; i < count; i++ {
+	for i := range count {
 		_ = cache.Put(ctx, genKey(i), genVal(i))
 	}
 }
@@ -61,6 +61,7 @@ func Put[K comparable, V any](
 	genKey func(int) K,
 	genVal func(int) V,
 ) {
+	b.Helper()
 	ctx := context.Background()
 	c := newCache()
 	defer c.Shutdown(ctx)
@@ -82,6 +83,7 @@ func Get[K comparable, V any](
 	genKey func(int) K,
 	genVal func(int) V,
 ) {
+	b.Helper()
 	ctx := context.Background()
 	c := newCache()
 	defer c.Shutdown(ctx)
@@ -104,6 +106,7 @@ func Mixed[K comparable, V any](
 	genKey func(int) K,
 	genVal func(int) V,
 ) {
+	b.Helper()
 	b.Run("50%Put", func(b *testing.B) {
 		mixed(b, newCache, keyRange, genKey, genVal, 50)
 	})
@@ -118,6 +121,7 @@ func MixedPutPercent[K comparable, V any](
 	genVal func(int) V,
 	putPercent int,
 ) {
+	b.Helper()
 	mixed(b, newCache, keyRange, genKey, genVal, putPercent)
 }
 
@@ -129,6 +133,7 @@ func mixed[K comparable, V any](
 	genVal func(int) V,
 	putPercent int,
 ) {
+	b.Helper()
 	ctx := context.Background()
 	c := newCache()
 	defer c.Shutdown(ctx)

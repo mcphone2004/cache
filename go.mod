@@ -1,6 +1,6 @@
 module github.com/mcphone2004/cache
 
-go 1.24.5
+go 1.26.1
 
 require (
 	github.com/stretchr/testify v1.10.0

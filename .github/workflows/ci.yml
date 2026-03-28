@@ -38,6 +38,11 @@ jobs:
         with:
           version: v2.11.4
 
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Vulnerability scan
         run: |
           go install golang.org/x/vuln/cmd/govulncheck@latest

@@ -65,3 +65,44 @@ func TestListBasic(t *testing.T) {
 	l.Remove(ent5) // no-op, already removed
 	require.Equal(t, 1, l.Size())
 }
+
+func TestFrontOnEmptyList(t *testing.T) {
+	var l list.List[int]
+	l.Init()
+	require.Nil(t, l.Front())
+}
+
+func TestMoveToFrontDifferentList(t *testing.T) {
+	var l1, l2 list.List[int]
+	l1.Init()
+	l2.Init()
+	e := l2.PushFront(42)
+	err := l1.MoveToFront(e)
+	require.NotNil(t, err)
+}
+
+func TestMoveToFrontAlreadyAtFront(t *testing.T) {
+	var l list.List[int]
+	l.Init()
+	l.PushFront(2)
+	front := l.PushFront(1) // 1 is now at front
+	err := l.MoveToFront(front)
+	require.Nil(t, err)
+	require.Equal(t, 1, l.Front().Value)
+	require.Equal(t, 2, l.Size())
+}
+
+func TestSeqEarlyStop(t *testing.T) {
+	var l list.List[int]
+	l.Init()
+	l.PushFront(3)
+	l.PushFront(2)
+	l.PushFront(1)
+
+	visited := 0
+	for range l.Seq() {
+		visited++
+		break
+	}
+	require.Equal(t, 1, visited)
+}

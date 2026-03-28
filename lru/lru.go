@@ -35,7 +35,7 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 	}
 
 	c := &Cache[K, V]{
-		items: make(map[K]*internal.ListEntry[K, V]),
+		items: make(map[K]*internal.ListEntry[K, V], o1.Capacity),
 		queue: internal.NewList(int(o1.Capacity), o1.OnEvict),
 	}
 	return c, nil
@@ -45,14 +45,15 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	var zero V
 	if c.isShutdown {
-		return zeroOf[V](), false, &cachetypes.ShutdownError{}
+		return zero, false, cachetypes.ErrShutdown
 	}
 	if elem, ok := c.items[key]; ok {
 		c.queue.MoveToFront(elem)
 		return elem.Value.Value, true, nil
 	}
-	return zeroOf[V](), false, nil
+	return zero, false, nil
 }
 
 // Put inserts or updates a value in the cache.
@@ -60,7 +61,7 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
 	c.mu.Lock()
 	if c.isShutdown {
 		c.mu.Unlock()
-		return nil
+		return cachetypes.ErrShutdown
 	}
 	if elem, ok := c.items[key]; ok {
 		c.queue.MoveToFront(elem)
@@ -80,8 +81,6 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
 	return nil
 }
 
-func zeroOf[T any]() (t T) { return }
-
 // evict removes the least recently used item from the cache and returns it.
 // It returns nil if there are no items to evict.
 func (c *Cache[K, V]) evict() *internal.Entry[K, V] {
@@ -98,7 +97,7 @@ func (c *Cache[K, V]) Reset(ctx context.Context) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return &cachetypes.ShutdownError{}
+		return cachetypes.ErrShutdown
 	}
 	c.reset(ctx)
 	return nil
@@ -124,7 +123,7 @@ func (c *Cache[K, V]) Size() (int, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return 0, &cachetypes.ShutdownError{}
+		return 0, cachetypes.ErrShutdown
 	}
 	return c.queue.Size(), nil
 }
@@ -134,22 +133,34 @@ func (c *Cache[K, V]) Capacity() (int, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.isShutdown {
-		return 0, &cachetypes.ShutdownError{}
+		return 0, cachetypes.ErrShutdown
 	}
 	return c.queue.Capacity(), nil
 }
 
 // Traverse iterates over all items in the cache, calling the provided function
 // for each key-value pair. If the function returns false, the iteration stops.
+// The snapshot is taken under the lock; fn is called without holding the lock.
 func (c *Cache[K, V]) Traverse(ctx context.Context,
 	fn func(context.Context, K, V) bool) error {
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if c.isShutdown {
-		return &cachetypes.ShutdownError{}
+		c.mu.Unlock()
+		return cachetypes.ErrShutdown
 	}
+	pairs := make([]struct {
+		k K
+		v V
+	}, 0, c.queue.Size())
 	for e := range c.queue.Seq() {
-		if !fn(ctx, e.Value.Key, e.Value.Value) {
+		pairs = append(pairs, struct {
+			k K
+			v V
+		}{e.Value.Key, e.Value.Value})
+	}
+	c.mu.Unlock()
+	for _, p := range pairs {
+		if !fn(ctx, p.k, p.v) {
 			break
 		}
 	}
@@ -162,7 +173,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	c.mu.Lock()
 	if c.isShutdown {
 		c.mu.Unlock()
-		return false, &cachetypes.ShutdownError{}
+		return false, cachetypes.ErrShutdown
 	}
 	elem, ok := c.items[key]
 	if !ok {

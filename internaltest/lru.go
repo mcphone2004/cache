@@ -5,11 +5,13 @@ import (
 	"context"
 	"iter"
 	"strconv"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/mcphone2004/cache/iface"
+	cachetypes "github.com/mcphone2004/cache/types"
 	cacheutils "github.com/mcphone2004/cache/utils"
 )
 
@@ -261,6 +263,129 @@ func CommonDeleteTest(t *testing.T, newCache newCacheFn[int, string]) {
 	require.False(t, ok)
 }
 
+// CommonShutdownTest verifies that all operations return ErrShutdown after Shutdown
+// is called, and that calling Shutdown a second time is a no-op.
+func CommonShutdownTest(t *testing.T, newCache newCacheFn[int, string]) {
+	ctx := context.Background()
+	cache, err := newCache(2, nil)
+	require.NoError(t, err)
+
+	require.NoError(t, cache.Put(ctx, 1, "one"))
+	cache.Shutdown(ctx)
+
+	_, _, err = cache.Get(ctx, 1)
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	err = cache.Put(ctx, 2, "two")
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	_, err = cache.Delete(ctx, 1)
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	_, err = cache.Size()
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	_, err = cache.Capacity()
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	err = cache.Reset(ctx)
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	err = cache.Traverse(ctx, func(_ context.Context, _ int, _ string) bool { return true })
+	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+
+	// Second Shutdown must be a no-op (no panic, no deadlock)
+	cache.Shutdown(ctx)
+}
+
+// CommonDeleteNonExistentTest verifies that deleting a key that was never inserted
+// returns (false, nil) without error.
+func CommonDeleteNonExistentTest(t *testing.T, newCache newCacheFn[int, string]) {
+	ctx := context.Background()
+	cache, err := newCache(2, nil)
+	require.NoError(t, err)
+	defer cache.Shutdown(ctx)
+
+	found, err := cache.Delete(ctx, 99)
+	require.NoError(t, err)
+	require.False(t, found)
+}
+
+// CommonUpdateNoEvictionTest verifies that updating an existing key does not
+// trigger the eviction callback.
+func CommonUpdateNoEvictionTest(t *testing.T, newCache newCacheFn[int, string]) {
+	ctx := context.Background()
+	evictions := 0
+	cache, err := newCache(2, func(_ context.Context, _ int, _ string) {
+		evictions++
+	})
+	require.NoError(t, err)
+	defer cache.Shutdown(ctx)
+
+	require.NoError(t, cache.Put(ctx, 1, "one"))
+	require.NoError(t, cache.Put(ctx, 2, "two"))
+
+	// Update key 1 — no eviction should occur
+	require.NoError(t, cache.Put(ctx, 1, "ONE"))
+	require.Equal(t, 0, evictions)
+
+	val, ok, err := cache.Get(ctx, 1)
+	require.NoError(t, err)
+	require.True(t, ok)
+	require.Equal(t, "ONE", val)
+}
+
+// CommonEvictionCallbackPanicTest verifies that a panic inside the eviction
+// callback is recovered and the cache continues to function correctly.
+func CommonEvictionCallbackPanicTest(t *testing.T, newCache newCacheFn[int, string]) {
+	ctx := context.Background()
+	cache, err := newCache(1, func(_ context.Context, _ int, _ string) {
+		panic("eviction panic")
+	})
+	require.NoError(t, err)
+	defer cache.Shutdown(ctx)
+
+	require.NoError(t, cache.Put(ctx, 1, "one"))
+	// Inserting key 2 evicts key 1, triggering the panicking callback
+	require.NotPanics(t, func() {
+		require.NoError(t, cache.Put(ctx, 2, "two"))
+	})
+
+	// Cache should still be usable after the panic
+	val, ok, err := cache.Get(ctx, 2)
+	require.NoError(t, err)
+	require.True(t, ok)
+	require.Equal(t, "two", val)
+}
+
+// CommonConcurrentTest verifies that concurrent Put/Get/Delete operations do not
+// cause data races or panics. Run with -race to get full benefit.
+func CommonConcurrentTest(t *testing.T, newCache newCacheFn[int, string]) {
+	ctx := context.Background()
+	cache, err := newCache(64, nil)
+	require.NoError(t, err)
+	defer cache.Shutdown(ctx)
+
+	const goroutines = 10
+	const ops = 100
+	var wg sync.WaitGroup
+	wg.Add(goroutines)
+	for g := range goroutines {
+		go func(id int) {
+			defer wg.Done()
+			for i := range ops {
+				key := (id*ops + i) % 32
+				_ = cache.Put(ctx, key, strconv.Itoa(key))
+				_, _, _ = cache.Get(ctx, key)
+				if i%10 == 0 {
+					_, _ = cache.Delete(ctx, key)
+				}
+			}
+		}(g)
+	}
+	wg.Wait()
+}
+
 // seqOf is a helper that creates an iter.Seq from a variadic list of values.
 func seqOf[T any](values ...T) iter.Seq[T] {
 	return func(yield func(T) bool) {
@@ -270,6 +395,32 @@ func seqOf[T any](values ...T) iter.Seq[T] {
 			}
 		}
 	}
+}
+
+// CommonTraverseReentrantTest verifies that the fn passed to Traverse can
+// safely call Get/Put on the cache without deadlocking.
+func CommonTraverseReentrantTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
+	cache, err := newCache(4, nil)
+	require.Nil(t, err)
+
+	ctx := context.Background()
+	defer cache.Shutdown(ctx)
+
+	require.Nil(t, cache.Put(ctx, 1, "one"))
+	require.Nil(t, cache.Put(ctx, 2, "two"))
+
+	// If Traverse holds the lock, Get inside fn deadlocks.
+	var seen []string
+	err = cache.Traverse(ctx, func(innerCtx context.Context, k int, _ string) bool {
+		got, ok, getErr := cache.Get(innerCtx, k)
+		require.NoError(t, getErr)
+		require.True(t, ok)
+		seen = append(seen, got)
+		return true
+	})
+	require.NoError(t, err)
+	require.Len(t, seen, 2)
 }
 
 // CommonGetMultiIterTest runs a test case to verify GetMultiIter correctly

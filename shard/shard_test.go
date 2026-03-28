@@ -6,6 +6,8 @@ import (
 	"hash/fnv"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/mcphone2004/cache/iface"
 	"github.com/mcphone2004/cache/internaltest"
 	"github.com/mcphone2004/cache/lru"
@@ -56,10 +58,70 @@ func TestTraverse(t *testing.T) {
 	internaltest.CommonTraverseTest(t, newCache)
 }
 
+func TestTraverseReentrant(t *testing.T) {
+	internaltest.CommonTraverseReentrantTest(t, newCache)
+}
+
 func TestDelete(t *testing.T) {
 	internaltest.CommonDeleteTest(t, newCache)
 }
 
 func TestGetMultiIter(t *testing.T) {
 	internaltest.CommonGetMultiIterTest(t, newCache)
+}
+
+func TestNew_ErrorPaths(t *testing.T) {
+	ctx := context.Background()
+
+	// capacity = 0
+	_, err := shard.New[int, string](
+		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
+			return lru.New[int, string](cachetypes.WithCapacity(capacity))
+		}),
+	)
+	require.Error(t, err)
+
+	// shardsFn = nil
+	_, err = shard.New[int, string](
+		shard.WithCapacity[int, string](10),
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
+			return lru.New[int, string](cachetypes.WithCapacity(capacity))
+		}),
+	)
+	require.Error(t, err)
+
+	// cacherMaker = nil
+	_, err = shard.New[int, string](
+		shard.WithCapacity[int, string](10),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+	)
+	require.Error(t, err)
+
+	// cacherMaker returns error
+	_, err = shard.New[int, string](
+		shard.WithCapacity[int, string](10),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithCacherMaker(func(_ uint) (iface.Cache[int, string], error) {
+			return nil, &cachetypes.InvalidOptionsError{Message: "injected"}
+		}),
+	)
+	require.Error(t, err)
+
+	// WithMinShards happy path
+	c, err := shard.New[int, string](
+		shard.WithCapacity[int, string](100),
+		shard.WithMinShards[int, string](4),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
+			return lru.New[int, string](cachetypes.WithCapacity(capacity))
+		}),
+	)
+	require.NoError(t, err)
+	require.NotNil(t, c)
+	c.Shutdown(ctx)
+}
+
+func TestShutdown(t *testing.T) {
+	internaltest.CommonShutdownTest(t, newCache)
 }

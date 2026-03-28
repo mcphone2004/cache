@@ -3,9 +3,7 @@ package benchmark
 
 import (
 	"context"
-	"crypto/rand"
-	"fmt"
-	"math/big"
+	"math/rand/v2"
 	"runtime"
 	"strconv"
 	"testing"
@@ -106,15 +104,21 @@ func Mixed[K comparable, V any](
 	genKey func(int) K,
 	genVal func(int) V,
 ) {
-	putPercents := []int{
-		50,
-	}
+	b.Run("50%Put", func(b *testing.B) {
+		mixed(b, newCache, keyRange, genKey, genVal, 50)
+	})
+}
 
-	for _, p := range putPercents {
-		b.Run(fmt.Sprintf("%d%%Put", p), func(b *testing.B) {
-			mixed(b, newCache, keyRange, genKey, genVal, p)
-		})
-	}
+// MixedPutPercent runs a mixed Put/Get benchmark with a configurable put percentage.
+func MixedPutPercent[K comparable, V any](
+	b *testing.B,
+	newCache func() PutGetter[K, V],
+	keyRange int,
+	genKey func(int) K,
+	genVal func(int) V,
+	putPercent int,
+) {
+	mixed(b, newCache, keyRange, genKey, genVal, putPercent)
 }
 
 func mixed[K comparable, V any](
@@ -133,11 +137,7 @@ func mixed[K comparable, V any](
 		i := 0
 		for pb.Next() {
 			key := i % keyRange
-			n, err := rand.Int(rand.Reader, big.NewInt(100))
-			if err != nil {
-				panic(fmt.Sprintf("failed to generate random number: %v", err))
-			}
-			if n.Int64() < int64(putPercent) {
+			if rand.IntN(100) < putPercent { //nolint:gosec
 				_ = c.Put(ctx, genKey(key), genVal(key))
 			} else {
 				_, _, _ = c.Get(ctx, genKey(key))

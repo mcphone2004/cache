@@ -29,7 +29,6 @@ type Cache[K comparable, V any] interface {
 	// Traverse iterates over all items in the cache, calling the provided function
 	// for each key-value pair. If the function returns false, the iteration stops.
 	// This is useful for debugging or inspecting the cache contents.
-	// The function is invoked with the mutex held, so it should not block for long.
 	Traverse(ctx context.Context, fn func(context.Context, K, V) bool) error
 	// Destroy cleans up the cache, releasing any resources it holds.
 	Shutdown(ctx context.Context)

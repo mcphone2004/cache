@@ -175,8 +175,145 @@ func TestShardCacheWithMocks(t *testing.T) {
 	err = cache.Reset(ctx)
 	require.Nil(t, err)
 
+	// --- Capacity ---
+	mockShard1.EXPECT().Capacity().Return(10, nil).Once()
+	mockShard2.EXPECT().Capacity().Return(10, nil).Once()
+	total, err := cache.Capacity()
+	require.Nil(t, err)
+	require.Equal(t, 20, total)
+
 	// --- Shutdown ---
 	mockShard1.EXPECT().Shutdown(ctx).Once()
 	mockShard2.EXPECT().Shutdown(ctx).Once()
 	cache.Shutdown(ctx)
+}
+
+func TestShutdownOpsReturnErrShutdown(t *testing.T) {
+	ctx := context.Background()
+	cache := &Cache[uint, string]{
+		shardsFn:  func(_ uint) uint { return 0 },
+		maxShards: 1,
+		shards:    []iface.Cache[uint, string]{&nop.Cache[uint, string]{}},
+	}
+	// First call transitions to shutdown state
+	cache.Shutdown(ctx)
+
+	// Second call must be a no-op (already shutdown)
+	cache.Shutdown(ctx)
+
+	err := cache.Reset(ctx)
+	require.ErrorIs(t, err, lrutypes.ErrShutdown)
+
+	err = cache.Traverse(ctx, func(_ context.Context, _ uint, _ string) bool { return true })
+	require.ErrorIs(t, err, lrutypes.ErrShutdown)
+
+	size, err := cache.Size()
+	require.Zero(t, size)
+	require.ErrorIs(t, err, lrutypes.ErrShutdown)
+
+	total, err := cache.Capacity()
+	require.Zero(t, total)
+	require.ErrorIs(t, err, lrutypes.ErrShutdown)
+}
+
+func TestTraverseEarlyStop(t *testing.T) {
+	ctx := context.Background()
+
+	mockShard1 := iface.NewMockCache[uint, string](t)
+	mockShard2 := iface.NewMockCache[uint, string](t)
+
+	cache := &Cache[uint, string]{
+		shardsFn:  func(k uint) uint { return k % 2 },
+		maxShards: 2,
+		shards:    []iface.Cache[uint, string]{mockShard1, mockShard2},
+	}
+
+	// fn returns false on first item — shard2 must never be visited
+	mockShard1.EXPECT().Traverse(ctx,
+		mock.AnythingOfType("func(context.Context, uint, string) bool")).
+		RunAndReturn(func(_ context.Context, fn func(context.Context, uint, string) bool) error {
+			fn(ctx, 0, "zero") // returns false, stops traversal
+			return nil
+		}).Once()
+
+	visited := 0
+	err := cache.Traverse(ctx, func(_ context.Context, _ uint, _ string) bool {
+		visited++
+		return false
+	})
+	require.NoError(t, err)
+	require.Equal(t, 1, visited)
+}
+
+func TestTraverseShardError(t *testing.T) {
+	ctx := context.Background()
+
+	mockShard1 := iface.NewMockCache[uint, string](t)
+	mockShard2 := iface.NewMockCache[uint, string](t)
+
+	cache := &Cache[uint, string]{
+		shardsFn:  func(k uint) uint { return k % 2 },
+		maxShards: 2,
+		shards:    []iface.Cache[uint, string]{mockShard1, mockShard2},
+	}
+
+	sentinel := errors.New("shard error")
+	mockShard1.EXPECT().Traverse(ctx,
+		mock.AnythingOfType("func(context.Context, uint, string) bool")).
+		Return(sentinel).Once()
+
+	err := cache.Traverse(ctx, func(_ context.Context, _ uint, _ string) bool { return true })
+	require.ErrorIs(t, err, sentinel)
+}
+
+func TestResetShardError(t *testing.T) {
+	ctx := context.Background()
+
+	mockShard := iface.NewMockCache[uint, string](t)
+	cache := &Cache[uint, string]{
+		shardsFn:  func(_ uint) uint { return 0 },
+		maxShards: 1,
+		shards:    []iface.Cache[uint, string]{mockShard},
+	}
+
+	sentinel := errors.New("reset error")
+	mockShard.EXPECT().Reset(ctx).Return(sentinel).Once()
+
+	err := cache.Reset(ctx)
+	require.ErrorIs(t, err, sentinel)
+}
+
+func TestSizeShardError(t *testing.T) {
+	ctx := context.Background()
+	_ = ctx
+
+	mockShard := iface.NewMockCache[uint, string](t)
+	cache := &Cache[uint, string]{
+		shardsFn:  func(_ uint) uint { return 0 },
+		maxShards: 1,
+		shards:    []iface.Cache[uint, string]{mockShard},
+	}
+
+	sentinel := errors.New("size error")
+	mockShard.EXPECT().Size().Return(0, sentinel).Once()
+
+	size, err := cache.Size()
+	require.Zero(t, size)
+	require.ErrorIs(t, err, sentinel)
+}
+
+func TestCapacityShardError(t *testing.T) {
+	mockShard := iface.NewMockCache[uint, string](t)
+	cache := &Cache[uint, string]{
+		shardsFn:  func(_ uint) uint { return 0 },
+		maxShards: 1,
+		shards:    []iface.Cache[uint, string]{mockShard},
+	}
+
+	sentinel := errors.New("capacity error")
+	mockShard.EXPECT().Capacity().Return(0, sentinel).Once()
+
+	total, err := cache.Capacity()
+	require.Zero(t, total)
+	require.ErrorIs(t, err, sentinel)
 }

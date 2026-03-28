@@ -1,0 +1,257 @@
+# llms.txt — LLM Reference for github.com/mcphone2004/cache
+
+This file is a concise, LLM-optimised reference for consuming this library.
+Use it to answer questions like "which cache should I use?" and "how do I set this up?".
+
+---
+
+## What This Library Provides
+
+Generic, thread-safe, in-memory LRU caches for Go. All implementations satisfy the same `iface.Cache[K, V]` interface, so you can swap implementations without changing call sites.
+
+**Go 1.26+ required. Module path: `github.com/mcphone2004/cache`**
+
+---
+
+## Which Package to Use
+
+| Situation | Package |
+|---|---|
+| General purpose, simple | `lru` |
+| Read-heavy (many Gets, few Puts) | `lru2` |
+| Entries must expire after a time-to-live | `tlru` |
+| High-concurrency, need to stripe locks | `shard` (wraps any of the above) |
+
+**Decision tree:**
+1. Do entries need TTL expiry? → `tlru`
+2. Is read throughput the bottleneck? → `lru2`
+3. Is lock contention the bottleneck (many goroutines)? → `shard`
+4. Otherwise → `lru`
+
+---
+
+## The Cache Interface
+
+All implementations satisfy `iface.Cache[K comparable, V any]`:
+
+```go
+Get(ctx context.Context, key K) (V, bool, error)
+Put(ctx context.Context, key K, value V) error
+Delete(ctx context.Context, key K) (bool, error)
+Size() (int, error)
+Capacity() (int, error)
+Reset(ctx context.Context) error
+Traverse(ctx context.Context, fn func(context.Context, K, V) bool) error
+Shutdown(ctx context.Context)
+```
+
+- `Get` returns `(zero, false, nil)` on miss; marks the key as recently used.
+- `Put` evicts the LRU entry if at capacity; fires the eviction callback.
+- `Delete` returns `(false, nil)` if the key does not exist.
+- `Traverse` iterates most-recently-used first; return `false` from `fn` to stop early.
+- `Shutdown` must be called exactly once to free resources (stops background goroutines). Use `defer cache.Shutdown(ctx)`.
+- After `Shutdown`, all methods return `cachetypes.ErrShutdown`.
+
+**tlru only** — extends the interface with:
+```go
+PutWithTTL(ctx context.Context, key K, value V, ttl time.Duration) error
+```
+
+---
+
+## lru — Basic LRU
+
+```go
+import (
+    "github.com/mcphone2004/cache/lru"
+    cachetypes "github.com/mcphone2004/cache/types"
+)
+
+c, err := lru.New[string, int](
+    cachetypes.WithCapacity(1024),
+    cachetypes.WithEvictionCB(func(ctx context.Context, key string, val int) {
+        // called when an entry is evicted (capacity overflow, Delete, Reset, Shutdown)
+    }),
+)
+```
+
+---
+
+## lru2 — Read-Heavy LRU
+
+Identical API to `lru`. Internally uses a split RW-mutex so concurrent reads do not block each other.
+
+```go
+import (
+    "github.com/mcphone2004/cache/lru2"
+    cachetypes "github.com/mcphone2004/cache/types"
+)
+
+c, err := lru2.New[string, int](
+    cachetypes.WithCapacity(1024),
+)
+```
+
+---
+
+## tlru — TTL-Enabled LRU
+
+Uses **tlru-specific option functions** (not `cachetypes.With*`).
+
+```go
+import (
+    "github.com/mcphone2004/cache/tlru"
+)
+
+c, err := tlru.New[string, int](
+    tlru.WithCapacity[string, int](1024),
+    tlru.WithDefaultTTL[string, int](5*time.Minute),   // TTL for Put(); omit for no default
+    tlru.WithBucketSize[string, int](time.Second),      // expiry granularity; default 1ms
+    tlru.WithEvictionCB[string, int](func(ctx context.Context, key string, val int) {}),
+)
+defer c.Shutdown(ctx) // REQUIRED — stops background expiry goroutine
+
+// Insert with default TTL
+_ = c.Put(ctx, "key", 42)
+
+// Insert with explicit TTL (overrides default)
+_ = c.PutWithTTL(ctx, "session", 99, 30*time.Minute)
+
+// Overwrite with Put removes any existing TTL registration and applies the default TTL
+_ = c.Put(ctx, "session", 100)
+
+// Overwrite with PutWithTTL replaces the TTL — no duplicate timer registration
+_ = c.PutWithTTL(ctx, "session", 100, time.Hour)
+```
+
+**TTL behaviour:**
+- Expiry fires via a background goroutine, not on `Get`. A key remains gettable until the goroutine removes it.
+- `BucketSize` controls maximum expiry jitter: a key with TTL=50ms and BucketSize=1s may survive up to ~1s extra.
+- `Put` with `WithDefaultTTL` set applies the default TTL. `Put` with no `WithDefaultTTL` makes the key permanent.
+
+---
+
+## shard — Sharded Cache
+
+Wraps any `iface.Cache` to distribute keys across N shards, reducing mutex contention.
+
+```go
+import (
+    "github.com/mcphone2004/cache/iface"
+    "github.com/mcphone2004/cache/lru"
+    "github.com/mcphone2004/cache/shard"
+    cachetypes "github.com/mcphone2004/cache/types"
+)
+
+c, err := shard.New(
+    shard.WithCapacity[string, int](4096),     // total capacity, split evenly across shards
+    shard.WithMinShards[string, int](8),        // minimum shard count (rounded up to power of two)
+    shard.WithShardsFn[string, int](func(key string, maxShard uint) uint {
+        // map key to shard index in [0, maxShard)
+        h := fnv.New32a()
+        _, _ = h.Write([]byte(key))
+        return uint(h.Sum32())
+    }),
+    shard.WithCacherMaker(func(capacity uint) (iface.Cache[string, int], error) {
+        return lru.New[string, int](cachetypes.WithCapacity(capacity))
+    }),
+)
+```
+
+**Notes:**
+- Shard count is always rounded to the next power of two.
+- `ShardsFn` receives `maxShard` (the actual shard count); the return value is masked to `[0, maxShard)` automatically.
+- Wrap `tlru` in `shard` to get both TTL expiry and lock striping.
+
+---
+
+## Eviction Callback
+
+```go
+cachetypes.CBFunc[K, V]  =  func(context.Context, K, V)
+```
+
+Called when an entry is removed for any reason: capacity overflow (LRU eviction), explicit `Delete`, `Reset`, or `Shutdown`. **The callback is called outside the cache's internal lock** — it is safe to call `cache.Get`/`Put` from inside the callback, but be careful about re-entrancy loops.
+
+Panics inside the callback are recovered and do not crash the process.
+
+---
+
+## Bulk Helpers (utils package)
+
+```go
+import cacheutils "github.com/mcphone2004/cache/utils"
+
+// GetMultiIter — streaming bulk get via iterator
+err := cacheutils.GetMultiIter(ctx, c, slices.Values(keys),
+    func(k string, v int) { /* hit */ },
+    func(k string)        { /* miss */ },
+)
+
+// GetMulti — bulk get returning map + miss slice
+hits, misses, err := cacheutils.GetMulti(ctx, c, keys)
+
+// PutIfNotExists — insert only when key is absent
+// Returns (true, nil) if inserted, (false, nil) if already present
+inserted, err := cacheutils.PutIfNotExists(ctx, c, "key", 42)
+```
+
+---
+
+## Error Handling
+
+```go
+import cachetypes "github.com/mcphone2004/cache/types"
+
+// Check for shutdown
+if errors.Is(err, cachetypes.ErrShutdown) { ... }
+
+// Check for bad options (returned from New())
+var optErr *cachetypes.InvalidOptionsError
+if errors.As(err, &optErr) { log.Fatal(optErr.Error()) }
+```
+
+---
+
+## Common Patterns
+
+**Cache aside (populate on miss):**
+```go
+v, ok, err := c.Get(ctx, key)
+if err != nil { return err }
+if !ok {
+    v, err = fetchFromDB(ctx, key)
+    if err != nil { return err }
+    _ = c.Put(ctx, key, v)
+}
+```
+
+**Guaranteed cleanup:**
+```go
+c, err := lru.New[string, int](cachetypes.WithCapacity(256))
+if err != nil { ... }
+defer c.Shutdown(context.Background())
+```
+
+**Traverse with early exit:**
+```go
+_ = c.Traverse(ctx, func(_ context.Context, k string, v int) bool {
+    if v > threshold {
+        result = k
+        return false // stop iteration
+    }
+    return true
+})
+```
+
+**Traverse respects context cancellation** — pass a cancellable context and `Traverse` returns `context.Canceled` when the context is done.
+
+---
+
+## Gotchas
+
+- **`tlru` option functions are not interchangeable with `cachetypes.With*`.** Use `tlru.WithCapacity[K,V]`, not `cachetypes.WithCapacity`.
+- **`Shutdown` is not idempotent** in the sense that calling it twice is safe (second call is a no-op), but you should call it exactly once per logical lifecycle.
+- **`Size()` and `Capacity()` return `(int, error)`**, not just `int`. The error is non-nil only after shutdown.
+- **TTL expiry is approximate.** The background goroutine wakes on bucket boundaries, not exact deadlines.
+- **`shard` does not support `PutWithTTL`** directly — wrap each shard with `tlru` via `CacherMaker` if you need TTL in a sharded setup.

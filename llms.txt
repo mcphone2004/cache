@@ -191,6 +191,10 @@ err := cacheutils.GetMultiIter(ctx, c, slices.Values(keys),
 // GetMulti — bulk get returning map + miss slice
 hits, misses, err := cacheutils.GetMulti(ctx, c, keys)
 
+// GetAndDelete — fetch and remove in one call; avoids the race between a
+// separate Get + Delete pair. Useful for work-queue / one-time token patterns.
+v, found, err := cacheutils.GetAndDelete(ctx, c, "key")
+
 // PutIfNotExists — insert only when key is absent
 // Returns (true, nil) if inserted, (false, nil) if already present
 inserted, err := cacheutils.PutIfNotExists(ctx, c, "key", 42)

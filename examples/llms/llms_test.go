@@ -347,3 +347,22 @@ func TestSizeAndCapacityReturnError(t *testing.T) {
 	_, err = c.Capacity()
 	require.ErrorIs(t, err, cachetypes.ErrShutdown)
 }
+
+// TestGetAndDelete validates the GetAndDelete snippet from llms.txt.
+func TestGetAndDelete(t *testing.T) {
+	ctx := context.Background()
+	c, err := lru.New[string, int](cachetypes.WithCapacity(10))
+	require.NoError(t, err)
+	defer c.Shutdown(ctx)
+	require.NoError(t, c.Put(ctx, "key", 42))
+
+	v, found, err := cacheutils.GetAndDelete(ctx, c, "key")
+	require.NoError(t, err)
+	require.True(t, found)
+	require.Equal(t, 42, v)
+
+	// key must be gone after GetAndDelete
+	_, ok, err := c.Get(ctx, "key")
+	require.NoError(t, err)
+	require.False(t, ok)
+}

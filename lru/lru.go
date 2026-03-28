@@ -36,7 +36,7 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 
 	c := &Cache[K, V]{
 		items: make(map[K]*internal.ListEntry[K, V], o1.Capacity),
-		queue: internal.NewList(int(o1.Capacity), o1.OnEvict),
+		queue: internal.NewList(o1.Capacity, o1.OnEvict),
 	}
 	return c, nil
 }

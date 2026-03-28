@@ -35,13 +35,8 @@ linters:
     - embeddedstructfieldcheck
     - gosec
     - cyclop
-  settings:
-    gosec:
-      excludes:
-        - G115
 
 issues:
-  exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0
 
@@ -59,4 +54,3 @@ formatters:
         - standard
         - default
         - prefix(github.com/mcphone2004/cache)
-      local-prefixes: "github.com/mcphone2004/cache/"

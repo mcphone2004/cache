@@ -22,7 +22,7 @@ func new8ShardLRUCache() benchmark.PutGetter[int, string] {
 			if key < 0 {
 				key = -key // handle negative keys
 			}
-			return uint(key) % maxShard
+			return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
@@ -71,7 +71,7 @@ func new8ShardLRU2Cache() benchmark.PutGetter[int, string] {
 			if key < 0 {
 				key = -key // handle negative keys
 			}
-			return uint(key) % maxShard
+			return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
@@ -118,7 +118,7 @@ func newShardLRUCacheH() benchmark.PutGetter[int, string] {
 			if key < 0 {
 				key = -key // handle negative keys
 			}
-			return uint(key) % maxShard
+			return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
@@ -165,7 +165,7 @@ func newShardLRU2CacheH() benchmark.PutGetter[int, string] {
 			if key < 0 {
 				key = -key // handle negative keys
 			}
-			return uint(key) % maxShard
+			return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
 		}),
 		// each shard is its own LRU cache
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {

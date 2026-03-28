@@ -28,7 +28,7 @@ type List[K comparable, V any] struct {
 }
 
 // NewList creates a new list for the given capacity
-func NewList[K comparable, V any](capacity int,
+func NewList[K comparable, V any](capacity uint,
 	onEvict cachetypes.CBFunc[K, V]) *List[K, V] {
 	l := List[K, V]{
 		entryPool: &sync.Pool{
@@ -36,7 +36,7 @@ func NewList[K comparable, V any](capacity int,
 				return &Entry[K, V]{}
 			},
 		},
-		capacity: capacity,
+		capacity: int(capacity), //nolint:gosec // capacity is validated positive by callers
 		onEvict:  onEvict,
 	}
 	// pre-populate the pool

@@ -92,3 +92,7 @@ func TestEvictionCallbackPanic(t *testing.T) {
 func TestConcurrent(t *testing.T) {
 	testhelper.CommonConcurrentTest(t, newCache)
 }
+
+func TestTraverseCancel(t *testing.T) {
+	testhelper.CommonTraverseCancelTest(t, newCache)
+}

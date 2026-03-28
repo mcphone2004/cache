@@ -132,12 +132,15 @@ func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, 
 		return true
 	}
 	for _, shard := range c.shards {
-		if stop {
+		if stop || ctx.Err() != nil {
 			break
 		}
 		if err := shard.Traverse(ctx, wrapper); err != nil {
 			return err
 		}
+	}
+	if ctx.Err() != nil {
+		return ctx.Err()
 	}
 	return nil
 }

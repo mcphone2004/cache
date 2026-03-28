@@ -119,7 +119,7 @@ func (l *List[V]) Back() *Entry[V] {
 // PopBack removes and returns the last element of the list.
 func (l *List[V]) PopBack() (V, bool) {
 	var zero V
-	tail := l.back()
+	tail := l.Back()
 	if tail == nil {
 		return zero, false
 	}
@@ -131,14 +131,6 @@ func (l *List[V]) PopBack() (V, bool) {
 	tail.list = nil  // Clear the list pointer to avoid memory leaks
 	l.pool.Put(tail) // Return the entry to the pool
 	return val, true
-}
-
-// Back returns the last element of the list or nil if the list is empty.
-func (l *List[V]) back() *Entry[V] {
-	if l.len == 0 {
-		return nil
-	}
-	return l.root.prev
 }
 
 // Remove removes the specified entry from the list.
@@ -159,9 +151,6 @@ func (l *List[V]) Remove(e *Entry[V]) {
 func (l *List[V]) remove(e *Entry[V]) {
 	e.prev.next = e.next
 	e.next.prev = e.prev
-	e.next = nil // avoid memory leaks
-	e.prev = nil // avoid memory leaks
-	e.list = nil
 	l.len--
 }
 

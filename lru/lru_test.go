@@ -61,10 +61,34 @@ func TestTraverse(t *testing.T) {
 	internaltest.CommonTraverseTest(t, newCache)
 }
 
+func TestTraverseReentrant(t *testing.T) {
+	internaltest.CommonTraverseReentrantTest(t, newCache)
+}
+
 func TestDelete(t *testing.T) {
 	internaltest.CommonDeleteTest(t, newCache)
 }
 
 func TestGetMultiIter(t *testing.T) {
 	internaltest.CommonGetMultiIterTest(t, newCache)
+}
+
+func TestShutdown(t *testing.T) {
+	internaltest.CommonShutdownTest(t, newCache)
+}
+
+func TestDeleteNonExistent(t *testing.T) {
+	internaltest.CommonDeleteNonExistentTest(t, newCache)
+}
+
+func TestUpdateNoEviction(t *testing.T) {
+	internaltest.CommonUpdateNoEvictionTest(t, newCache)
+}
+
+func TestEvictionCallbackPanic(t *testing.T) {
+	internaltest.CommonEvictionCallbackPanicTest(t, newCache)
+}
+
+func TestConcurrent(t *testing.T) {
+	internaltest.CommonConcurrentTest(t, newCache)
 }

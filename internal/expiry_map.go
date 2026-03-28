@@ -17,7 +17,7 @@ type minTimeHeap = heap.Heap[time.Time]
 
 type expirySet[K comparable] = map[K]struct{}
 
-type onExpiryFn[K comparable] func(map[K]struct{})
+type onExpiryFn[K comparable] func(expirySet[K])
 
 // Handle is returned by Register and is used to Unregister keys from the ExpiryMap.
 type Handle struct {

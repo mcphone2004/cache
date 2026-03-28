@@ -134,8 +134,9 @@ func toOptions[K comparable, V any](o Options[K, V]) (options[K, V], error) {
 	opt.maxShards = ComputeMaxshards(o.Capacity, o.TargetPerShard, o.MinShards)
 
 	perShardCapacity := (o.Capacity + opt.maxShards - 1) / opt.maxShards
+	mask := opt.maxShards - 1
 	opt.shardsFn = func(k K) uint {
-		return o.ShardsFn(k, opt.maxShards)
+		return o.ShardsFn(k, opt.maxShards) & mask
 	}
 	opt.cacherMaker = func() (iface.Cache[K, V], error) {
 		return o.CacherMaker(perShardCapacity)

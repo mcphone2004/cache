@@ -27,6 +27,17 @@ func TestNextPowerOfTwo(t *testing.T) {
 	}
 }
 
+// TestComputeMaxshards_ZeroCPU verifies that cpuCount=0 defaults to 1
+func TestComputeMaxshards_ZeroCPU(t *testing.T) {
+	got := computeMaxshards(100, 10, 0, 0)
+	if !isPowerOfTwo(got) {
+		t.Errorf("not power of two with cpuCount=0: %d", got)
+	}
+	if got == 0 {
+		t.Error("expected non-zero shard count with cpuCount=0")
+	}
+}
+
 // TestComputeMaxshards_VaryCPU checks invariants while varying CPU count
 func TestComputeMaxshards_VaryCPU(t *testing.T) {
 	capacity := uint(100)

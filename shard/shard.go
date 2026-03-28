@@ -11,7 +11,6 @@ import (
 
 // Cache represents a sharded cache that distributes keys across multiple shards.
 type Cache[K comparable, V any] struct {
-	nopCache  nop.Cache[K, V] // Embed nop cache for no-operation methods
 	shardsFn  func(K) uint
 	maxShards uint
 	// Shards is a slice of caches, each representing a shard.
@@ -70,12 +69,7 @@ func newCache[K comparable, V any](maxShards uint, shardsFn func(K) uint,
 
 // keyToShardIndex calculates the shard index for a given key using the provided shards function.
 func (c *Cache[K, V]) keyToShardIndex(key K) uint {
-	idx := c.shardsFn(key)
-	if idx >= c.maxShards {
-		// % is expensive, shardsFn should ensure idx is within bounds
-		return idx % c.maxShards // Ensure index is within bounds
-	}
-	return idx
+	return c.shardsFn(key)
 }
 
 // Get retrieves a value from the appropriate shard based on the key.
@@ -96,7 +90,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 // Reset clears all shards in the cache.
 func (c *Cache[K, V]) Reset(ctx context.Context) error {
 	if c.isShutdown() {
-		return &cachetypes.ShutdownError{}
+		return cachetypes.ErrShutdown
 	}
 	for _, shard := range c.shards {
 		if err := shard.Reset(ctx); err != nil {
@@ -116,9 +110,10 @@ func (c *Cache[K, V]) Shutdown(ctx context.Context) {
 	if c.isShutdown() {
 		return // Already shutdown
 	}
+	nopShard := &nop.Cache[K, V]{}
 	for i := range c.maxShards {
 		c.shards[i].Shutdown(ctx)
-		c.shards[i] = &c.nopCache // Replace with nop cache
+		c.shards[i] = nopShard
 	}
 }
 
@@ -126,22 +121,22 @@ func (c *Cache[K, V]) Shutdown(ctx context.Context) {
 // If the provided function returns false, the traversal stops immediately.
 func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, V) bool) error {
 	if c.isShutdown() {
-		return &cachetypes.ShutdownError{}
+		return cachetypes.ErrShutdown
+	}
+	stop := false
+	wrapper := func(innerCtx context.Context, k K, v V) bool {
+		if !fn(innerCtx, k, v) {
+			stop = true
+			return false
+		}
+		return true
 	}
 	for _, shard := range c.shards {
-		stop := false
-		err := shard.Traverse(ctx, func(innerCtx context.Context, k K, v V) bool {
-			if !fn(innerCtx, k, v) {
-				stop = true
-				return false // stop this shard traversal
-			}
-			return true
-		})
-		if err != nil {
-			return err
-		}
 		if stop {
 			break
+		}
+		if err := shard.Traverse(ctx, wrapper); err != nil {
+			return err
 		}
 	}
 	return nil
@@ -150,7 +145,7 @@ func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, 
 // Size returns the total number of items across all shards.
 func (c *Cache[K, V]) Size() (int, error) {
 	if c.isShutdown() {
-		return 0, &cachetypes.ShutdownError{}
+		return 0, cachetypes.ErrShutdown
 	}
 	size := 0
 	for _, shard := range c.shards {
@@ -166,7 +161,7 @@ func (c *Cache[K, V]) Size() (int, error) {
 // Capacity returns the total maximum number of items across all shards.
 func (c *Cache[K, V]) Capacity() (int, error) {
 	if c.isShutdown() {
-		return 0, &cachetypes.ShutdownError{}
+		return 0, cachetypes.ErrShutdown
 	}
 	total := 0
 	for _, shard := range c.shards {

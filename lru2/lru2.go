@@ -37,7 +37,7 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 	}
 
 	c := &Cache[K, V]{
-		items: make(map[K]*internal.ListEntry[K, V]),
+		items: make(map[K]*internal.ListEntry[K, V], o1.Capacity),
 		queue: internal.NewList(int(o1.Capacity), o1.OnEvict),
 	}
 	return c, nil
@@ -45,15 +45,16 @@ func New[K comparable, V any](options ...func(o *cachetypes.Options)) (
 
 // Get retrieves a value from the cache and marks it as recently used.
 func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool, error) {
+	var zero V
 	c.mapMutex.RLock()
 	if c.isShutdown {
 		c.mapMutex.RUnlock()
-		return zeroOf[V](), false, &cachetypes.ShutdownError{}
+		return zero, false, cachetypes.ErrShutdown
 	}
 	elem, ok := c.items[key]
 	if !ok {
 		c.mapMutex.RUnlock()
-		return zeroOf[V](), false, nil
+		return zero, false, nil
 	}
 
 	val := elem.Value.Value
@@ -68,8 +69,8 @@ func (c *Cache[K, V]) Get(_ context.Context, key K) (V, bool, error) {
 func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
 	c.mapMutex.Lock()
 	if c.isShutdown {
-		c.mapMutex.RUnlock()
-		return &cachetypes.ShutdownError{}
+		c.mapMutex.Unlock()
+		return cachetypes.ErrShutdown
 	}
 	if elem, ok := c.items[key]; ok {
 		elem.Value.Value = value
@@ -100,41 +101,55 @@ func (c *Cache[K, V]) Put(ctx context.Context, key K, value V) error {
 	return nil
 }
 
-func zeroOf[T any]() (t T) { return }
-
 // Size returns the current number of items in the cache.
 func (c *Cache[K, V]) Size() (int, error) {
+	c.mapMutex.RLock()
+	defer c.mapMutex.RUnlock()
+	if c.isShutdown {
+		return 0, cachetypes.ErrShutdown
+	}
 	c.qMutex.Lock()
 	defer c.qMutex.Unlock()
-	if c.isShutdown {
-		return 0, &cachetypes.ShutdownError{}
-	}
 	return c.queue.Size(), nil
 }
 
 // Capacity returns the maximum number of items the cache can hold.
 func (c *Cache[K, V]) Capacity() (int, error) {
+	c.mapMutex.RLock()
+	defer c.mapMutex.RUnlock()
+	if c.isShutdown {
+		return 0, cachetypes.ErrShutdown
+	}
 	c.qMutex.Lock()
 	defer c.qMutex.Unlock()
-	if c.isShutdown {
-		return 0, &cachetypes.ShutdownError{}
-	}
 	return c.queue.Capacity(), nil
 }
 
 // Traverse iterates over all items in the cache, calling the provided function
 // for each key-value pair. If the function returns false, the iteration stops.
+// The snapshot is taken under the lock; fn is called without holding the lock.
 func (c *Cache[K, V]) Traverse(ctx context.Context,
 	fn func(context.Context, K, V) bool) error {
 	c.mapMutex.RLock()
-	defer c.mapMutex.RUnlock()
 	if c.isShutdown {
-		return &cachetypes.ShutdownError{}
+		c.mapMutex.RUnlock()
+		return cachetypes.ErrShutdown
 	}
 	c.qMutex.Lock()
-	defer c.qMutex.Unlock()
+	pairs := make([]struct {
+		k K
+		v V
+	}, 0, c.queue.Size())
 	for e := range c.queue.Seq() {
-		if !fn(ctx, e.Value.Key, e.Value.Value) {
+		pairs = append(pairs, struct {
+			k K
+			v V
+		}{e.Value.Key, e.Value.Value})
+	}
+	c.qMutex.Unlock()
+	c.mapMutex.RUnlock()
+	for _, p := range pairs {
+		if !fn(ctx, p.k, p.v) {
 			break
 		}
 	}
@@ -147,7 +162,7 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	c.mapMutex.Lock()
 	if c.isShutdown {
 		c.mapMutex.Unlock()
-		return false, &cachetypes.ShutdownError{}
+		return false, cachetypes.ErrShutdown
 	}
 	elem, ok := c.items[key]
 	if !ok {
@@ -163,38 +178,48 @@ func (c *Cache[K, V]) Delete(ctx context.Context, key K) (bool, error) {
 	return true, nil
 }
 
-func (c *Cache[K, V]) reset(ctx context.Context, isShutdown bool) error {
-	c.mapMutex.Lock()
-	if c.isShutdown {
-		c.mapMutex.Unlock()
-		return &cachetypes.ShutdownError{}
-	}
-	if isShutdown {
-		c.isShutdown = isShutdown
-	}
+// drain removes all items from the queue and returns them for eviction callbacks.
+// Must be called with mapMutex held; acquires and releases qMutex internally.
+func (c *Cache[K, V]) drain() []*internal.Entry[K, V] {
 	for k := range c.items {
 		delete(c.items, k)
 	}
 	c.qMutex.Lock()
 	c.mapMutex.Unlock()
-	defer c.qMutex.Unlock()
+	var toEvict []*internal.Entry[K, V]
 	for {
 		elem := c.queue.Back()
 		if elem == nil {
 			break
 		}
-		ent := c.queue.Remove(elem)
-		c.queue.OnEvict(ctx, ent)
+		toEvict = append(toEvict, c.queue.Remove(elem))
 	}
-	return nil
+	c.qMutex.Unlock()
+	return toEvict
 }
 
 // Shutdown cleans up the cache, releasing any resources it holds.
 func (c *Cache[K, V]) Shutdown(ctx context.Context) {
-	_ = c.reset(ctx, true)
+	c.mapMutex.Lock()
+	if c.isShutdown {
+		c.mapMutex.Unlock()
+		return
+	}
+	c.isShutdown = true
+	for _, ent := range c.drain() {
+		c.queue.OnEvict(ctx, ent)
+	}
 }
 
 // Reset clears the cache and calls the eviction callback for each evicted item.
 func (c *Cache[K, V]) Reset(ctx context.Context) error {
-	return c.reset(ctx, false)
+	c.mapMutex.Lock()
+	if c.isShutdown {
+		c.mapMutex.Unlock()
+		return cachetypes.ErrShutdown
+	}
+	for _, ent := range c.drain() {
+		c.queue.OnEvict(ctx, ent)
+	}
+	return nil
 }

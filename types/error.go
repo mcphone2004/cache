@@ -23,5 +23,8 @@ func (e *ShutdownError) Error() string {
 	return e.Message
 }
 
+// ErrShutdown is a sentinel error returned by all cache operations after Shutdown is called.
+var ErrShutdown error = &ShutdownError{}
+
 // Ensure ErrorInvalidOptions implements the error interface.
 var _ error = (*InvalidOptionsError)(nil)

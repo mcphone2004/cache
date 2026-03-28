@@ -36,5 +36,10 @@ func TestNoopCacheExists(t *testing.T) {
 	size, err := c.Size()
 	require.Zero(t, size)
 	require.True(t, errors.As(err, &sErr))
+	capacity, err := c.Capacity()
+	require.Zero(t, capacity)
+	require.True(t, errors.As(err, &sErr))
+	err = c.Traverse(ctx, func(_ context.Context, _ string, _ string) bool { return true })
+	require.True(t, errors.As(err, &sErr))
 	c.Shutdown(ctx)
 }

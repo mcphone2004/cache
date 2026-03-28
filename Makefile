@@ -1,4 +1,4 @@
-.PHONY: all download upgrade vet test bench lint cover cover-html snapshot-coverage fmt clean build bench-profile pprof-cpu pprof-mem pprof-cpu-html pprof-block pprof-mutex install-tools
+.PHONY: all download upgrade vet test bench lint cover cover-html snapshot-coverage fmt clean build bench-profile pprof-cpu pprof-mem pprof-cpu-html pprof-block pprof-mutex install-tools escape
 
 # Build the project
 build:
@@ -108,6 +108,14 @@ install-tools:
 	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.4.0
 	brew install pre-commit
 	pre-commit install
+
+# Run escape analysis on core packages; saves full output and prints heap escapes
+escape:
+	mkdir -p coverage
+	go build -gcflags='-m=2' ./internal/... ./list/... ./lru/... ./lru2/... ./tlru/... ./shard/... 2>&1 | tee coverage/escape.txt
+	@echo ""
+	@echo "=== Heap escapes ==="
+	@grep "escapes to heap" coverage/escape.txt || echo "(none)"
 
 # Clean up generated coverage files
 clean:

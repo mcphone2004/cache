@@ -69,23 +69,23 @@ func (l *List[K, V]) Seq() iter.Seq[*ListEntry[K, V]] {
 
 // MoveToFront move the given element to the front of the list
 func (l *List[K, V]) MoveToFront(elem *ListEntry[K, V]) {
-	e := l.order.MoveToFront(elem)
-	if e != nil {
-		panic(e)
+	if err := l.order.MoveToFront(elem); err != nil {
+		panic(fmt.Sprintf("cache: MoveToFront called with entry from a different list: %v", err))
 	}
 }
 
 func zeroOf[T any]() (t T) { return }
 
-// OnEvict invoke the evication callback and return the entry
+// OnEvict invoke the eviction callback and return the entry
 // back to the pool
 func (l *List[K, V]) OnEvict(ctx context.Context, en *Entry[K, V]) {
 	if l.onEvict != nil {
 		func() {
-			if r := recover(); r != nil {
-				// r is the value passed to panic
-				fmt.Println("Recovered from panic:", r)
-			}
+			defer func() {
+				if r := recover(); r != nil {
+					fmt.Println("Recovered from panic:", r)
+				}
+			}()
 			l.onEvict(ctx, en.Key, en.Value)
 		}()
 	}

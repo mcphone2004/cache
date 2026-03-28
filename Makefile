@@ -1,4 +1,4 @@
-.PHONY: all download upgrade vet test bench lint cover cover-html snapshot-coverage fmt clean build bench-profile pprof-cpu pprof-mem pprof-cpu-html pprof-block pprof-mutex install-tools escape
+.PHONY: all download upgrade vet test bench lint cover cover-html snapshot-coverage fmt clean build bench-profile pprof-cpu pprof-mem pprof-cpu-html pprof-block pprof-mutex install-tools escape vuln
 
 # Build the project
 build:
@@ -105,17 +105,22 @@ pprof-cpu-html:
 # Install required profiling/visualization tools
 install-tools:
 	brew install graphviz || true
-	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.4.0
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.11.4
+	go install golang.org/x/vuln/cmd/govulncheck@latest
 	brew install pre-commit
 	pre-commit install
 
 # Run escape analysis on core packages; saves full output and prints heap escapes
 escape:
 	mkdir -p coverage
-	go build -gcflags='-m=2' ./internal/... ./list/... ./lru/... ./lru2/... ./tlru/... ./shard/... 2>&1 | tee coverage/escape.txt
+	go build -gcflags='-m=2' ./internal/... ./lru/... ./lru2/... ./tlru/... ./shard/... 2>&1 | tee coverage/escape.txt
 	@echo ""
 	@echo "=== Heap escapes ==="
 	@grep "escapes to heap" coverage/escape.txt || echo "(none)"
+
+# Scan for known CVEs using the Go vulnerability database
+vuln:
+	govulncheck ./...
 
 # Clean up generated coverage files
 clean:

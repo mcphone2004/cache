@@ -223,6 +223,9 @@ func (c *Cache[K, V]) Traverse(ctx context.Context, fn func(context.Context, K, 
 	}
 	c.mu.Unlock()
 	for _, p := range pairs {
+		if ctx.Err() != nil {
+			return ctx.Err()
+		}
 		if !fn(ctx, p.k, p.v) {
 			break
 		}

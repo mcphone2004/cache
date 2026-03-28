@@ -33,7 +33,13 @@ jobs:
         run: make vet
 
       - name: Test
-        run: go test -race ./...
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage.out
+          fail_ci_if_error: false
 
       - name: Lint
         uses: golangci/golangci-lint-action@v9

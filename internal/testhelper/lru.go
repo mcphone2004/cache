@@ -470,3 +470,30 @@ func CommonGetMultiIterTest(t *testing.T, newCache newCacheFn[int, string]) {
 	require.Equal(t, 2, hitCount)
 	require.Equal(t, 1, missCount)
 }
+
+// CommonTraverseCancelTest verifies that Traverse respects context cancellation:
+// it stops iteration and returns ctx.Err() when the context is cancelled.
+func CommonTraverseCancelTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
+	cache, err := newCache(10, nil)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+	defer cache.Shutdown(ctx)
+
+	for i := range 10 {
+		require.NoError(t, cache.Put(ctx, i, strconv.Itoa(i)))
+	}
+
+	cancelCtx, cancel := context.WithCancel(ctx)
+	visited := 0
+	err = cache.Traverse(cancelCtx, func(_ context.Context, _ int, _ string) bool {
+		visited++
+		cancel() // cancel after first item
+		return true
+	})
+
+	// Must have stopped early and returned the cancellation error
+	require.ErrorIs(t, err, context.Canceled)
+	require.Less(t, visited, 10)
+}

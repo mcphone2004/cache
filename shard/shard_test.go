@@ -133,3 +133,7 @@ func TestNew_ErrorPaths(t *testing.T) {
 func TestShutdown(t *testing.T) {
 	testhelper.CommonShutdownTest(t, newCache)
 }
+
+func TestTraverseCancel(t *testing.T) {
+	testhelper.CommonTraverseCancelTest(t, newCache)
+}

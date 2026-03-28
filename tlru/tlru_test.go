@@ -187,6 +187,61 @@ func TestNewErrorPath(t *testing.T) {
 	require.Error(t, err)
 }
 
+// TestNoEvictionCallback verifies that eviction without a callback does not panic.
+func TestNoEvictionCallback(t *testing.T) {
+	ctx := context.Background()
+	c, err := tlru.New[int, string](
+		tlru.WithCapacity[int, string](1),
+	)
+	require.NoError(t, err)
+	defer c.Shutdown(ctx)
+
+	require.NoError(t, c.Put(ctx, 1, "one"))
+	// Inserting a second item forces eviction of key 1; no callback should be called (nil)
+	require.NotPanics(t, func() {
+		require.NoError(t, c.Put(ctx, 2, "two"))
+	})
+	size, err := c.Size()
+	require.NoError(t, err)
+	require.Equal(t, 1, size)
+}
+
+// TestPutRemovesTTL verifies that calling Put (ttl=0) on a key with an active TTL
+// removes the expiry registration so the key no longer expires.
+func TestPutRemovesTTL(t *testing.T) {
+	ctx := context.Background()
+	expired := make(chan string, 1)
+	c, err := tlru.New[string, int](
+		tlru.WithCapacity[string, int](4),
+		tlru.WithEvictionCB[string, int](func(_ context.Context, k string, _ int) {
+			select {
+			case expired <- k:
+			default:
+			}
+		}),
+	)
+	require.NoError(t, err)
+	defer c.Shutdown(ctx)
+
+	// Register with short TTL then overwrite via Put (no TTL)
+	require.NoError(t, c.PutWithTTL(ctx, "x", 1, 30*time.Millisecond))
+	require.NoError(t, c.Put(ctx, "x", 2)) // removes TTL registration
+
+	// Wait past the original TTL — key must still be present
+	time.Sleep(80 * time.Millisecond)
+
+	v, ok, err := c.Get(ctx, "x")
+	require.NoError(t, err)
+	require.True(t, ok)
+	require.Equal(t, 2, v)
+
+	select {
+	case k := <-expired:
+		require.NotEqual(t, "x", k, "key x should not have expired")
+	default:
+	}
+}
+
 func TestWithBucketSize(t *testing.T) {
 	ctx := context.Background()
 	xch := make(chan struct{}, 1)
@@ -248,4 +303,8 @@ func TestDefaultTTL(t *testing.T) {
 	if ok {
 		t.Fatalf("expected x expired by default TTL")
 	}
+}
+
+func TestTraverseCancel(t *testing.T) {
+	testhelper.CommonTraverseCancelTest(t, newCache)
 }

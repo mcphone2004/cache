@@ -49,6 +49,11 @@ func GetMulti[K comparable, V any](ctx context.Context,
 
 // PutIfNotExists inserts key/value only when the key is not already present.
 // It returns true if the key was inserted, false if it already existed.
+//
+// Note: this is a best-effort helper implemented as a Get followed by a Put.
+// It is not atomic — two concurrent callers may both observe a miss and both
+// call Put, with the second overwriting the first. Use it only when last-write-
+// wins semantics on concurrent misses are acceptable.
 func PutIfNotExists[K comparable, V any](ctx context.Context,
 	c iface.Cache[K, V], key K, value V) (bool, error) {
 

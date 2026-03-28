@@ -1,0 +1,61 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 3 * * 1" # weekly on Monday at 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    name: Run and record benchmarks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    # Write access is required to push results to the gh-pages branch.
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Run benchmarks
+        # -count=5 gives benchstat enough samples to compute a reliable median.
+        # -benchtime=300ms keeps total wall time manageable on the CI runner.
+        run: |
+          go test \
+            -run='^$' \
+            -bench=. \
+            -benchmem \
+            -count=5 \
+            -benchtime=300ms \
+            ./benchmark/... \
+            | tee bench-output.txt
+
+      - name: Store benchmark results
+        uses: benchmark-action/github-action-benchmark@a7bc2366eda11037936ea57d811a43b3418d3073 # v1.21.0
+        with:
+          tool: go
+          output-file-path: bench-output.txt
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Push results to the gh-pages branch under dev/bench so the
+          # time-series chart is served at <repo-pages>/dev/bench/.
+          auto-push: true
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
+          # Post a PR comment and set a non-fatal warning when any benchmark
+          # regresses beyond 130 % of the stored baseline.
+          alert-threshold: "130%"
+          comment-on-alert: true
+          fail-on-alert: false

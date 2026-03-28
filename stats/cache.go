@@ -5,10 +5,25 @@ package stats
 import (
 	"context"
 	"sync/atomic"
+	"unsafe"
 
 	"github.com/mcphone2004/cache/iface"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
+
+// cacheLineSize is the x86-64 / ARM64 cache line width in bytes.
+const cacheLineSize = 64
+
+// paddedCounter wraps atomic.Uint64 with padding to fill one CPU cache line,
+// preventing false sharing between independently-updated counters.
+type paddedCounter struct {
+	atomic.Uint64
+
+	_ [cacheLineSize - unsafe.Sizeof(atomic.Uint64{})]byte
+}
+
+// Compile-time check: paddedCounter must be exactly one cache line.
+var _ [cacheLineSize]byte = [unsafe.Sizeof(paddedCounter{})]byte{}
 
 // Ensure Cache satisfies iface.Cache at compile time.
 var _ iface.Cache[struct{}, struct{}] = (*Cache[struct{}, struct{}])(nil)
@@ -27,13 +42,17 @@ var _ iface.Cache[struct{}, struct{}] = (*Cache[struct{}, struct{}])(nil)
 //
 // When eviction tracking is not needed, use [New] instead.
 type Cache[K comparable, V any] struct {
-	inner     iface.Cache[K, V]
-	hits      atomic.Uint64
-	misses    atomic.Uint64
-	puts      atomic.Uint64
-	deletes   atomic.Uint64
-	evictions atomic.Uint64
-	errors    atomic.Uint64
+	// inner is read-only after Wrap; placed first so it does not share a
+	// cache line with any of the hot write counters below.
+	inner iface.Cache[K, V]
+	// Each counter occupies its own cache line to prevent false sharing
+	// between goroutines that increment different counters concurrently.
+	hits      paddedCounter
+	misses    paddedCounter
+	puts      paddedCounter
+	deletes   paddedCounter
+	evictions paddedCounter
+	errors    paddedCounter
 }
 
 // New returns a Cache wrapping inner.

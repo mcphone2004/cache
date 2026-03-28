@@ -8,13 +8,67 @@ This file is read automatically by Claude Code. Follow these instructions for al
 
 - **Never push to `main` directly.** All changes go on a feature branch.
 - **Never merge PRs.** Create the PR and stop. The human reviews CI and merges.
-- **PR titles** must describe the change itself (e.g. "Add TTL support to shard cache"), not planning labels ("Quick wins", "Phase 2").
+- **Before opening a PR**, check `gh pr list --state open`. If a relevant open PR exists, ask the human whether the commit belongs there or in a new PR. If the relevant PR is already merged, always create a new PR.
 - Before committing, always run:
   ```
   go test ./...
   make lint
   ```
   Both must pass with zero failures/issues.
+
+## Commit Message Format
+
+This repo uses [Conventional Commits](https://www.conventionalcommits.org). Every commit must follow:
+
+```
+<type>(<scope>): <what changed>
+
+<why it was needed — motivation, not a restatement of the title>
+
+<optional: key decisions, trade-offs, or non-obvious constraints>
+```
+
+**Types:**
+
+| Type | When |
+|---|---|
+| `feat` | new capability visible to users or callers |
+| `fix` | corrects wrong behaviour |
+| `test` | adds or fixes tests only |
+| `refactor` | restructures without behaviour change |
+| `perf` | measurable performance improvement |
+| `docs` | documentation only |
+| `chore` | tooling, CI, deps, config |
+
+**Scopes** match the package or subsystem: `lru`, `lru2`, `tlru`, `shard`, `internal`, `utils`, `ci`, `examples`, `deps`.
+
+**Rules:**
+- Subject line: imperative mood, no trailing period, ≤72 characters
+- Body: explain *why*, not *what* (the diff shows what). Required when the motivation isn't obvious from the title.
+- PR titles must follow the same `type(scope): subject` format — they become the squash-merge commit subject in `git log`.
+
+**Examples:**
+
+```
+feat(tlru): add PutWithTTL for per-key expiry override
+
+Put() applies the default TTL; callers needed a way to set a
+different TTL per entry without constructing a new cache.
+```
+
+```
+fix(shard): check ctx.Err() before each Traverse callback
+
+Without this, a cancelled context was ignored until Traverse
+finished iterating all shards.
+```
+
+```
+chore(ci): add Codecov upload after test run
+
+Coverage was measured locally but not tracked across PRs.
+fail_ci_if_error=false so a Codecov outage doesn't break CI.
+```
 
 ---
 

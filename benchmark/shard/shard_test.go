@@ -202,3 +202,89 @@ func BenchmarkHeuristicShardLRU2Mixed(b *testing.B) {
 		benchmark.GenValue,
 	)
 }
+
+func new8ShardLRULargeCache() benchmark.PutGetter[int, benchmark.LargeValue] {
+	s, _ := shard.New(
+		shard.WithCapacity[int, benchmark.LargeValue](benchmark.CacheCapacity),
+		shard.WithMinShards[int, benchmark.LargeValue](8),
+		shard.WithShardsFn[int, benchmark.LargeValue](func(key int, maxShard uint) uint {
+			if key < 0 {
+				key = -key
+			}
+			return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
+		}),
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, benchmark.LargeValue], error) {
+			return lru.New[int, benchmark.LargeValue](cachetypes.WithCapacity(capacity))
+		}),
+	)
+	return s
+}
+
+func Benchmark8ShardLRUGetLargeValue(b *testing.B) {
+	benchmark.Get(b,
+		new8ShardLRULargeCache,
+		benchmark.PreloadCount,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func Benchmark8ShardLRUPutLargeValue(b *testing.B) {
+	benchmark.Put(b,
+		new8ShardLRULargeCache,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func Benchmark8ShardLRUMixedLargeValue(b *testing.B) {
+	benchmark.Mixed(b,
+		new8ShardLRULargeCache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func new8ShardLRU2LargeCache() benchmark.PutGetter[int, benchmark.LargeValue] {
+	s, _ := shard.New(
+		shard.WithCapacity[int, benchmark.LargeValue](benchmark.CacheCapacity),
+		shard.WithMinShards[int, benchmark.LargeValue](8),
+		shard.WithShardsFn[int, benchmark.LargeValue](func(key int, maxShard uint) uint {
+			if key < 0 {
+				key = -key
+			}
+			return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
+		}),
+		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, benchmark.LargeValue], error) {
+			return lru2.New[int, benchmark.LargeValue](cachetypes.WithCapacity(capacity))
+		}),
+	)
+	return s
+}
+
+func Benchmark8ShardLRU2GetLargeValue(b *testing.B) {
+	benchmark.Get(b,
+		new8ShardLRU2LargeCache,
+		benchmark.PreloadCount,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func Benchmark8ShardLRU2PutLargeValue(b *testing.B) {
+	benchmark.Put(b,
+		new8ShardLRU2LargeCache,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func Benchmark8ShardLRU2MixedLargeValue(b *testing.B) {
+	benchmark.Mixed(b,
+		new8ShardLRU2LargeCache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}

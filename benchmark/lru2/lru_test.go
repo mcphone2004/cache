@@ -38,3 +38,34 @@ func BenchmarkLRU2Mixed(b *testing.B) {
 		benchmark.GenValue,
 	)
 }
+
+func newLargeCache() benchmark.PutGetter[int, benchmark.LargeValue] {
+	c, _ := lru2.New[int, benchmark.LargeValue](cachetypes.WithCapacity(benchmark.CacheCapacity))
+	return c
+}
+
+func BenchmarkLRU2GetLargeValue(b *testing.B) {
+	benchmark.Get(b,
+		newLargeCache,
+		benchmark.PreloadCount,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func BenchmarkLRU2PutLargeValue(b *testing.B) {
+	benchmark.Put(b,
+		newLargeCache,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}
+
+func BenchmarkLRU2MixedLargeValue(b *testing.B) {
+	benchmark.Mixed(b,
+		newLargeCache,
+		benchmark.KeyRange,
+		benchmark.GenKey,
+		benchmark.GenLargeValue,
+	)
+}

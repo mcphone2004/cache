@@ -1,7 +1,6 @@
 package cachetypes_test
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -26,5 +25,5 @@ func TestShutdownError(t *testing.T) {
 
 func TestErrShutdownSentinel(t *testing.T) {
 	var target *cachetypes.ShutdownError
-	require.True(t, errors.As(cachetypes.ErrShutdown, &target))
+	require.ErrorAs(t, cachetypes.ErrShutdown, &target)
 }

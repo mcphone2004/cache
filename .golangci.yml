@@ -35,6 +35,22 @@ linters:
     - embeddedstructfieldcheck
     - gosec
     - cyclop
+    - testifylint
+    - thelper
+    - forcetypeassert
+    - intrange
+    - modernize
+    - nolintlint
+    - recvcheck
+    - unconvert
+    - unparam
+    - wastedassign
+    - usestdlibvars
+    - fatcontext
+    - nilerr
+    - nilnil
+    - predeclared
+    - perfsprint
 
 issues:
   max-issues-per-linter: 0

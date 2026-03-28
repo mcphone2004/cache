@@ -13,7 +13,7 @@ import (
 func TestWithCapacity(t *testing.T) {
 	var o cachetypes.Options
 	_, err := ToOptions[string, int](o)
-	require.NotNil(t, err)
+	require.Error(t, err)
 	require.Equal(t, "capacity must be positive", err.Error())
 
 	var aerr *cachetypes.InvalidOptionsError
@@ -24,7 +24,7 @@ func TestWithCapacity(t *testing.T) {
 	cb := cachetypes.WithCapacity(10)
 	cb(&o)
 	o1, err := ToOptions[string, int](o)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, uint(10), o1.Capacity)
 
 	cb = cachetypes.WithEvictionCB(func(context.Context, int, int) {
@@ -32,7 +32,7 @@ func TestWithCapacity(t *testing.T) {
 	})
 	cb(&o)
 	_, err = ToOptions[string, int](o)
-	require.NotNil(t, err)
+	require.Error(t, err)
 	require.Equal(t, "incorrect type for OnEvict", err.Error())
 
 	b = errors.As(err, &aerr)
@@ -46,7 +46,7 @@ func TestWithCapacity(t *testing.T) {
 	})
 	cb(&o)
 	o1, err = ToOptions[string, int](o)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Zero(t, cnt)
 	o1.OnEvict(context.Background(), "a", 1)
 	require.Equal(t, 1, cnt)

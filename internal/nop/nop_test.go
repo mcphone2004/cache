@@ -2,7 +2,6 @@ package nop_test
 
 import (
 	"context"
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -26,20 +25,20 @@ func TestNoopCacheExists(t *testing.T) {
 	_, ok, err := c.Get(ctx, "key")
 	require.False(t, ok)
 	var sErr *cachetypes.ShutdownError
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	err = c.Put(ctx, "key", "value")
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	_, err = c.Delete(ctx, "key")
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	err = c.Reset(ctx)
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	size, err := c.Size()
 	require.Zero(t, size)
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	capacity, err := c.Capacity()
 	require.Zero(t, capacity)
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	err = c.Traverse(ctx, func(_ context.Context, _ string, _ string) bool { return true })
-	require.True(t, errors.As(err, &sErr))
+	require.ErrorAs(t, err, &sErr)
 	c.Shutdown(ctx)
 }

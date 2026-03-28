@@ -21,31 +21,32 @@ type newCacheFn[K comparable, V any] func(capacity uint,
 // CommonLRUResetTest runs a common test case to verify that Reset correctly
 // evicts all entries and triggers eviction callbacks with the expected records.
 func CommonLRUResetTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	records := make(map[int]string)
 
 	cache, err := newCache(2,
 		func(_ context.Context, key int, value string) {
 			records[key] = value // Store evicted records for verification
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	capacity, err := cache.Capacity()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	for i := 1; i <= capacity; i++ {
 		err := cache.Put(ctx, i, "val"+strconv.Itoa(i))
-		require.Nil(t, err)
+		require.NoError(t, err)
 	}
 
 	err = cache.Reset(ctx)
-	require.Nil(t, err)
-	require.Equal(t, capacity, len(records))
+	require.NoError(t, err)
+	require.Len(t, records, capacity)
 	for i := 1; i <= capacity; i++ {
 		require.Equal(t, "val"+strconv.Itoa(i), records[i])
 		_, ok, err := cache.Get(ctx, i)
-		require.Nil(t, err)
+		require.NoError(t, err)
 		require.False(t, ok)
 	}
 }
@@ -53,46 +54,47 @@ func CommonLRUResetTest(t *testing.T, newCache newCacheFn[int, string]) {
 // CommonLRUCacheBasicTest runs a basic LRU test case to verify put/get behavior,
 // size tracking, and eviction when capacity is exceeded.
 func CommonLRUCacheBasicTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	cache, err := newCache(2,
 		func(_ context.Context, _ int, _ string) {
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	capacity, err := cache.Capacity()
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	size, err := cache.Size()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Zero(t, size)
 
 	// Fill up to capacity
 	for i := 1; i <= capacity; i++ {
 		err := cache.Put(ctx, i, "val"+strconv.Itoa(i))
-		require.Nil(t, err)
+		require.NoError(t, err)
 		size, err := cache.Size()
-		require.Nil(t, err)
+		require.NoError(t, err)
 		require.Equal(t, i, size)
 	}
 
 	// Add one more to trigger eviction
 	err = cache.Put(ctx, capacity+1, "val"+strconv.Itoa(capacity+1))
-	require.Nil(t, err)
+	require.NoError(t, err)
 	size, err = cache.Size()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, capacity, size)
 
 	// The oldest key (1) should be evicted
 	_, ok, err := cache.Get(ctx, 1)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.False(t, ok)
 
 	// All other keys from 2..capacity and capacity+1 should exist
 	for i := 2; i <= capacity+1; i++ {
 		val, ok, err := cache.Get(ctx, i)
-		require.Nil(t, err)
+		require.NoError(t, err)
 		require.True(t, ok)
 		require.Equal(t, "val"+strconv.Itoa(i), val)
 	}
@@ -101,41 +103,42 @@ func CommonLRUCacheBasicTest(t *testing.T, newCache newCacheFn[int, string]) {
 // CommonLRUCacheUpdateTest runs a test case to verify that updating an existing key
 // updates its value without increasing the cache size.
 func CommonLRUCacheUpdateTest(t *testing.T, newCache newCacheFn[string, int]) {
+	t.Helper()
 	cache, err := newCache(2,
 		func(_ context.Context, _ string, _ int) {
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	capacity, err := cache.Capacity()
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	size, err := cache.Size()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Zero(t, size)
 
 	// Fill up to capacity with keys a1, a2, a3...
 	for i := 1; i <= capacity; i++ {
 		key := "a" + strconv.Itoa(i)
 		err := cache.Put(ctx, key, i)
-		require.Nil(t, err)
+		require.NoError(t, err)
 		size, err := cache.Size()
-		require.Nil(t, err)
+		require.NoError(t, err)
 		require.Equal(t, i, size)
 	}
 
 	// Update the first key to a new value
 	updateKey := "a1"
 	err = cache.Put(ctx, updateKey, 999)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	size, err = cache.Size()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, capacity, size)
 
 	val, ok, err := cache.Get(ctx, updateKey)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, ok)
 	require.Equal(t, 999, val)
 }
@@ -143,20 +146,21 @@ func CommonLRUCacheUpdateTest(t *testing.T, newCache newCacheFn[string, int]) {
 // CommonTraverseTest runs a test case to verify the Traverse method returns entries
 // in most-recently-used order and respects early termination.
 func CommonTraverseTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	cache, err := newCache(3,
 		func(_ context.Context, _ int, _ string) {
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	err = cache.Put(ctx, 1, "one")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 2, "two")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 3, "three")
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	// Collect all traversed entries
 	keys := make(map[int]bool)
@@ -166,7 +170,7 @@ func CommonTraverseTest(t *testing.T, newCache newCacheFn[int, string]) {
 		values[value] = true
 		return true
 	})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	// Verify the traversed elements (ignore order)
 	require.Equal(t, map[int]bool{1: true, 2: true, 3: true}, keys)
@@ -182,7 +186,7 @@ func CommonTraverseTest(t *testing.T, newCache newCacheFn[int, string]) {
 		count++
 		return count < 2 // stop early
 	})
-	require.Nil(t, err)
+	require.NoError(t, err)
 	// Verify only that 1 or 2 entries were seen and they are valid
 	require.True(t, count <= 2 && count > 0)
 	for k := range keys {
@@ -196,35 +200,36 @@ func CommonTraverseTest(t *testing.T, newCache newCacheFn[int, string]) {
 // CommonLRUCacheEvictionOrderTest runs a test case to verify that eviction order
 // respects recent access patterns (LRU semantics).
 func CommonLRUCacheEvictionOrderTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	cache, err := newCache(2,
 		func(_ context.Context, _ int, _ string) {
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	err = cache.Put(ctx, 1, "one")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 2, "two")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	_, found, err := cache.Get(ctx, 1) // access key 1 to make it most recent
 	require.True(t, found)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 3, "three") // should evict key 2
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	_, ok, err := cache.Get(ctx, 2)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.False(t, ok)
 
 	val, ok, err := cache.Get(ctx, 1)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, ok)
 	require.Equal(t, "one", val)
 
 	val, ok, err = cache.Get(ctx, 3)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, ok)
 	require.Equal(t, "three", val)
 }
@@ -232,40 +237,42 @@ func CommonLRUCacheEvictionOrderTest(t *testing.T, newCache newCacheFn[int, stri
 // CommonDeleteTest runs a test case to verify Delete removes entries and
 // does not affect unrelated keys.
 func CommonDeleteTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	cache, err := newCache(2,
 		func(_ context.Context, _ int, _ string) {
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	err = cache.Put(ctx, 1, "one")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 2, "two")
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	_, err = cache.Delete(ctx, 1)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	_, ok, err := cache.Get(ctx, 1)
 	require.False(t, ok)
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	val, ok, err := cache.Get(ctx, 2)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, ok)
 	require.Equal(t, "two", val)
 
 	_, err = cache.Delete(ctx, 2)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	_, ok, err = cache.Get(ctx, 2)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.False(t, ok)
 }
 
 // CommonShutdownTest verifies that all operations return ErrShutdown after Shutdown
 // is called, and that calling Shutdown a second time is a no-op.
 func CommonShutdownTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	ctx := context.Background()
 	cache, err := newCache(2, nil)
 	require.NoError(t, err)
@@ -301,6 +308,7 @@ func CommonShutdownTest(t *testing.T, newCache newCacheFn[int, string]) {
 // CommonDeleteNonExistentTest verifies that deleting a key that was never inserted
 // returns (false, nil) without error.
 func CommonDeleteNonExistentTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	ctx := context.Background()
 	cache, err := newCache(2, nil)
 	require.NoError(t, err)
@@ -314,6 +322,7 @@ func CommonDeleteNonExistentTest(t *testing.T, newCache newCacheFn[int, string])
 // CommonUpdateNoEvictionTest verifies that updating an existing key does not
 // trigger the eviction callback.
 func CommonUpdateNoEvictionTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	ctx := context.Background()
 	evictions := 0
 	cache, err := newCache(2, func(_ context.Context, _ int, _ string) {
@@ -338,6 +347,7 @@ func CommonUpdateNoEvictionTest(t *testing.T, newCache newCacheFn[int, string]) 
 // CommonEvictionCallbackPanicTest verifies that a panic inside the eviction
 // callback is recovered and the cache continues to function correctly.
 func CommonEvictionCallbackPanicTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	ctx := context.Background()
 	cache, err := newCache(1, func(_ context.Context, _ int, _ string) {
 		panic("eviction panic")
@@ -361,6 +371,7 @@ func CommonEvictionCallbackPanicTest(t *testing.T, newCache newCacheFn[int, stri
 // CommonConcurrentTest verifies that concurrent Put/Get/Delete operations do not
 // cause data races or panics. Run with -race to get full benefit.
 func CommonConcurrentTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	ctx := context.Background()
 	cache, err := newCache(64, nil)
 	require.NoError(t, err)
@@ -401,14 +412,15 @@ func seqOf[T any](values ...T) iter.Seq[T] {
 // safely call Get/Put on the cache without deadlocking.
 func CommonTraverseReentrantTest(t *testing.T, newCache newCacheFn[int, string]) {
 	t.Helper()
+	t.Helper()
 	cache, err := newCache(4, nil)
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
-	require.Nil(t, cache.Put(ctx, 1, "one"))
-	require.Nil(t, cache.Put(ctx, 2, "two"))
+	require.NoError(t, cache.Put(ctx, 1, "one"))
+	require.NoError(t, cache.Put(ctx, 2, "two"))
 
 	// If Traverse holds the lock, Get inside fn deadlocks.
 	var seen []string
@@ -426,20 +438,21 @@ func CommonTraverseReentrantTest(t *testing.T, newCache newCacheFn[int, string])
 // CommonGetMultiIterTest runs a test case to verify GetMultiIter correctly
 // yields hits and misses for a sequence of keys.
 func CommonGetMultiIterTest(t *testing.T, newCache newCacheFn[int, string]) {
+	t.Helper()
 	cache, err := newCache(3,
 		func(_ context.Context, _ int, _ string) {
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	ctx := context.Background()
 	defer cache.Shutdown(ctx)
 
 	err = cache.Put(ctx, 1, "one")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 2, "two")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 3, "three")
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	hitCount := 0
 	missCount := 0
@@ -452,7 +465,7 @@ func CommonGetMultiIterTest(t *testing.T, newCache newCacheFn[int, string]) {
 		missCount++
 		require.Equal(t, 4, k)
 	})
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	require.Equal(t, 2, hitCount)
 	require.Equal(t, 1, missCount)

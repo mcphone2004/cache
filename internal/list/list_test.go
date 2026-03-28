@@ -46,7 +46,7 @@ func TestListBasic(t *testing.T) {
 	ent5 := l.PushFront(5)
 	require.Equal(t, 5, l.Front().Value)
 	e := l.MoveToFront(ent3)
-	require.Nil(t, e)
+	require.NoError(t, e)
 	require.Equal(t, 3, l.Front().Value)
 	require.Equal(t, 3, l.Size())
 	require.Equal(t, 5, l.Front().Next().Value)
@@ -78,7 +78,7 @@ func TestMoveToFrontDifferentList(t *testing.T) {
 	l2.Init()
 	e := l2.PushFront(42)
 	err := l1.MoveToFront(e)
-	require.NotNil(t, err)
+	require.Error(t, err)
 }
 
 func TestMoveToFrontAlreadyAtFront(t *testing.T) {
@@ -87,7 +87,7 @@ func TestMoveToFrontAlreadyAtFront(t *testing.T) {
 	l.PushFront(2)
 	front := l.PushFront(1) // 1 is now at front
 	err := l.MoveToFront(front)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, 1, l.Front().Value)
 	require.Equal(t, 2, l.Size())
 }

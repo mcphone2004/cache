@@ -110,7 +110,7 @@ func (l *List[K, V]) Back() *ListEntry[K, V] {
 
 // PushFront inserts a new entry at the beginning of the list
 func (l *List[K, V]) PushFront(key K, value V) *ListEntry[K, V] {
-	en := l.entryPool.Get().(*Entry[K, V])
+	en := l.entryPool.Get().(*Entry[K, V]) //nolint:forcetypeassert // pool only contains *Entry[K, V]
 	en.Key = key
 	en.Value = value
 	return l.order.PushFront(en)

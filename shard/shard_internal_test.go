@@ -28,7 +28,7 @@ func TestNewCache(t *testing.T) {
 		func() (iface.Cache[uint, string], error) {
 			return &nop.Cache[uint, string]{}, nil
 		})
-	require.NotNil(t, err)
+	require.Error(t, err)
 	require.Equal(t, "maxShards must be positive", err.Error())
 	var aerr *lrutypes.InvalidOptionsError
 	b := errors.As(err, &aerr)
@@ -39,7 +39,7 @@ func TestNewCache(t *testing.T) {
 		func() (iface.Cache[uint, string], error) {
 			return &nop.Cache[uint, string]{}, nil
 		})
-	require.NotNil(t, err)
+	require.Error(t, err)
 	require.Equal(t, "shardsFn cannot be nil", err.Error())
 	b = errors.As(err, &aerr)
 	require.True(t, b)
@@ -50,7 +50,7 @@ func TestNewCache(t *testing.T) {
 			return k
 		},
 		nil)
-	require.NotNil(t, err)
+	require.Error(t, err)
 	require.Equal(t, "cacherMaker cannot be nil", err.Error())
 	b = errors.As(err, &aerr)
 	require.True(t, b)
@@ -63,14 +63,14 @@ func TestNewCache(t *testing.T) {
 		func() (iface.Cache[uint, string], error) {
 			return &nop.Cache[uint, string]{}, nil
 		})
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.NotNil(t, cache)
 	require.Equal(t, uint(1), cache.maxShards)
 	require.NotNil(t, cache.shardsFn)
 	require.Len(t, cache.shards, 1)
 	require.NotNil(t, cache.shards[0])
 	size, err := cache.Size()
-	require.NotNil(t, err)
+	require.Error(t, err)
 	require.Zero(t, size)
 }
 
@@ -98,11 +98,11 @@ func TestShardCacheWithMocks(t *testing.T) {
 	mockShard1.EXPECT().Get(ctx, uint(2)).Return("even", true, nil).Once()
 	mockShard2.EXPECT().Get(ctx, uint(3)).Return("odd", true, nil).Once()
 	v, ok, err := cache.Get(ctx, 2)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, ok)
 	require.Equal(t, "even", v)
 	v, ok, err = cache.Get(ctx, 3)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, ok)
 	require.Equal(t, "odd", v)
 
@@ -110,25 +110,25 @@ func TestShardCacheWithMocks(t *testing.T) {
 	mockShard1.EXPECT().Put(ctx, uint(2), "val2").Once().Return(nil)
 	mockShard2.EXPECT().Put(ctx, uint(3), "val3").Once().Return(nil)
 	err = cache.Put(ctx, 2, "val2")
-	require.Nil(t, err)
+	require.NoError(t, err)
 	err = cache.Put(ctx, 3, "val3")
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	// --- Delete ---
 	mockShard1.EXPECT().Delete(ctx, uint(2)).Return(true, nil).Once()
 	mockShard2.EXPECT().Delete(ctx, uint(3)).Return(false, nil).Once()
 	found, err := cache.Delete(ctx, 2)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.True(t, found)
 	found, err = cache.Delete(ctx, 3)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.False(t, found)
 
 	// --- Size ---
 	mockShard1.EXPECT().Size().Return(5, nil).Once()
 	mockShard2.EXPECT().Size().Return(7, nil).Once()
 	size, err := cache.Size()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, 12, size)
 
 	// --- Traverse ---
@@ -151,7 +151,7 @@ func TestShardCacheWithMocks(t *testing.T) {
 		return true
 	})
 	require.Equal(t, 2, traverseCount)
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	// --- GetMultiIter ---
 	mockShard1.EXPECT().Get(ctx, uint(2)).Return("multi2", true, nil).Once()
@@ -165,7 +165,7 @@ func TestShardCacheWithMocks(t *testing.T) {
 		func(k uint, v string) { hits[k] = v },
 		func(k uint) { misses = append(misses, k) },
 	)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, "multi2", hits[2])
 	require.Equal(t, []uint{3}, misses)
 
@@ -173,13 +173,13 @@ func TestShardCacheWithMocks(t *testing.T) {
 	mockShard1.EXPECT().Reset(ctx).Once().Return(nil)
 	mockShard2.EXPECT().Reset(ctx).Once().Return(nil)
 	err = cache.Reset(ctx)
-	require.Nil(t, err)
+	require.NoError(t, err)
 
 	// --- Capacity ---
 	mockShard1.EXPECT().Capacity().Return(10, nil).Once()
 	mockShard2.EXPECT().Capacity().Return(10, nil).Once()
 	total, err := cache.Capacity()
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.Equal(t, 20, total)
 
 	// --- Shutdown ---

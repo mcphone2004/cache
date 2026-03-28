@@ -21,13 +21,13 @@ func TestMain(m *testing.M) {
 func TestNewCache(t *testing.T) {
 	ctx := context.Background()
 	cache, err := lru2.New[int, string](cachetypes.WithCapacity(2))
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.NotNil(t, cache)
 	cache.Shutdown(ctx)
 
 	cache, err = lru2.New[int, string]()
 	require.Nil(t, cache)
-	require.NotNil(t, err)
+	require.Error(t, err)
 	var aerr *cachetypes.InvalidOptionsError
 	b := errors.As(err, &aerr)
 	require.True(t, b)

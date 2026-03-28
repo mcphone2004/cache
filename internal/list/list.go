@@ -84,7 +84,7 @@ func (l *List[V]) PushFront(val V) *Entry[V] {
 
 // insertValue is a convenience wrapper for insert(&Element{Value: v}, at).
 func (l *List[V]) insertValue(val V, at *Entry[V]) *Entry[V] {
-	entry := l.pool.Get().(*Entry[V])
+	entry := l.pool.Get().(*Entry[V]) //nolint:forcetypeassert // pool only contains *Entry[V]
 	entry.Value = val
 	return l.insert(entry, at)
 }

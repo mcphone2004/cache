@@ -131,7 +131,7 @@ func (r *ExpiryMap[K]) Register(key K, t time.Time) Handle {
 
 	s, found := r.expiryTimes[t]
 	if !found {
-		s = r.setPool.Get().(expirySet[K])
+		s = r.setPool.Get().(expirySet[K]) //nolint:forcetypeassert // pool only contains expirySet[K]
 		r.expiryTimes[t] = s
 	}
 	s[key] = struct{}{}
@@ -184,10 +184,7 @@ func (r *ExpiryMap[K]) setupTimer(timer *time.Timer) *time.Timer {
 	}
 	r.nextExpiryTime = expiredAt
 	now := time.Now()
-	delay := expiredAt.Sub(now)
-	if delay < 0 {
-		delay = 0
-	}
+	delay := max(expiredAt.Sub(now), 0)
 	if timer == nil {
 		return time.NewTimer(delay)
 	}

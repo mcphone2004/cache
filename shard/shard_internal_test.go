@@ -11,7 +11,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/nop"
+	"github.com/mcphone2004/cache/internal/nop"
 	lrutypes "github.com/mcphone2004/cache/types"
 	cacheutils "github.com/mcphone2004/cache/utils"
 )

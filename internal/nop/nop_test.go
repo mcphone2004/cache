@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
-	"github.com/mcphone2004/cache/nop"
+	"github.com/mcphone2004/cache/internal/nop"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
 

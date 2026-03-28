@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/internaltest"
+	"github.com/mcphone2004/cache/internal/testhelper"
 	"github.com/mcphone2004/cache/lru"
 	"github.com/mcphone2004/cache/shard"
 	cachetypes "github.com/mcphone2004/cache/types"
@@ -44,30 +44,30 @@ func newCache[K comparable, T any](capacity uint, evictionCB func(context.Contex
 }
 
 func TestReset(t *testing.T) {
-	internaltest.CommonLRUResetTest(t, newCache)
+	testhelper.CommonLRUResetTest(t, newCache)
 }
 
 func TestLRUCacheBasic(t *testing.T) {
-	internaltest.CommonLRUCacheBasicTest(t, newCache)
+	testhelper.CommonLRUCacheBasicTest(t, newCache)
 }
 
 // Cannot use CommonLRUCacheUpdateTest and CommonLRUCacheEvictionOrderTest
 // because eviction across shard does not follow LRU order
 
 func TestTraverse(t *testing.T) {
-	internaltest.CommonTraverseTest(t, newCache)
+	testhelper.CommonTraverseTest(t, newCache)
 }
 
 func TestTraverseReentrant(t *testing.T) {
-	internaltest.CommonTraverseReentrantTest(t, newCache)
+	testhelper.CommonTraverseReentrantTest(t, newCache)
 }
 
 func TestDelete(t *testing.T) {
-	internaltest.CommonDeleteTest(t, newCache)
+	testhelper.CommonDeleteTest(t, newCache)
 }
 
 func TestGetMultiIter(t *testing.T) {
-	internaltest.CommonGetMultiIterTest(t, newCache)
+	testhelper.CommonGetMultiIterTest(t, newCache)
 }
 
 func TestNew_ErrorPaths(t *testing.T) {
@@ -131,5 +131,5 @@ func TestNew_ErrorPaths(t *testing.T) {
 }
 
 func TestShutdown(t *testing.T) {
-	internaltest.CommonShutdownTest(t, newCache)
+	testhelper.CommonShutdownTest(t, newCache)
 }

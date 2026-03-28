@@ -23,7 +23,7 @@ func newCache[K comparable, T any](capacity uint, evictionCB func(context.Contex
 			case uint:
 				return v % maxShard
 			case int:
-				return uint(v) % maxShard
+				return uint(v) % maxShard //nolint:gosec // test keys are non-negative
 			case string:
 				h := fnv.New32a()
 				_, _ = h.Write([]byte(v))
@@ -75,7 +75,9 @@ func TestNew_ErrorPaths(t *testing.T) {
 
 	// capacity = 0
 	_, err := shard.New[int, string](
-		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint {
+			return uint(k) % n //nolint:gosec // test keys are non-negative
+		}),
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
 			return lru.New[int, string](cachetypes.WithCapacity(capacity))
 		}),
@@ -94,14 +96,18 @@ func TestNew_ErrorPaths(t *testing.T) {
 	// cacherMaker = nil
 	_, err = shard.New[int, string](
 		shard.WithCapacity[int, string](10),
-		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint {
+			return uint(k) % n //nolint:gosec // test keys are non-negative
+		}),
 	)
 	require.Error(t, err)
 
 	// cacherMaker returns error
 	_, err = shard.New[int, string](
 		shard.WithCapacity[int, string](10),
-		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint {
+			return uint(k) % n //nolint:gosec // test keys are non-negative
+		}),
 		shard.WithCacherMaker(func(_ uint) (iface.Cache[int, string], error) {
 			return nil, &cachetypes.InvalidOptionsError{Message: "injected"}
 		}),
@@ -112,7 +118,9 @@ func TestNew_ErrorPaths(t *testing.T) {
 	c, err := shard.New[int, string](
 		shard.WithCapacity[int, string](100),
 		shard.WithMinShards[int, string](4),
-		shard.WithShardsFn[int, string](func(k int, n uint) uint { return uint(k) % n }),
+		shard.WithShardsFn[int, string](func(k int, n uint) uint {
+			return uint(k) % n //nolint:gosec // test keys are non-negative
+		}),
 		shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
 			return lru.New[int, string](cachetypes.WithCapacity(capacity))
 		}),

@@ -21,7 +21,7 @@ func newShardLRU(n uint) func() benchmark.PutGetter[int, string] {
 				if key < 0 {
 					key = -key
 				}
-				return uint(key) % maxShard
+				return uint(key) % maxShard //nolint:gosec // key is non-negative after the guard above
 			}),
 			shard.WithCacherMaker(func(capacity uint) (iface.Cache[int, string], error) {
 				return lru.New[int, string](cachetypes.WithCapacity(capacity))

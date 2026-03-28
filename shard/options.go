@@ -70,7 +70,7 @@ func nextPowerOfTwo(n uint) uint {
 var numCPU uint
 
 func init() {
-	numCPU = uint(runtime.NumCPU())
+	numCPU = uint(runtime.NumCPU()) //nolint:gosec // NumCPU always returns a positive value
 }
 
 // computeMaxshards computes the maximum number of shards based on the capacity, target items per shard, and minimum shards.

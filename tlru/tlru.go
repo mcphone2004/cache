@@ -55,7 +55,7 @@ func New[K comparable, V any](options ...func(o *Options[K, V])) (*Cache[K, V], 
 
 	c := &Cache[K, V]{
 		items: make(map[K]*internal.ListEntry[K, valWrap[V]], base.Capacity),
-		queue: internal.NewList(int(base.Capacity), func(ctx context.Context, k K, wrap valWrap[V]) {
+		queue: internal.NewList(base.Capacity, func(ctx context.Context, k K, wrap valWrap[V]) {
 			if base.OnEvict != nil {
 				base.OnEvict(ctx, k, wrap.Val)
 			}

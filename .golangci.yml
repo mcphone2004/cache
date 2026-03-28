@@ -35,10 +35,6 @@ linters:
     - embeddedstructfieldcheck
     - gosec
     - cyclop
-  settings:
-    gosec:
-      excludes:
-        - G115
 
 issues:
   exclude-use-default: false

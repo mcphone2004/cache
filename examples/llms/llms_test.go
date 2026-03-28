@@ -18,6 +18,7 @@ import (
 	"github.com/mcphone2004/cache/lru"
 	"github.com/mcphone2004/cache/lru2"
 	"github.com/mcphone2004/cache/shard"
+	"github.com/mcphone2004/cache/stats"
 	"github.com/mcphone2004/cache/tlru"
 	cachetypes "github.com/mcphone2004/cache/types"
 	cacheutils "github.com/mcphone2004/cache/utils"
@@ -346,6 +347,34 @@ func TestSizeAndCapacityReturnError(t *testing.T) {
 
 	_, err = c.Capacity()
 	require.ErrorIs(t, err, cachetypes.ErrShutdown)
+}
+
+// TestStatsWrapper validates the stats package snippet from llms.txt.
+func TestStatsWrapper(t *testing.T) {
+	ctx := context.Background()
+
+	// With eviction counting — zero-value pattern
+	var sc stats.Cache[string, int]
+	c, err := lru.New[string, int](
+		cachetypes.WithCapacity(2),
+		cachetypes.WithEvictionCB(sc.EvictionHook()),
+	)
+	require.NoError(t, err)
+	defer c.Shutdown(ctx)
+	sc.Wrap(c)
+
+	require.NoError(t, sc.Put(ctx, "a", 1))
+	require.NoError(t, sc.Put(ctx, "b", 2))
+	_, _, _ = sc.Get(ctx, "a")
+	_, _, _ = sc.Get(ctx, "missing")
+	require.NoError(t, sc.Put(ctx, "c", 3)) // evicts LRU entry
+
+	snap := sc.Snapshot()
+	require.Equal(t, uint64(1), snap.Hits)
+	require.Equal(t, uint64(1), snap.Misses)
+	require.Equal(t, uint64(3), snap.Puts)
+	require.Equal(t, uint64(1), snap.Evictions)
+	require.InDelta(t, 0.5, snap.HitRate(), 0.001)
 }
 
 // TestGetAndDelete validates the GetAndDelete snippet from llms.txt.

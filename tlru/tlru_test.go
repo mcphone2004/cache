@@ -9,7 +9,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/internaltest"
+	"github.com/mcphone2004/cache/internal/testhelper"
 	"github.com/mcphone2004/cache/tlru"
 )
 
@@ -26,33 +26,33 @@ func newCache[K comparable, T any](capacity uint, evictionCB func(context.Contex
 
 func TestBasicLRUSemantics(t *testing.T) {
 	// Reuse the shared LRU tests with default TTL 0 (no expiry)
-	internaltest.CommonLRUResetTest(t, newCache[int, string])
-	internaltest.CommonLRUCacheBasicTest(t, newCache[int, string])
-	internaltest.CommonLRUCacheUpdateTest(t, newCache[string, int])
-	internaltest.CommonLRUCacheEvictionOrderTest(t, newCache[int, string])
-	internaltest.CommonTraverseTest(t, newCache[int, string])
-	internaltest.CommonTraverseReentrantTest(t, newCache[int, string])
-	internaltest.CommonDeleteTest(t, newCache[int, string])
+	testhelper.CommonLRUResetTest(t, newCache[int, string])
+	testhelper.CommonLRUCacheBasicTest(t, newCache[int, string])
+	testhelper.CommonLRUCacheUpdateTest(t, newCache[string, int])
+	testhelper.CommonLRUCacheEvictionOrderTest(t, newCache[int, string])
+	testhelper.CommonTraverseTest(t, newCache[int, string])
+	testhelper.CommonTraverseReentrantTest(t, newCache[int, string])
+	testhelper.CommonDeleteTest(t, newCache[int, string])
 }
 
 func TestShutdown(t *testing.T) {
-	internaltest.CommonShutdownTest(t, newCache[int, string])
+	testhelper.CommonShutdownTest(t, newCache[int, string])
 }
 
 func TestDeleteNonExistent(t *testing.T) {
-	internaltest.CommonDeleteNonExistentTest(t, newCache[int, string])
+	testhelper.CommonDeleteNonExistentTest(t, newCache[int, string])
 }
 
 func TestUpdateNoEviction(t *testing.T) {
-	internaltest.CommonUpdateNoEvictionTest(t, newCache[int, string])
+	testhelper.CommonUpdateNoEvictionTest(t, newCache[int, string])
 }
 
 func TestEvictionCallbackPanic(t *testing.T) {
-	internaltest.CommonEvictionCallbackPanicTest(t, newCache[int, string])
+	testhelper.CommonEvictionCallbackPanicTest(t, newCache[int, string])
 }
 
 func TestConcurrent(t *testing.T) {
-	internaltest.CommonConcurrentTest(t, newCache[int, string])
+	testhelper.CommonConcurrentTest(t, newCache[int, string])
 }
 
 func waitForExpiry(t *testing.T, ch <-chan struct{}, key string) {

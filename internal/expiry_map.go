@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mcphone2004/cache/heap"
+	"github.com/mcphone2004/cache/internal/heap"
 )
 
 // used to determine the right size of set to be put back to the pool

@@ -5,7 +5,7 @@ import (
 	"context"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/nop"
+	"github.com/mcphone2004/cache/internal/nop"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
 

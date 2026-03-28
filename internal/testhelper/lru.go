@@ -1,5 +1,5 @@
-// Package internaltest provides test cases for an LRU caches
-package internaltest
+// Package testhelper provides test cases for an LRU caches
+package testhelper
 
 import (
 	"context"

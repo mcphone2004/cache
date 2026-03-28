@@ -9,7 +9,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/mcphone2004/cache/iface"
-	"github.com/mcphone2004/cache/internaltest"
+	"github.com/mcphone2004/cache/internal/testhelper"
 	"github.com/mcphone2004/cache/lru2"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
@@ -42,53 +42,53 @@ func newCache[K comparable, T any](capacity uint, evictionCB func(context.Contex
 }
 
 func TestReset(t *testing.T) {
-	internaltest.CommonLRUResetTest(t, newCache)
+	testhelper.CommonLRUResetTest(t, newCache)
 }
 
 func TestLRUCacheBasic(t *testing.T) {
-	internaltest.CommonLRUCacheBasicTest(t, newCache)
+	testhelper.CommonLRUCacheBasicTest(t, newCache)
 }
 
 func TestLRUCacheUpdate(t *testing.T) {
-	internaltest.CommonLRUCacheUpdateTest(t, newCache)
+	testhelper.CommonLRUCacheUpdateTest(t, newCache)
 }
 
 func TestLRUCacheEvictionOrder(t *testing.T) {
-	internaltest.CommonLRUCacheEvictionOrderTest(t, newCache)
+	testhelper.CommonLRUCacheEvictionOrderTest(t, newCache)
 }
 
 func TestTraverse(t *testing.T) {
-	internaltest.CommonTraverseTest(t, newCache)
+	testhelper.CommonTraverseTest(t, newCache)
 }
 
 func TestTraverseReentrant(t *testing.T) {
-	internaltest.CommonTraverseReentrantTest(t, newCache)
+	testhelper.CommonTraverseReentrantTest(t, newCache)
 }
 
 func TestDelete(t *testing.T) {
-	internaltest.CommonDeleteTest(t, newCache)
+	testhelper.CommonDeleteTest(t, newCache)
 }
 
 func TestGetMultiIter(t *testing.T) {
-	internaltest.CommonGetMultiIterTest(t, newCache)
+	testhelper.CommonGetMultiIterTest(t, newCache)
 }
 
 func TestShutdown(t *testing.T) {
-	internaltest.CommonShutdownTest(t, newCache)
+	testhelper.CommonShutdownTest(t, newCache)
 }
 
 func TestDeleteNonExistent(t *testing.T) {
-	internaltest.CommonDeleteNonExistentTest(t, newCache)
+	testhelper.CommonDeleteNonExistentTest(t, newCache)
 }
 
 func TestUpdateNoEviction(t *testing.T) {
-	internaltest.CommonUpdateNoEvictionTest(t, newCache)
+	testhelper.CommonUpdateNoEvictionTest(t, newCache)
 }
 
 func TestEvictionCallbackPanic(t *testing.T) {
-	internaltest.CommonEvictionCallbackPanicTest(t, newCache)
+	testhelper.CommonEvictionCallbackPanicTest(t, newCache)
 }
 
 func TestConcurrent(t *testing.T) {
-	internaltest.CommonConcurrentTest(t, newCache)
+	testhelper.CommonConcurrentTest(t, newCache)
 }

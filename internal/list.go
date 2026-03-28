@@ -6,7 +6,7 @@ import (
 	"iter"
 	"sync"
 
-	"github.com/mcphone2004/cache/list"
+	"github.com/mcphone2004/cache/internal/list"
 	cachetypes "github.com/mcphone2004/cache/types"
 )
 

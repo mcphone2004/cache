@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/mcphone2004/cache/list"
+	"github.com/mcphone2004/cache/internal/list"
 )
 
 func TestListBasic(t *testing.T) {

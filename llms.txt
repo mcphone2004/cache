@@ -202,6 +202,47 @@ inserted, err := cacheutils.PutIfNotExists(ctx, c, "key", 42)
 
 ---
 
+## Stats Wrapper (stats package)
+
+Wraps any cache to record hit/miss/put/delete/eviction/error counters with
+lock-free atomics. The wrapper satisfies `iface.Cache[K, V]`, so it can be
+dropped in anywhere a cache is expected.
+
+```go
+import "github.com/mcphone2004/cache/stats"
+
+// Simple: no eviction counting
+sc := stats.New(myCache)
+
+// With eviction counting — obtain the hook before constructing the inner cache
+var sc stats.Cache[string, int]
+c, _ := lru.New[string, int](
+    cachetypes.WithCapacity(1024),
+    cachetypes.WithEvictionCB(sc.EvictionHook()),   // wire eviction counter
+)
+sc.Wrap(c)
+
+// Read a point-in-time snapshot
+snap := sc.Snapshot()
+fmt.Printf("hit rate: %.2f  hits: %d  misses: %d  evictions: %d\n",
+    snap.HitRate(), snap.Hits, snap.Misses, snap.Evictions)
+
+// Zero counters without touching cache entries
+sc.ResetCounters()
+```
+
+**Snapshot fields:** `Hits`, `Misses`, `Puts`, `Deletes`, `Evictions`, `Errors`
+**Computed:** `Snapshot.Requests()` (Hits+Misses), `Snapshot.HitRate()` (0–1)
+
+**Notes:**
+- Errors (e.g. after Shutdown) are counted separately; they do not increment
+  hit/miss/put/delete counters.
+- `Delete` on a missing key does not increment `Deletes`.
+- `Reset` clears cache entries (calls inner `Reset`). Use `ResetCounters` to
+  zero the stats.
+
+---
+
 ## Error Handling
 
 ```go

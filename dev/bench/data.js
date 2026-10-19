@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791801354509,
+  "lastUpdate": 1792399436525,
   "repoUrl": "https://github.com/mcphone2004/cache",
   "entries": {
     "Benchmark": [
@@ -227578,6 +227578,6508 @@ window.BENCHMARK_DATA = {
             "value": 0,
             "unit": "allocs/op",
             "extra": "1686224 times\n4 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]",
+            "email": "49699333+dependabot[bot]@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "84f31e96a1b5c5c4aa847f9362f1117f64b6f128",
+          "message": "chore(ci): bump benchmark-action/github-action-benchmark from 1.21.0 to 1.22.0 (#30)\n\nBumps\n[benchmark-action/github-action-benchmark](https://github.com/benchmark-action/github-action-benchmark)\nfrom 1.21.0 to 1.22.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases\">benchmark-action/github-action-benchmark's\nreleases</a>.</em></p>\n<blockquote>\n<h2>v1.22.0</h2>\n<ul>\n<li><strong>chore</strong> bump node to 24 (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/339\">#339</a>)</li>\n</ul>\n<p><strong>Full Changelog</strong>: <a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/compare/v1.21.0...v1.22.0\">https://github.com/benchmark-action/github-action-benchmark/compare/v1.21.0...v1.22.0</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/blob/master/CHANGELOG.md\">benchmark-action/github-action-benchmark's\nchangelog</a>.</em></p>\n<blockquote>\n<h2>Unreleased</h2>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.22.0\">v1.22.0</a>\n- 31 Mar 2026</h1>\n<ul>\n<li><strong>chore</strong> bump node to 24 (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/339\">#339</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.21.0\">v1.21.0</a>\n- 02 Mar 2026</h1>\n<ul>\n<li><strong>fix</strong> include package name for duplicate bench names\n(<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/330\">#330</a>)</li>\n<li><strong>fix</strong> avoid duplicate package suffix in Go benchmarks\n(<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/337\">#337</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.7\">v1.20.7</a>\n- 06 Sep 2025</h1>\n<ul>\n<li><strong>fix</strong> improve parsing for custom benchmarks (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/323\">#323</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.5\">v1.20.5</a>\n- 02 Sep 2025</h1>\n<ul>\n<li><strong>feat</strong> allow to parse generic cargo bench/criterion\nunits (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/280\">#280</a>)</li>\n<li><strong>fix</strong> add summary even when failure threshold is\nsurpassed (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/285\">#285</a>)</li>\n<li><strong>fix</strong> time units are not normalized (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/318\">#318</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.4\">v1.20.4</a>\n- 23 Oct 2024</h1>\n<ul>\n<li><strong>feat</strong> add typings and validation workflow (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/257\">#257</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.3\">v1.20.3</a>\n- 19 May 2024</h1>\n<ul>\n<li><strong>fix</strong> Catch2 v.3.5.0 changed output format (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/247\">#247</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.2\">v1.20.2</a>\n- 19 May 2024</h1>\n<ul>\n<li><strong>fix</strong> Support sub-nanosecond precision on Cargo\nbenchmarks (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/246\">#246</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.1\">v1.20.1</a>\n- 02 Apr 2024</h1>\n<ul>\n<li><strong>fix</strong> release script</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.20.0\">v1.20.0</a>\n- 02 Apr 2024</h1>\n<ul>\n<li><strong>fix</strong> Rust benchmarks not comparing to baseline (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/235\">#235</a>)</li>\n<li><strong>feat</strong> Comment on PR and auto update comment (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/223\">#223</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.19.3\">v1.19.3</a>\n- 02 Feb 2024</h1>\n<ul>\n<li><strong>fix</strong> ratio is NaN when previous value is 0. Now,\nprint 1 when both values are 0 and <code>+-∞</code> when divisor is 0\n(<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/222\">#222</a>)</li>\n<li><strong>fix</strong> action hangs in some cases for go fiber\nbenchmarks (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/225\">#225</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n<h1><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/releases/tag/v1.19.2\">v1.19.2</a>\n- 26 Jan 2024</h1>\n<ul>\n<li><strong>fix</strong> markdown rendering for summary is broken (<a\nhref=\"https://redirect.github.com/benchmark-action/github-action-benchmark/issues/218\">#218</a>)</li>\n</ul>\n<!-- raw HTML omitted -->\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/commit/a60cea5bc7b49e15c1f58f411161f99e0df48372\"><code>a60cea5</code></a>\nrelease v1.22.0</li>\n<li>See full diff in <a\nhref=\"https://github.com/benchmark-action/github-action-benchmark/compare/a7bc2366eda11037936ea57d811a43b3418d3073...a60cea5bc7b49e15c1f58f411161f99e0df48372\">compare\nview</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility\nscore](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=benchmark-action/github-action-benchmark&package-manager=github_actions&previous-version=1.21.0&new-version=1.22.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't\nalter it yourself. You can also trigger a rebase manually by commenting\n`@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits\nthat have been made to it\n- `@dependabot show <dependency name> ignore conditions` will show all\nof the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop\nDependabot creating any more for this major version (unless you reopen\nthe PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop\nDependabot creating any more for this minor version (unless you reopen\nthe PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop\nDependabot creating any more for this dependency (unless you reopen the\nPR or upgrade to it yourself)\n\n\n</details>\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2026-04-05T03:46:35Z",
+          "url": "https://github.com/mcphone2004/cache/commit/84f31e96a1b5c5c4aa847f9362f1117f64b6f128"
+        },
+        "date": 1792399435966,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 68.76,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4912837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 68.76,
+            "unit": "ns/op",
+            "extra": "4912837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4912837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4912837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 68.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "5220966 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 68.1,
+            "unit": "ns/op",
+            "extra": "5220966 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "5220966 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "5220966 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 75.28,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "5274270 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 75.28,
+            "unit": "ns/op",
+            "extra": "5274270 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "5274270 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "5274270 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 71.98,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4849330 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 71.98,
+            "unit": "ns/op",
+            "extra": "4849330 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4849330 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4849330 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 66.98,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4501042 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 66.98,
+            "unit": "ns/op",
+            "extra": "4501042 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4501042 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGet (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4501042 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 219.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1746615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 219.6,
+            "unit": "ns/op",
+            "extra": "1746615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1746615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1746615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 228.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1672132 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 228.9,
+            "unit": "ns/op",
+            "extra": "1672132 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1672132 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1672132 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 222.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1748150 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 222.8,
+            "unit": "ns/op",
+            "extra": "1748150 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1748150 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1748150 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 213.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1736412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 213.2,
+            "unit": "ns/op",
+            "extra": "1736412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1736412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1736412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 213.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1732941 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 213.1,
+            "unit": "ns/op",
+            "extra": "1732941 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1732941 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPut (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1732941 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 167.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2172235 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 167.4,
+            "unit": "ns/op",
+            "extra": "2172235 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2172235 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2172235 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 166.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2090878 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 166.5,
+            "unit": "ns/op",
+            "extra": "2090878 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2090878 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2090878 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 172.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2215738 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 172.8,
+            "unit": "ns/op",
+            "extra": "2215738 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2215738 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2215738 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 167.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2130564 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 167.3,
+            "unit": "ns/op",
+            "extra": "2130564 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2130564 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2130564 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 175.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2162750 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 175.3,
+            "unit": "ns/op",
+            "extra": "2162750 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2162750 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2162750 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 98.06,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3679105 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 98.06,
+            "unit": "ns/op",
+            "extra": "3679105 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3679105 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3679105 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 96.09,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3609723 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 96.09,
+            "unit": "ns/op",
+            "extra": "3609723 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3609723 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3609723 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 102.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3701456 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 102.8,
+            "unit": "ns/op",
+            "extra": "3701456 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3701456 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3701456 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 97.17,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3672201 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 97.17,
+            "unit": "ns/op",
+            "extra": "3672201 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3672201 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3672201 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 99.13,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3544449 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 99.13,
+            "unit": "ns/op",
+            "extra": "3544449 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3544449 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3544449 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 220.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1732184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 220.8,
+            "unit": "ns/op",
+            "extra": "1732184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1732184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1732184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 264.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1592220 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 264.9,
+            "unit": "ns/op",
+            "extra": "1592220 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1592220 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1592220 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 231.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1581344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 231.6,
+            "unit": "ns/op",
+            "extra": "1581344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1581344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1581344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 226.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1596303 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 226.9,
+            "unit": "ns/op",
+            "extra": "1596303 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1596303 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1596303 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 273.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1573413 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 273.1,
+            "unit": "ns/op",
+            "extra": "1573413 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1573413 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1573413 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 195.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1853193 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 195.3,
+            "unit": "ns/op",
+            "extra": "1853193 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1853193 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1853193 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 218,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1870317 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 218,
+            "unit": "ns/op",
+            "extra": "1870317 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1870317 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1870317 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 191.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1875980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 191.1,
+            "unit": "ns/op",
+            "extra": "1875980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1875980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1875980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 194.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1868208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 194.2,
+            "unit": "ns/op",
+            "extra": "1868208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1868208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1868208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru)",
+            "value": 194.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1862928 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - ns/op",
+            "value": 194.8,
+            "unit": "ns/op",
+            "extra": "1862928 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1862928 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1862928 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 83.37,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4424787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 83.37,
+            "unit": "ns/op",
+            "extra": "4424787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4424787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4424787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 87.38,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4341982 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 87.38,
+            "unit": "ns/op",
+            "extra": "4341982 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4341982 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4341982 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 86.47,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4058490 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 86.47,
+            "unit": "ns/op",
+            "extra": "4058490 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4058490 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4058490 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 86.83,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4340962 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 86.83,
+            "unit": "ns/op",
+            "extra": "4340962 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4340962 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4340962 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 88.06,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4077019 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 88.06,
+            "unit": "ns/op",
+            "extra": "4077019 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4077019 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Get (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4077019 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 222.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1613353 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 222.9,
+            "unit": "ns/op",
+            "extra": "1613353 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1613353 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1613353 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 252.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1452871 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 252.5,
+            "unit": "ns/op",
+            "extra": "1452871 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1452871 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1452871 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 238.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1433013 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 238.1,
+            "unit": "ns/op",
+            "extra": "1433013 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1433013 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1433013 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 234.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1590722 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 234.9,
+            "unit": "ns/op",
+            "extra": "1590722 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1590722 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1590722 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 253.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1656615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 253.4,
+            "unit": "ns/op",
+            "extra": "1656615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1656615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1656615 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 166.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2270660 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 166.2,
+            "unit": "ns/op",
+            "extra": "2270660 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2270660 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2270660 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 155.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2307003 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 155.1,
+            "unit": "ns/op",
+            "extra": "2307003 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2307003 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2307003 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 161.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2269766 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 161.2,
+            "unit": "ns/op",
+            "extra": "2269766 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2269766 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2269766 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 157.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2286033 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 157.4,
+            "unit": "ns/op",
+            "extra": "2286033 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2286033 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2286033 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 157.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2251720 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 157.8,
+            "unit": "ns/op",
+            "extra": "2251720 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2251720 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2251720 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 96.84,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3921734 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 96.84,
+            "unit": "ns/op",
+            "extra": "3921734 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3921734 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3921734 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 95.21,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3867814 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 95.21,
+            "unit": "ns/op",
+            "extra": "3867814 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3867814 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3867814 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 97.75,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3736159 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 97.75,
+            "unit": "ns/op",
+            "extra": "3736159 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3736159 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3736159 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 98.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3691837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 98.6,
+            "unit": "ns/op",
+            "extra": "3691837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3691837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3691837 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 96.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3781506 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 96.4,
+            "unit": "ns/op",
+            "extra": "3781506 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3781506 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3781506 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 242.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1540416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 242.4,
+            "unit": "ns/op",
+            "extra": "1540416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1540416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1540416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 236,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1584091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 236,
+            "unit": "ns/op",
+            "extra": "1584091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1584091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1584091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 239.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1452696 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 239.5,
+            "unit": "ns/op",
+            "extra": "1452696 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1452696 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1452696 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 252.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1461301 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 252.7,
+            "unit": "ns/op",
+            "extra": "1461301 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1461301 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1461301 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 237.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1516494 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 237.7,
+            "unit": "ns/op",
+            "extra": "1516494 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1516494 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1516494 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 178.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2102980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 178.2,
+            "unit": "ns/op",
+            "extra": "2102980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2102980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2102980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 176.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2054434 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 176.4,
+            "unit": "ns/op",
+            "extra": "2054434 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2054434 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2054434 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 173.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2066227 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 173.2,
+            "unit": "ns/op",
+            "extra": "2066227 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2066227 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2066227 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 172.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2086593 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 172.1,
+            "unit": "ns/op",
+            "extra": "2086593 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2086593 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2086593 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2)",
+            "value": 177.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1956412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - ns/op",
+            "value": 177.5,
+            "unit": "ns/op",
+            "extra": "1956412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1956412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/lru2) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1956412 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 115.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2727608 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 115.2,
+            "unit": "ns/op",
+            "extra": "2727608 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2727608 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2727608 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 116.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3005136 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 116.7,
+            "unit": "ns/op",
+            "extra": "3005136 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3005136 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3005136 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 121.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2973202 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 121.1,
+            "unit": "ns/op",
+            "extra": "2973202 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2973202 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2973202 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 114.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2922640 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 114.2,
+            "unit": "ns/op",
+            "extra": "2922640 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2922640 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2922640 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 118.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3186012 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 118.4,
+            "unit": "ns/op",
+            "extra": "3186012 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3186012 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3186012 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 124.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2904783 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 124.5,
+            "unit": "ns/op",
+            "extra": "2904783 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2904783 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2904783 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 128.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2773417 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 128.2,
+            "unit": "ns/op",
+            "extra": "2773417 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2773417 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2773417 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 127.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2751741 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 127.6,
+            "unit": "ns/op",
+            "extra": "2751741 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2751741 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2751741 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 131,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2731910 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 131,
+            "unit": "ns/op",
+            "extra": "2731910 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2731910 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2731910 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 131.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2852344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 131.3,
+            "unit": "ns/op",
+            "extra": "2852344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2852344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2852344 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 118.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3085612 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 118.1,
+            "unit": "ns/op",
+            "extra": "3085612 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3085612 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3085612 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 119.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3047316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 119.5,
+            "unit": "ns/op",
+            "extra": "3047316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3047316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3047316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 115.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2988712 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 115.4,
+            "unit": "ns/op",
+            "extra": "2988712 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2988712 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2988712 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 117.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3185516 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 117.9,
+            "unit": "ns/op",
+            "extra": "3185516 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3185516 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3185516 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 116.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3158902 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 116.4,
+            "unit": "ns/op",
+            "extra": "3158902 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3158902 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3158902 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 87.23,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4108980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 87.23,
+            "unit": "ns/op",
+            "extra": "4108980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4108980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4108980 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 87.98,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4175234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 87.98,
+            "unit": "ns/op",
+            "extra": "4175234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4175234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4175234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 85.87,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4125520 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 85.87,
+            "unit": "ns/op",
+            "extra": "4125520 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4125520 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4125520 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 84.21,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4229053 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 84.21,
+            "unit": "ns/op",
+            "extra": "4229053 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4229053 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4229053 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 90.23,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4075106 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 90.23,
+            "unit": "ns/op",
+            "extra": "4075106 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4075106 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4075106 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 73.67,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4865492 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 73.67,
+            "unit": "ns/op",
+            "extra": "4865492 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4865492 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4865492 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 62.06,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "5946728 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 62.06,
+            "unit": "ns/op",
+            "extra": "5946728 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "5946728 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "5946728 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 60.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "5305909 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 60.3,
+            "unit": "ns/op",
+            "extra": "5305909 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "5305909 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "5305909 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 61.01,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "5847907 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 61.01,
+            "unit": "ns/op",
+            "extra": "5847907 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "5847907 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "5847907 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 61.92,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "5405091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 61.92,
+            "unit": "ns/op",
+            "extra": "5405091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "5405091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "5405091 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 54.08,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6650164 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 54.08,
+            "unit": "ns/op",
+            "extra": "6650164 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6650164 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6650164 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 53.07,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6790135 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 53.07,
+            "unit": "ns/op",
+            "extra": "6790135 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6790135 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6790135 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 54.63,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6632618 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 54.63,
+            "unit": "ns/op",
+            "extra": "6632618 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6632618 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6632618 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 52.59,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6491254 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 52.59,
+            "unit": "ns/op",
+            "extra": "6491254 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6491254 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6491254 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 52.04,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6600244 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 52.04,
+            "unit": "ns/op",
+            "extra": "6600244 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6600244 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6600244 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 48.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7215991 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 48.2,
+            "unit": "ns/op",
+            "extra": "7215991 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7215991 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7215991 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 48.16,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7327929 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 48.16,
+            "unit": "ns/op",
+            "extra": "7327929 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7327929 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7327929 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 49.26,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7204066 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 49.26,
+            "unit": "ns/op",
+            "extra": "7204066 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7204066 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7204066 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 49.62,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7525952 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 49.62,
+            "unit": "ns/op",
+            "extra": "7525952 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7525952 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7525952 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 48.67,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7569424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 48.67,
+            "unit": "ns/op",
+            "extra": "7569424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7569424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7569424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 41.21,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8283927 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 41.21,
+            "unit": "ns/op",
+            "extra": "8283927 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8283927 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8283927 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 41.64,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8017756 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 41.64,
+            "unit": "ns/op",
+            "extra": "8017756 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8017756 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8017756 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 41.56,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8151424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 41.56,
+            "unit": "ns/op",
+            "extra": "8151424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8151424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8151424 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 42.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8300346 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 42.2,
+            "unit": "ns/op",
+            "extra": "8300346 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8300346 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8300346 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 41.74,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8296802 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 41.74,
+            "unit": "ns/op",
+            "extra": "8296802 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8296802 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/ReadHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8296802 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 178.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1826518 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 178.9,
+            "unit": "ns/op",
+            "extra": "1826518 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1826518 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1826518 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 181.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1951110 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 181.4,
+            "unit": "ns/op",
+            "extra": "1951110 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1951110 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1951110 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 192.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1904493 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 192.3,
+            "unit": "ns/op",
+            "extra": "1904493 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1904493 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1904493 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 184.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1981140 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 184.2,
+            "unit": "ns/op",
+            "extra": "1981140 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1981140 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1981140 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 181.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1987974 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 181.9,
+            "unit": "ns/op",
+            "extra": "1987974 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1987974 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1987974 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 240.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1557297 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 240.6,
+            "unit": "ns/op",
+            "extra": "1557297 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1557297 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1557297 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 231.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1490503 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 231.5,
+            "unit": "ns/op",
+            "extra": "1490503 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1490503 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1490503 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 240.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1530654 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 240.9,
+            "unit": "ns/op",
+            "extra": "1530654 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1530654 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1530654 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 234.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1538781 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 234.3,
+            "unit": "ns/op",
+            "extra": "1538781 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1538781 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1538781 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 245.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1510316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 245.3,
+            "unit": "ns/op",
+            "extra": "1510316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1510316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1510316 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 210.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1761627 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 210.7,
+            "unit": "ns/op",
+            "extra": "1761627 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1761627 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1761627 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 220.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1770433 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 220.4,
+            "unit": "ns/op",
+            "extra": "1770433 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1770433 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1770433 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 207.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1785804 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 207.9,
+            "unit": "ns/op",
+            "extra": "1785804 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1785804 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1785804 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 210.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1748079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 210.8,
+            "unit": "ns/op",
+            "extra": "1748079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1748079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1748079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 200.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1718917 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 200.1,
+            "unit": "ns/op",
+            "extra": "1718917 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1718917 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1718917 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 155.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2586813 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 155.1,
+            "unit": "ns/op",
+            "extra": "2586813 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2586813 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2586813 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 155.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2483120 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 155.8,
+            "unit": "ns/op",
+            "extra": "2483120 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2483120 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2483120 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 152.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2438511 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 152.5,
+            "unit": "ns/op",
+            "extra": "2438511 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2438511 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2438511 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 144.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2233540 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 144.5,
+            "unit": "ns/op",
+            "extra": "2233540 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2233540 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2233540 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 147.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2346387 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 147.1,
+            "unit": "ns/op",
+            "extra": "2346387 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2346387 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2346387 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 117.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3101420 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 117.4,
+            "unit": "ns/op",
+            "extra": "3101420 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3101420 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3101420 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 115.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3291883 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 115.6,
+            "unit": "ns/op",
+            "extra": "3291883 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3291883 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3291883 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 113.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3083554 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 113.5,
+            "unit": "ns/op",
+            "extra": "3083554 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3083554 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3083554 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 119,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3107319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 119,
+            "unit": "ns/op",
+            "extra": "3107319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3107319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3107319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 122.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3091682 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 122.5,
+            "unit": "ns/op",
+            "extra": "3091682 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3091682 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3091682 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 97.59,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3639079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 97.59,
+            "unit": "ns/op",
+            "extra": "3639079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3639079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3639079 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 98.63,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3621286 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 98.63,
+            "unit": "ns/op",
+            "extra": "3621286 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3621286 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3621286 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 99.94,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3557889 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 99.94,
+            "unit": "ns/op",
+            "extra": "3557889 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3557889 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3557889 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 99.45,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3606319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 99.45,
+            "unit": "ns/op",
+            "extra": "3606319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3606319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3606319 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 101.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3612087 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 101.6,
+            "unit": "ns/op",
+            "extra": "3612087 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3612087 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3612087 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 93.62,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3939844 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 93.62,
+            "unit": "ns/op",
+            "extra": "3939844 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3939844 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3939844 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 92.97,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3920588 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 92.97,
+            "unit": "ns/op",
+            "extra": "3920588 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3920588 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3920588 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 93.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3803787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 93.1,
+            "unit": "ns/op",
+            "extra": "3803787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3803787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3803787 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 91.34,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3802410 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 91.34,
+            "unit": "ns/op",
+            "extra": "3802410 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3802410 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3802410 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 92.58,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3889920 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 92.58,
+            "unit": "ns/op",
+            "extra": "3889920 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3889920 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3889920 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 81.71,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4311477 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 81.71,
+            "unit": "ns/op",
+            "extra": "4311477 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4311477 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4311477 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 83.81,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4238044 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 83.81,
+            "unit": "ns/op",
+            "extra": "4238044 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4238044 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4238044 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 84.04,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4452326 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 84.04,
+            "unit": "ns/op",
+            "extra": "4452326 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4452326 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4452326 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 82.03,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4485416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 82.03,
+            "unit": "ns/op",
+            "extra": "4485416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4485416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4485416 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 83.16,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "4254208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 83.16,
+            "unit": "ns/op",
+            "extra": "4254208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "4254208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/Balanced/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "4254208 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 240.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1597616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 240.3,
+            "unit": "ns/op",
+            "extra": "1597616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1597616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1597616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 245.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1493221 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 245.1,
+            "unit": "ns/op",
+            "extra": "1493221 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1493221 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1493221 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 237.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1542885 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 237.7,
+            "unit": "ns/op",
+            "extra": "1542885 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1542885 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1542885 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 229.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1565038 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 229.6,
+            "unit": "ns/op",
+            "extra": "1565038 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1565038 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1565038 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 236.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1569528 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 236.3,
+            "unit": "ns/op",
+            "extra": "1569528 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1569528 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=1 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1569528 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 268.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1217036 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 268.2,
+            "unit": "ns/op",
+            "extra": "1217036 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1217036 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1217036 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 299.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1208876 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 299.6,
+            "unit": "ns/op",
+            "extra": "1208876 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1208876 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1208876 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 305.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 305.4,
+            "unit": "ns/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 313.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 313.4,
+            "unit": "ns/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 320.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 320.3,
+            "unit": "ns/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=2 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1000000 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 246.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1410183 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 246.3,
+            "unit": "ns/op",
+            "extra": "1410183 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1410183 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1410183 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 248.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1335740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 248.1,
+            "unit": "ns/op",
+            "extra": "1335740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1335740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1335740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 249.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1475337 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 249.6,
+            "unit": "ns/op",
+            "extra": "1475337 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1475337 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1475337 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 259.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1422096 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 259.9,
+            "unit": "ns/op",
+            "extra": "1422096 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1422096 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1422096 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 251.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1412852 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 251.9,
+            "unit": "ns/op",
+            "extra": "1412852 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1412852 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=4 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1412852 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 189.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2014282 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 189.4,
+            "unit": "ns/op",
+            "extra": "2014282 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2014282 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2014282 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 189.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2027833 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 189.5,
+            "unit": "ns/op",
+            "extra": "2027833 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2027833 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2027833 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 178.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1840626 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 178.6,
+            "unit": "ns/op",
+            "extra": "1840626 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1840626 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1840626 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 191,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1931374 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 191,
+            "unit": "ns/op",
+            "extra": "1931374 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1931374 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1931374 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 191.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2069245 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 191.5,
+            "unit": "ns/op",
+            "extra": "2069245 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2069245 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=8 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2069245 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 148.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2483299 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 148.4,
+            "unit": "ns/op",
+            "extra": "2483299 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2483299 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2483299 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 150.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2481261 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 150.4,
+            "unit": "ns/op",
+            "extra": "2481261 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2481261 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2481261 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 149.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2393911 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 149.1,
+            "unit": "ns/op",
+            "extra": "2393911 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2393911 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2393911 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 147.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2416123 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 147.7,
+            "unit": "ns/op",
+            "extra": "2416123 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2416123 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2416123 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 148.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2423113 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 148.5,
+            "unit": "ns/op",
+            "extra": "2423113 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2423113 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=16 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2423113 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 139.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2599323 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 139.3,
+            "unit": "ns/op",
+            "extra": "2599323 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2599323 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2599323 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 136.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2625375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 136.3,
+            "unit": "ns/op",
+            "extra": "2625375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2625375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2625375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 138.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2530838 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 138.5,
+            "unit": "ns/op",
+            "extra": "2530838 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2530838 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2530838 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 138.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2627448 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 138.3,
+            "unit": "ns/op",
+            "extra": "2627448 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2627448 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2627448 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 139.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2595058 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 139.7,
+            "unit": "ns/op",
+            "extra": "2595058 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2595058 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=32 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2595058 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 130.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2673716 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 130.1,
+            "unit": "ns/op",
+            "extra": "2673716 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2673716 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2673716 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 135.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2686203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 135.2,
+            "unit": "ns/op",
+            "extra": "2686203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2686203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2686203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 134.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2635204 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 134.8,
+            "unit": "ns/op",
+            "extra": "2635204 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2635204 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2635204 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 130.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2735556 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 130.5,
+            "unit": "ns/op",
+            "extra": "2735556 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2735556 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2735556 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 133,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2608306 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 133,
+            "unit": "ns/op",
+            "extra": "2608306 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2608306 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=64 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2608306 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 130.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2987800 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 130.5,
+            "unit": "ns/op",
+            "extra": "2987800 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2987800 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2987800 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 129.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2988834 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 129.4,
+            "unit": "ns/op",
+            "extra": "2988834 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2988834 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2988834 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 125,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2919570 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 125,
+            "unit": "ns/op",
+            "extra": "2919570 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2919570 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2919570 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 121.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2628396 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 121.4,
+            "unit": "ns/op",
+            "extra": "2628396 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2628396 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2628396 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 134.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2991146 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 134.5,
+            "unit": "ns/op",
+            "extra": "2991146 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2991146 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkShardCountScaling/WriteHeavy/shards=128 (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2991146 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 35.87,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "9304268 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 35.87,
+            "unit": "ns/op",
+            "extra": "9304268 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "9304268 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "9304268 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 36.07,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "10361308 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 36.07,
+            "unit": "ns/op",
+            "extra": "10361308 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "10361308 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "10361308 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 38.57,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "9718480 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 38.57,
+            "unit": "ns/op",
+            "extra": "9718480 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "9718480 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "9718480 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 33.96,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "10509238 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 33.96,
+            "unit": "ns/op",
+            "extra": "10509238 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "10509238 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "10509238 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 37.28,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "9644193 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 37.28,
+            "unit": "ns/op",
+            "extra": "9644193 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "9644193 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "9644193 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 196.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1897646 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 196.6,
+            "unit": "ns/op",
+            "extra": "1897646 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1897646 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1897646 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 191.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1889862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 191.3,
+            "unit": "ns/op",
+            "extra": "1889862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1889862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1889862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 197,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1840255 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 197,
+            "unit": "ns/op",
+            "extra": "1840255 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1840255 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1840255 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 201.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1886310 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 201.4,
+            "unit": "ns/op",
+            "extra": "1886310 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1886310 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1886310 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 185.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1938846 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 185.8,
+            "unit": "ns/op",
+            "extra": "1938846 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1938846 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1938846 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 154.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2433061 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 154.9,
+            "unit": "ns/op",
+            "extra": "2433061 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2433061 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2433061 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 148.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2451144 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 148.5,
+            "unit": "ns/op",
+            "extra": "2451144 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2451144 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2451144 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 154.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2424357 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 154.2,
+            "unit": "ns/op",
+            "extra": "2424357 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2424357 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2424357 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 153.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2397762 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 153.4,
+            "unit": "ns/op",
+            "extra": "2397762 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2397762 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2397762 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 154,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2413698 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 154,
+            "unit": "ns/op",
+            "extra": "2413698 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2413698 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2413698 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 30.19,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "11930541 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 30.19,
+            "unit": "ns/op",
+            "extra": "11930541 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "11930541 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "11930541 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 32.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "11326070 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 32.7,
+            "unit": "ns/op",
+            "extra": "11326070 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "11326070 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "11326070 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 31.75,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "11724405 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 31.75,
+            "unit": "ns/op",
+            "extra": "11724405 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "11724405 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "11724405 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 29.99,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "11455390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 29.99,
+            "unit": "ns/op",
+            "extra": "11455390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "11455390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "11455390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 33.25,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "11156648 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 33.25,
+            "unit": "ns/op",
+            "extra": "11156648 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "11156648 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "11156648 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 206.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1883390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 206.8,
+            "unit": "ns/op",
+            "extra": "1883390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1883390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1883390 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 188.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1874862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 188.4,
+            "unit": "ns/op",
+            "extra": "1874862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1874862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1874862 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 214.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1801034 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 214.3,
+            "unit": "ns/op",
+            "extra": "1801034 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1801034 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1801034 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 202,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1882023 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 202,
+            "unit": "ns/op",
+            "extra": "1882023 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1882023 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1882023 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 191.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1884199 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 191.9,
+            "unit": "ns/op",
+            "extra": "1884199 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1884199 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1884199 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 173,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2164071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 173,
+            "unit": "ns/op",
+            "extra": "2164071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2164071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2164071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 174.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2122815 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 174.8,
+            "unit": "ns/op",
+            "extra": "2122815 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2122815 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2122815 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 179.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2009263 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 179.4,
+            "unit": "ns/op",
+            "extra": "2009263 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2009263 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2009263 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 172.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2074476 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 172.9,
+            "unit": "ns/op",
+            "extra": "2074476 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2074476 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2074476 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 176.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2087716 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 176.5,
+            "unit": "ns/op",
+            "extra": "2087716 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2087716 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2087716 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 24.03,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "14630262 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 24.03,
+            "unit": "ns/op",
+            "extra": "14630262 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "14630262 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "14630262 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 29.21,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "12683515 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 29.21,
+            "unit": "ns/op",
+            "extra": "12683515 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "12683515 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "12683515 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 25.36,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "14966863 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 25.36,
+            "unit": "ns/op",
+            "extra": "14966863 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "14966863 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "14966863 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 20.41,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "17017545 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 20.41,
+            "unit": "ns/op",
+            "extra": "17017545 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "17017545 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "17017545 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 21.44,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "17382375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 21.44,
+            "unit": "ns/op",
+            "extra": "17382375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "17382375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUGet (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "17382375 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 156,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2419946 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 156,
+            "unit": "ns/op",
+            "extra": "2419946 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2419946 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2419946 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 144.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2436537 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 144.5,
+            "unit": "ns/op",
+            "extra": "2436537 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2436537 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2436537 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 152.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2262972 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 152.4,
+            "unit": "ns/op",
+            "extra": "2262972 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2262972 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2262972 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 154.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2334184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 154.8,
+            "unit": "ns/op",
+            "extra": "2334184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2334184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2334184 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 160.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2456890 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 160.2,
+            "unit": "ns/op",
+            "extra": "2456890 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2456890 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUPut (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2456890 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 118,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3129798 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 118,
+            "unit": "ns/op",
+            "extra": "3129798 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3129798 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3129798 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 113.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3175646 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 113.6,
+            "unit": "ns/op",
+            "extra": "3175646 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3175646 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3175646 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 120.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3110294 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 120.2,
+            "unit": "ns/op",
+            "extra": "3110294 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3110294 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3110294 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 117.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3034237 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 117.3,
+            "unit": "ns/op",
+            "extra": "3034237 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3034237 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3034237 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 115.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "3210616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 115.7,
+            "unit": "ns/op",
+            "extra": "3210616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "3210616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRUMixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "3210616 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 21.42,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "16383472 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 21.42,
+            "unit": "ns/op",
+            "extra": "16383472 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "16383472 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "16383472 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 20.98,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "16823175 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 20.98,
+            "unit": "ns/op",
+            "extra": "16823175 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "16823175 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "16823175 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 21.53,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "15712632 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 21.53,
+            "unit": "ns/op",
+            "extra": "15712632 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "15712632 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "15712632 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 20.73,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "15700048 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 20.73,
+            "unit": "ns/op",
+            "extra": "15700048 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "15700048 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "15700048 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 21.17,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "15354895 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 21.17,
+            "unit": "ns/op",
+            "extra": "15354895 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "15354895 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Get (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "15354895 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 158.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2251875 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 158.8,
+            "unit": "ns/op",
+            "extra": "2251875 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2251875 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2251875 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 174.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2146806 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 174.9,
+            "unit": "ns/op",
+            "extra": "2146806 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2146806 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2146806 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 162,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2196692 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 162,
+            "unit": "ns/op",
+            "extra": "2196692 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2196692 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2196692 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 160.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2205536 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 160.9,
+            "unit": "ns/op",
+            "extra": "2205536 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2205536 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2205536 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 161.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2199735 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 161.3,
+            "unit": "ns/op",
+            "extra": "2199735 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2199735 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2199735 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 166,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2319471 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 166,
+            "unit": "ns/op",
+            "extra": "2319471 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2319471 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2319471 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 166,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2066022 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 166,
+            "unit": "ns/op",
+            "extra": "2066022 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2066022 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2066022 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 167.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2131203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 167.5,
+            "unit": "ns/op",
+            "extra": "2131203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2131203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2131203 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 168.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2166338 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 168.8,
+            "unit": "ns/op",
+            "extra": "2166338 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2166338 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2166338 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 165.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2156652 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 165.3,
+            "unit": "ns/op",
+            "extra": "2156652 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2156652 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkHeuristicShardLRU2Mixed/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2156652 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 50.29,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6809978 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 50.29,
+            "unit": "ns/op",
+            "extra": "6809978 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6809978 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6809978 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 49.99,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7084411 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 49.99,
+            "unit": "ns/op",
+            "extra": "7084411 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7084411 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7084411 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 51.58,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6608274 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 51.58,
+            "unit": "ns/op",
+            "extra": "6608274 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6608274 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6608274 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 51.99,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "6364166 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 51.99,
+            "unit": "ns/op",
+            "extra": "6364166 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "6364166 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "6364166 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 45.76,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7574706 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 45.76,
+            "unit": "ns/op",
+            "extra": "7574706 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7574706 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUGetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7574706 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 201.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1928158 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 201.6,
+            "unit": "ns/op",
+            "extra": "1928158 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1928158 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1928158 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 190.7,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1889774 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 190.7,
+            "unit": "ns/op",
+            "extra": "1889774 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1889774 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1889774 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 189.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1942692 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 189.1,
+            "unit": "ns/op",
+            "extra": "1942692 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1942692 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1942692 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 183.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1918904 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 183.8,
+            "unit": "ns/op",
+            "extra": "1918904 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1918904 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1918904 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 184.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1876492 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 184.5,
+            "unit": "ns/op",
+            "extra": "1876492 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1876492 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUPutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1876492 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 158.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2291906 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 158.2,
+            "unit": "ns/op",
+            "extra": "2291906 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2291906 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2291906 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 147.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2441512 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 147.5,
+            "unit": "ns/op",
+            "extra": "2441512 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2441512 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2441512 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 149.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2307024 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 149.5,
+            "unit": "ns/op",
+            "extra": "2307024 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2307024 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2307024 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 161.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2364271 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 161.5,
+            "unit": "ns/op",
+            "extra": "2364271 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2364271 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2364271 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 138.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "2422681 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 138.8,
+            "unit": "ns/op",
+            "extra": "2422681 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "2422681 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRUMixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "2422681 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 44.1,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "7819071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 44.1,
+            "unit": "ns/op",
+            "extra": "7819071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "7819071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "7819071 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 41.18,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8409127 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 41.18,
+            "unit": "ns/op",
+            "extra": "8409127 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8409127 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8409127 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 40.35,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8049132 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 40.35,
+            "unit": "ns/op",
+            "extra": "8049132 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8049132 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8049132 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 41.16,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8122567 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 41.16,
+            "unit": "ns/op",
+            "extra": "8122567 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8122567 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8122567 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 43.22,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "8082697 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 43.22,
+            "unit": "ns/op",
+            "extra": "8082697 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "8082697 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2GetLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "8082697 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 192.3,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1877336 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 192.3,
+            "unit": "ns/op",
+            "extra": "1877336 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1877336 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1877336 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 198.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1874460 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 198.4,
+            "unit": "ns/op",
+            "extra": "1874460 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1874460 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1874460 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 195.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1698871 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 195.6,
+            "unit": "ns/op",
+            "extra": "1698871 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1698871 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1698871 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 224.5,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1910208 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 224.5,
+            "unit": "ns/op",
+            "extra": "1910208 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1910208 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1910208 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 193.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1950279 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 193.6,
+            "unit": "ns/op",
+            "extra": "1950279 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1950279 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2PutLargeValue (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1950279 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 208.9,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1767660 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 208.9,
+            "unit": "ns/op",
+            "extra": "1767660 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1767660 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1767660 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 209.8,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1729086 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 209.8,
+            "unit": "ns/op",
+            "extra": "1729086 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1729086 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1729086 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 227.2,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1709334 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 227.2,
+            "unit": "ns/op",
+            "extra": "1709334 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1709334 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1709334 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 213.4,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1681078 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 213.4,
+            "unit": "ns/op",
+            "extra": "1681078 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1681078 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1681078 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard)",
+            "value": 208.6,
+            "unit": "ns/op\t       0 B/op\t       0 allocs/op",
+            "extra": "1706350 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - ns/op",
+            "value": 208.6,
+            "unit": "ns/op",
+            "extra": "1706350 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - B/op",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "1706350 times\n4 procs"
+          },
+          {
+            "name": "Benchmark8ShardLRU2MixedLargeValue/50%Put (github.com/mcphone2004/cache/benchmark/shard) - allocs/op",
+            "value": 0,
+            "unit": "allocs/op",
+            "extra": "1706350 times\n4 procs"
           }
         ]
       }
